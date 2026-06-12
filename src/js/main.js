@@ -17,7 +17,7 @@ import {
   startLazyVideos,
   plaatsGolfDividers,
 } from "./motion.js";
-import { startIbanKopieren, startFaq } from "./interactions.js";
+import { startIbanKopieren, startBedragKiezen, startFaq } from "./interactions.js";
 
 // 1. Data de pagina in
 renderAlles();
@@ -36,4 +36,5 @@ startHeader();
 startStickyCta();
 startLazyVideos();
 startIbanKopieren();
+startBedragKiezen();
 startFaq();

@@ -50,7 +50,12 @@
   --c-navy-deep: #17203d;   /* panelen op navy, footer-gradient */
   --c-ink: #27324e;         /* bodytekst op licht (navy-getint) */
   --c-ink-soft: #5b6480;    /* secundaire tekst */
-  --c-amber: #f59c00;       /* Amber Gold — alleen voor behaalde mijlpalen */
+  --c-amber: #f59c00;       /* Amber Gold — de geefkleur: doneer-acties + behaalde mijlpalen */
+  --c-amber-dark: #d98a00;  /* hover op amber-knoppen */
+  --c-amber-diep: #8f5a00;  /* amber als tekstkleur op licht (AA-contrast) */
+  --c-zonlicht: #fbf4e6;    /* warm ivoor — sfeer rond het doneer-moment */
+  --c-azure: #84cfed;       /* Soft Azure Blue — helderheid, transparantie */
+  --c-azure-zacht: #e9f5fb; /* zeer licht azure — info-badges, transparantieblokken */
   --c-line: #ddd9d2;        /* hairlines op paper */
   --c-line-aqua: #c2ddd6;   /* hairlines op aqua */
   --c-ivoor-licht: #f0efef; /* tekst op navy */

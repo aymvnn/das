@@ -19,6 +19,7 @@ const VINKJE =
 
 export function renderAlles() {
   renderTeller();
+  renderOverdracht();
   renderGolvenLijst();
   renderDruppelraster();
   renderTeams();
@@ -55,6 +56,37 @@ function renderTeller() {
 
   qsa("[data-iban]").forEach((el) => (el.textContent = campagne.iban));
   qsa("[data-tnv]").forEach((el) => (el.textContent = campagne.tnv));
+  qsa("[data-kvk]").forEach((el) => (el.textContent = campagne.kvk));
+}
+
+/* --- Aftellen naar de overdracht ---
+   Leeg veld, typfout of verstreken datum = stille fallback: de
+   teksten die al in de HTML staan blijven gewoon staan. --- */
+const MAANDEN = ["januari", "februari", "maart", "april", "mei", "juni",
+  "juli", "augustus", "september", "oktober", "november", "december"];
+
+function parseNlDatum(str) {
+  const m = String(str || "").trim().toLowerCase().match(/^(\d{1,2})\s+([a-z]+)\s+(\d{4})$/);
+  if (!m) return null;
+  const maand = MAANDEN.indexOf(m[2]);
+  if (maand === -1) return null;
+  const d = new Date(Number(m[3]), maand, Number(m[1]));
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function renderOverdracht() {
+  const datum = parseNlDatum(campagne.overdrachtsdatum);
+  if (!datum) return;
+  const vandaag = new Date();
+  vandaag.setHours(0, 0, 0, 0);
+  const dagen = Math.ceil((datum - vandaag) / 86400000);
+  if (dagen < 0) return;
+  const zin =
+    dagen === 0 ? "vandaag is de overdracht"
+    : dagen === 1 ? "nog 1 dag tot de overdracht"
+    : dagen < 14 ? `nog ${dagen} dagen tot de overdracht`
+    : `nog ${Math.round(dagen / 7)} weken tot de overdracht`;
+  qsa("[data-overdracht-zin]").forEach((el) => (el.textContent = zin));
 }
 
 /* --- De 16 golf-mijlpalen --- */
@@ -197,6 +229,14 @@ function renderContactLinks() {
     wa("Salaam! Ik wil met mijn bedrijf bijdragen aan Druppels van Sakīnah (bedrijfsteam of in natura). Kunnen we even schakelen?"),
   );
   set("[data-wa-contact]", wa("Salaam! Ik heb een vraag over Druppels van Sakīnah: …"));
+  set(
+    "[data-wa-groot]",
+    wa("Salaam. Ik wil graag in vertrouwen een grotere bijdrage bespreken voor Druppels van Sakīnah."),
+  );
+  set(
+    "[data-mail-groot]",
+    `mailto:${campagne.contactEmail}?subject=${encodeURIComponent("Grotere bijdrage — Druppels van Sakīnah")}`,
+  );
 
   // Delen: geen nummer — opent de kies-een-chat-lijst van WhatsApp zelf
   const deelTekst = `Salaam! 💧 Wij kopen samen ons gebedshuis in Capelle — druppel voor druppel, meedoen kan al vanaf € 10. Kijk en doe mee: ${campagne.siteUrl}`;

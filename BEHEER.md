@@ -29,6 +29,28 @@ Sla op en publiceer (zie stap 5). De druppels, golven, het waterpeil in
 de koepel en alle percentages rekenen zichzelf uit — daar hoef je niets
 voor te doen.
 
+### De overdrachtsdatum invullen (zodra die definitief is)
+
+In `data/campagne.js` staat:
+
+```js
+overdrachtsdatum: "",
+```
+
+Zolang dit leeg is, zegt de site alleen "het aftellen is begonnen". Vul
+je de datum voluit in — net als `laatsteUpdate`:
+
+```js
+overdrachtsdatum: "30 september 2026",
+```
+
+…dan verschijnt vanzelf **"nog X weken tot de overdracht"** op vier
+plekken (bij de teller, in het verhaal en in twee FAQ-antwoorden). De
+site rekent zelf om naar weken, en de laatste twee weken naar dagen.
+
+Kan niet stuk: bij een typfout of een verstreken datum toont de site
+gewoon weer de gewone tekst.
+
 ## 2. Een team toevoegen of bijwerken
 
 Zoek het blok `teams: [ ... ]`. Elk team ziet er zo uit:
@@ -69,14 +91,24 @@ Zoek het blok `teams: [ ... ]`. Elk team ziet er zo uit:
 
 ## 4. Het IBAN, WhatsApp-nummer of e-mailadres aanpassen
 
-Bovenin `data/campagne.js` staan `iban`, `whatsappNummer`,
+Bovenin `data/campagne.js` staan `iban`, `kvk`, `whatsappNummer`,
 `contactEmail` en `siteUrl`. Pas ze aan en alle knoppen en teksten op
-de site (ook de kopieerknop en de vooringevulde WhatsApp-berichten)
-gebruiken meteen de nieuwe gegevens.
+de site (ook de kopieerknop, de footer en de vooringevulde
+WhatsApp-berichten) gebruiken meteen de nieuwe gegevens.
 
-> ⚠️ Er staan nu nog **placeholders** in (IBAN `NL00 BANK…`,
-> nummer `31600000000`, KvK in de footer). Vervang die vóór de
-> lancering — zoek in het project op `TODO` om niets te missen.
+> ⚠️ Er staat nog één **placeholder** in: het WhatsApp-nummer
+> (`31600000000`). Vervang dat vóór de lancering — en zoek in het
+> project op `TODO` om niets te missen (o.a. de echte betaal-QR).
+
+### Online doneren via iDEAL aanzetten
+
+Onder "Doneren" kun je een bedrag aanklikken. Zolang `idealLink` in
+`data/campagne.js` leeg is, licht het gekozen bedrag alleen op — er
+wordt nog niets betaald. Plak je in `idealLink` een echte betaallink,
+dan verschijnt de knop **"Doneer … via iDEAL"** vanzelf met het gekozen
+bedrag. Zet in de link `{bedrag}` (euro's, bijv. 50) of `{centen}`
+(5000) op de plek waar de betaalprovider het bedrag verwacht. Je hoeft
+niets in de HTML aan te passen.
 
 ## 5. Publiceren
 

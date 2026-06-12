@@ -147,12 +147,17 @@
 }
 .teller-druppels .druppel-icoon { color: var(--c-mint); width: 0.85em; height: 1.15em; }
 .teller-pct {
-  background: var(--c-aqua);
-  color: var(--c-teal-dark);
+  background: var(--c-azure-zacht);
+  color: var(--c-navy);
   font-variant-numeric: tabular-nums;
   border-radius: 999px;
   padding: 0.15em 0.7em;
   font-size: var(--t-xs);
+}
+.teller-aftellen {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--c-amber-diep);
 }
 .teller-stand {
   font-size: var(--t-xs);
@@ -305,6 +310,13 @@
   max-width: 52ch;
   margin-inline: auto;
 }
+.koepel-landing {
+  margin: clamp(2rem, 5vw, 3rem) auto 0;
+  max-width: 58ch;
+  font-size: var(--t-lead);
+  line-height: 1.55;
+  color: var(--c-navy);
+}
 
 @media (min-width: 880px) {
   .koepel-layout {
@@ -385,17 +397,40 @@
   background: linear-gradient(to top, rgba(23, 32, 61, 0.78), rgba(23, 32, 61, 0));
 }
 
+/* Pand-galerij: één grote hero-foto + twee kleinere weergaven van het pand */
+.pand-galerij {
+  display: grid;
+  gap: clamp(6px, 1.2vw, 12px);
+}
+.pand-minis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(6px, 1.2vw, 12px);
+}
+.pand-minis img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--schaduw-zacht);
+}
+
+/* Transparantieblok: azure = helder water, eerlijkheid zichtbaar gemaakt */
 .bedrag-opbouw {
   margin-block: var(--sp-lg);
   max-width: 420px;
   font-variant-numeric: tabular-nums;
+  background: var(--c-azure-zacht);
+  border-left: 3px solid var(--c-azure);
+  border-radius: var(--radius-sm);
+  padding: clamp(0.9rem, 2.5vw, 1.25rem) clamp(1rem, 3vw, 1.5rem);
 }
 .bedrag-opbouw div {
   display: flex;
   justify-content: space-between;
   gap: var(--sp-lg);
   padding-block: 0.55rem;
-  border-bottom: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line-aqua);
   font-size: var(--t-sm);
 }
 .bedrag-opbouw dt { color: var(--c-ink-soft); }
@@ -507,7 +542,8 @@
 }
 
 /* ===================== 5 · WATERDRAGERS ===================== */
-.sectie-teams { background: var(--c-paper); padding-top: 0; }
+/* Eigen aqua-vlak: de teams zijn het stromende water van de campagne. */
+.sectie-teams { background: var(--c-aqua); }
 
 .niveau-legenda {
   list-style: none;
@@ -523,7 +559,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
-  background: var(--c-aqua);
+  background: var(--c-paper-warm);
   border-radius: 999px;
   padding: 0.45em 1em;
   font-variant-numeric: tabular-nums;
@@ -538,11 +574,11 @@
 }
 .team-rij {
   padding-block: clamp(1.25rem, 3.5vw, 1.75rem);
-  border-top: 1px solid var(--c-line);
+  border-top: 1px solid var(--c-line-aqua);
   display: grid;
   gap: 0.55rem;
 }
-.team-rij:last-child { border-bottom: 1px solid var(--c-line); }
+.team-rij:last-child { border-bottom: 1px solid var(--c-line-aqua); }
 .team-kop {
   display: flex;
   align-items: baseline;
@@ -556,7 +592,7 @@
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--c-teal-dark);
-  background: var(--c-aqua);
+  background: var(--c-paper-warm);
   padding: 0.18em 0.75em;
   border-radius: 999px;
 }
@@ -572,7 +608,7 @@
 }
 .team-balk {
   height: 10px;
-  background: var(--c-aqua);
+  background: #fff;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -621,8 +657,8 @@
 
 @media (min-width: 880px) {
   .teams-lijst { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 5vw, 4rem); }
-  .team-rij:nth-child(2) { border-top: 1px solid var(--c-line); }
-  .team-rij:nth-last-child(2):nth-child(odd) { border-bottom: 1px solid var(--c-line); }
+  .team-rij:nth-child(2) { border-top: 1px solid var(--c-line-aqua); }
+  .team-rij:nth-last-child(2):nth-child(odd) { border-bottom: 1px solid var(--c-line-aqua); }
 }
 
 /* ===================== 6 · DE BETEKENIS ===================== */
@@ -690,8 +726,73 @@
   max-width: 44ch;
 }
 
+.betekenis-beeld {
+  width: 100%;
+  max-width: 640px;
+}
+.betekenis-beeld img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--schaduw-diep);
+}
+.betekenis-beeld figcaption {
+  margin-top: 0.7rem;
+  font-size: var(--t-sm);
+  color: var(--c-ivoor-zacht);
+}
+
 /* ===================== 7 · DONEREN ===================== */
-.sectie-doneren { background: var(--c-paper); }
+/* ===================== 6b · VOOR WIE ===================== */
+/* Vanaf hier opent de warme finale: zonlicht tot en met het doneer-moment. */
+.sectie-voorwie { background: var(--c-zonlicht); padding-bottom: 0; }
+.sectie-voorwie .sectie-kop { margin-bottom: clamp(1.75rem, 4vw, 2.5rem); }
+.sectie-voorwie .kicker,
+.sectie-doneren .kicker { color: var(--c-amber-diep); }
+
+.voorwie-regels {
+  display: grid;
+  gap: clamp(0.9rem, 2.5vw, 1.25rem);
+  justify-items: center;
+  text-align: center;
+}
+.voorwie-regels p {
+  max-width: 46ch;
+  font-size: var(--t-lead);
+  line-height: 1.55;
+  color: var(--c-ink);
+}
+.voorwie-regels strong { color: var(--c-navy); }
+
+.voorwie-beeld {
+  margin: clamp(2rem, 5vw, 3rem) auto 0;
+  max-width: 460px;
+}
+.voorwie-beeld img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--schaduw-zacht);
+}
+.voorwie-beeld figcaption {
+  margin-top: 0.7rem;
+  font-size: var(--t-sm);
+  color: var(--c-ink-soft);
+  text-align: center;
+}
+
+.voorwie-slot {
+  margin: clamp(1.75rem, 4vw, 2.5rem) auto 0;
+  text-align: center;
+  font-style: italic;
+  font-size: var(--t-lead);
+  color: var(--c-amber-diep);
+  max-width: 44ch;
+}
+
+.sectie-doneren { background: var(--c-zonlicht); }
 
 .bedrag-chips {
   list-style: none;
@@ -700,7 +801,13 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--sp-xs);
-  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+.chips-groot {
+  text-align: center;
+  font-size: var(--t-sm);
+  color: var(--c-ink-soft);
+  margin: var(--sp-md) auto clamp(2rem, 5vw, 3rem);
+  max-width: 52ch;
 }
 .chip {
   display: inline-flex;
@@ -709,16 +816,55 @@
   background: var(--c-paper-warm);
   border: 1px solid var(--c-line);
   color: var(--c-navy);
+  font-family: inherit;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+  font-size: var(--t-sm);
+  line-height: 1.2;
   border-radius: 999px;
   padding: 0.55em 1.2em;
-  font-size: var(--t-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--duur-snel) var(--ease-water),
+    border-color var(--duur-snel) ease,
+    background-color var(--duur-snel) ease,
+    box-shadow var(--duur-snel) ease,
+    color var(--duur-snel) ease;
 }
+@media (hover: hover) {
+  .chip:hover {
+    border-color: var(--c-teal);
+    color: var(--c-teal-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--schaduw-zacht);
+  }
+}
+.chip:active { transform: translateY(0) scale(0.98); }
+
+/* Gekozen bedrag — jouw gift kleurt goud */
+.chip.is-actief {
+  background: var(--c-amber);
+  border-color: var(--c-amber);
+  color: var(--c-navy);
+  box-shadow: 0 12px 24px -14px rgba(245, 156, 0, 0.65);
+}
+
 .chip-druppel {
   background: var(--c-teal);
   border-color: var(--c-teal);
   color: #fff;
+}
+@media (hover: hover) {
+  .chip-druppel:hover {
+    color: #fff;
+    border-color: var(--c-teal-dark);
+  }
+}
+.chip-druppel.is-actief {
+  background: var(--c-amber);
+  border-color: var(--c-amber);
+  color: var(--c-navy);
 }
 
 .doneer-kaart {
@@ -781,7 +927,7 @@
 
 .dua-blok {
   margin-top: var(--sp-xl);
-  background: var(--c-aqua);
+  background: var(--c-azure-zacht);
   border-radius: var(--radius-md);
   padding: clamp(1.25rem, 4vw, 2rem);
 }

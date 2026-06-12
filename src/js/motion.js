@@ -177,10 +177,11 @@ export function plaatsGolfDividers() {
   const PAPER = "#f2f1ee";
   const NAVY = "#1f2c54";
   const NAVY_DIEP = "#17203d";
+  const ZONLICHT = "#fbf4e6"; // moet gelijk zijn aan --c-zonlicht (sectie-voorwie)
   const plekken = [
     [".sectie-koepel", PAPER],
     [".sectie-teams", NAVY],
-    [".sectie-betekenis", PAPER],
+    [".sectie-betekenis", ZONLICHT],
     [".sectie-faq", NAVY_DIEP],
   ];
   for (const [sel, kleur] of plekken) {

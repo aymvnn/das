@@ -26,17 +26,30 @@ export const campagne = {
   // ✏️ WERK DIT BIJ: de datum die bij de teller staat ("Stand per …").
   laatsteUpdate: "12 juni 2026",
 
-  // Optionele einddatum van de campagne, bijv. "30 september 2026".
-  // Leeg laten ("") = de site toont geen einddatum.
-  einddatum: "",
+  // ✏️ De overdrachtsdatum: de dag dat het pand bij de notaris van ons wordt.
+  // Schrijf 'm voluit, net als laatsteUpdate: "30 september 2026".
+  // Zolang dit leeg is (""), zegt de site alleen "het aftellen is begonnen".
+  // Vul je de datum in, dan verschijnt vanzelf "nog X weken tot de overdracht"
+  // bij de teller, in het verhaal en in de veelgestelde vragen.
+  // Typfout of datum voorbij? De site toont dan gewoon weer de gewone tekst.
+  overdrachtsdatum: "",
 
   /* --- BETAALGEGEVENS ------------------------------------ */
 
-  // TODO: vervang door het echte IBAN van de stichting zodra bekend.
-  iban: "NL00 BANK 0000 0000 00",
+  iban: "NL77 RABO 0170 9862 92",
   tnv: "Stichting IV Het Trefpunt",
+  kvk: "99465655", // KvK-nummer (wordt in de footer getoond)
   // Wat mensen bij hun overschrijving zetten:
   kenmerk: "Druppel", // + eventueel teamnaam, bijv. "Druppel — Team Al-Fajr"
+
+  // De online betaal-/iDEAL-link. Leeg ("") = er gebeurt nog niets bij het
+  // klikken op een bedrag, behalve dat het bedrag oplicht (alleen visueel).
+  // ✏️ Zodra de betaallink (bijv. Mollie/bunq) klaar is: plak 'm hier en de
+  // "Doneer via iDEAL"-knop verschijnt vanzelf met het gekozen bedrag.
+  // Zet {bedrag} waar de euro's moeten (50) of {centen} waar centen moeten
+  // (5000), bijv. "https://betaal.link/pay?amount={bedrag}". Heeft jouw link
+  // geen plek voor een bedrag nodig? Plak dan gewoon de kale link.
+  idealLink: "",
 
   /* --- CONTACT -------------------------------------------- */
 

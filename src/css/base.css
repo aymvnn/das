@@ -151,6 +151,20 @@ a {
   box-shadow: 0 20px 34px -14px rgba(0, 107, 102, 0.6);
 }
 
+/* De geefknop: amber is exclusief voor doneer-acties (en vieringen).
+   Navy tekst op amber = AA-contrast (~6,2:1). */
+.btn-doneer {
+  background: var(--c-amber);
+  color: var(--c-navy);
+  box-shadow: 0 14px 28px -14px rgba(245, 156, 0, 0.6);
+}
+.btn-doneer:hover {
+  background: var(--c-amber-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 34px -14px rgba(217, 138, 0, 0.65);
+}
+.btn-doneer .druppel-icoon { color: var(--c-navy); }
+
 .btn-ghost {
   background: transparent;
   color: var(--c-navy);

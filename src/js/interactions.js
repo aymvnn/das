@@ -34,6 +34,48 @@ export function startIbanKopieren() {
   });
 }
 
+/* --- Bedrag kiezen onder "Doneren" ---
+   Klik op een bedrag = dat bedrag oplichten (gekozen). Zodra er een
+   betaallink in campagne.idealLink staat, verschijnt de iDEAL-knop met
+   het gekozen bedrag erin. Zonder link gebeurt er alleen visueel iets. --- */
+export function startBedragKiezen() {
+  const groep = document.querySelector("[data-bedrag-keuze]");
+  if (!groep) return;
+  const chips = [...groep.querySelectorAll("[data-bedrag-chip]")];
+  if (!chips.length) return;
+
+  const idealKnop = document.querySelector("[data-ideal-knop]");
+  const idealBedrag = idealKnop?.querySelector("[data-ideal-bedrag]");
+  const link = (campagne.idealLink || "").trim();
+  const linkHeeftBedragPlek = /\{bedrag\}|\{centen\}/.test(link);
+
+  // Link zonder plek voor een bedrag? Dan mag de knop meteen zichtbaar.
+  if (idealKnop && link && !linkHeeftBedragPlek) {
+    idealKnop.href = link;
+    idealKnop.hidden = false;
+  }
+
+  const kies = (chip) => {
+    const euro = Number(chip.dataset.euro);
+    chips.forEach((c) => {
+      const actief = c === chip;
+      c.classList.toggle("is-actief", actief);
+      c.setAttribute("aria-pressed", actief ? "true" : "false");
+    });
+
+    // Nog geen betaallink: het bedrag is alleen visueel gekozen.
+    if (!idealKnop || !link) return;
+
+    idealKnop.href = link
+      .replace(/\{bedrag\}/g, String(euro))
+      .replace(/\{centen\}/g, String(euro * 100));
+    idealKnop.hidden = false;
+    if (idealBedrag) idealBedrag.textContent = ` € ${euro.toLocaleString("nl-NL")}`;
+  };
+
+  chips.forEach((chip) => chip.addEventListener("click", () => kies(chip)));
+}
+
 /* --- FAQ: vloeiend open- en dichtvouwen ---
    Zonder JavaScript werkt <details> gewoon; dit voegt alleen de
    vloeiende beweging toe (grid-rows-techniek). --- */
