@@ -1,0 +1,96 @@
+/* ============================================================
+   SVG-SCÈNES (hero-animatie, koepel, logo's) + verfijningen
+   ============================================================ */
+
+/* --- Logokleuren (vaste klassen uit logo-paths.js) --- */
+.lg-dome { fill: var(--c-teal); }
+.lg-star { fill: var(--c-teal); }
+.lg-wave-light { fill: var(--c-mint); }
+.lg-wave-dark { fill: var(--c-teal); }
+
+/* Footer: licht logo op donker water */
+.footer-logo .lg-dome,
+.footer-logo .lg-star { fill: var(--c-ivoor-licht); }
+.footer-logo .lg-wave-light { fill: var(--c-mint); }
+.footer-logo .lg-wave-dark { fill: var(--c-mint-soft); }
+
+/* --- Vormen in de animaties --- */
+.vorm-teal { fill: var(--c-teal); }
+.vorm-mint { fill: var(--c-mint); }
+.rimpel { stroke: var(--c-mint); }
+
+/* --- Koepel: drijvend wateroppervlak --- */
+.k-golf {
+  fill: var(--c-mint);
+}
+.k-golf-a {
+  opacity: 0.55;
+  animation: k-drijf-a 9.5s linear infinite;
+}
+.k-golf-b {
+  opacity: 0.4;
+  translate: 0 1.1px;
+  animation: k-drijf-b 14s linear infinite;
+}
+@keyframes k-drijf-a {
+  from { transform: translateX(0); }
+  to { transform: translateX(-92px); }
+}
+@keyframes k-drijf-b {
+  from { transform: translateX(-128px); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-golf-a, .k-golf-b { animation: none; }
+}
+
+/* --- Mijlpaallijnen in het water --- */
+.mijlpaal {
+  stroke: var(--c-teal);
+  stroke-width: 0.55;
+  opacity: 0.16;
+}
+.mijlpaal.is-behaald {
+  stroke: var(--c-amber);
+  stroke-width: 0.9;
+  opacity: 0.95;
+}
+.mijlpaal.is-volgende {
+  stroke: var(--c-teal);
+  stroke-dasharray: 2.6 2.2;
+  stroke-width: 0.8;
+  opacity: 0.6;
+  animation: mijlpaal-pols 2.8s var(--ease-wissel) infinite;
+}
+.mijlpaal.is-actief {
+  stroke: var(--c-amber);
+  stroke-width: 1.2;
+  opacity: 1;
+}
+@keyframes mijlpaal-pols {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 0.3; }
+}
+
+/* --- Secties met golf-overgang: extra ademruimte onderaan --- */
+.heeft-golf {
+  padding-bottom: calc(var(--pad-sectie) + clamp(34px, 6vw, 78px));
+}
+
+/* --- Ankerlinks: ruimte onder de vaste header --- */
+section[id],
+[id="doneren"],
+[id="waterdragers"] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* --- FAQ: open/dicht-status via JS-klasse --- */
+.faq-item.is-open .faq-wrapper { grid-template-rows: 1fr; }
+.faq-item.is-open summary::after { rotate: 45deg; }
+.faq-item[open]:not(.is-open) .faq-wrapper { grid-template-rows: 0fr; }
+
+/* --- IBAN-knop: rustige bevestiging --- */
+.btn.is-gekopieerd {
+  background: var(--c-teal-btn);
+  color: #fff;
+}

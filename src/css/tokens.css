@@ -1,0 +1,99 @@
+/* ============================================================
+   DESIGN TOKENS — Druppels van Sakīnah
+   Officieel palet: Kleurpalet_HetTrefpunt.pdf (matcht het logo)
+   ============================================================ */
+
+/* --- Merkfonts (zelf gehost) --- */
+@font-face {
+  font-family: "Bergen Sans";
+  src: url("/assets/fonts/BergenSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bergen Sans";
+  src: url("/assets/fonts/BergenSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bergen Sans";
+  src: url("/assets/fonts/BergenSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Alleen voor het woord سكينة — gesubset, 3 kB */
+@font-face {
+  font-family: "Reem Kufi";
+  src: url("/assets/fonts/ReemKufi-arabic-subset.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF;
+}
+
+:root {
+  /* --- Kleur --- */
+  --c-paper: #f2f1ee;       /* gebroken wit — basis */
+  --c-paper-warm: #fbfaf7;  /* kaarten op paper */
+  --c-aqua: #e4f4f1;        /* zeer lichte aqua — wisselsecties */
+  --c-aqua-deep: #cfe8e2;   /* randen, chips, tracks */
+  --c-teal: #00847e;        /* Deep Teal — merk */
+  --c-teal-btn: #006b66;    /* knoppen (AA-contrast met wit) */
+  --c-teal-dark: #02524e;   /* hover */
+  --c-mint: #38b6ab;        /* Soft Mint */
+  --c-mint-soft: #8fd2ca;   /* mint op donker, decoratief */
+  --c-navy: #1f2c54;        /* Midnight Navy — koppen, donkere secties */
+  --c-navy-deep: #17203d;   /* panelen op navy, footer-gradient */
+  --c-ink: #27324e;         /* bodytekst op licht (navy-getint) */
+  --c-ink-soft: #5b6480;    /* secundaire tekst */
+  --c-amber: #f59c00;       /* Amber Gold — alleen voor behaalde mijlpalen */
+  --c-line: #ddd9d2;        /* hairlines op paper */
+  --c-line-aqua: #c2ddd6;   /* hairlines op aqua */
+  --c-ivoor-licht: #f0efef; /* tekst op navy */
+  --c-ivoor-zacht: #b8c1d8; /* secundaire tekst op navy */
+
+  /* --- Typografie --- */
+  --font-sans: "Bergen Sans", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --font-arabisch: "Reem Kufi", "Bergen Sans", sans-serif;
+
+  --t-display: clamp(2.5rem, 7.6vw + 0.5rem, 4.75rem);
+  --t-h2: clamp(1.8rem, 4.2vw + 0.5rem, 2.9rem);
+  --t-h3: clamp(1.25rem, 1.2vw + 1rem, 1.5rem);
+  --t-lead: clamp(1.0625rem, 0.7vw + 0.9rem, 1.25rem);
+  --t-body: 1.0625rem;   /* 17px */
+  --t-sm: 0.9375rem;     /* 15px */
+  --t-xs: 0.8125rem;     /* 13px */
+  --t-teller: clamp(3.25rem, 12vw, 5.75rem);
+
+  /* --- Ruimte (4pt-schaal) --- */
+  --sp-2xs: 0.25rem;
+  --sp-xs: 0.5rem;
+  --sp-sm: 0.75rem;
+  --sp-md: 1rem;
+  --sp-lg: 1.5rem;
+  --sp-xl: 2rem;
+  --sp-2xl: 3rem;
+  --sp-3xl: 4rem;
+  --sp-4xl: 6rem;
+  --pad-sectie: clamp(4.5rem, 11vw, 8.25rem);
+
+  /* --- Vorm & schaduw --- */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-druppel: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  --schaduw-zacht: 0 2px 6px rgba(31, 44, 84, 0.05), 0 18px 44px -18px rgba(31, 44, 84, 0.18);
+  --schaduw-diep: 0 4px 10px rgba(31, 44, 84, 0.08), 0 32px 64px -24px rgba(31, 44, 84, 0.28);
+
+  /* --- Beweging: alles beweegt als water --- */
+  --ease-water: cubic-bezier(0.25, 1, 0.5, 1);   /* quart-out */
+  --ease-diep: cubic-bezier(0.22, 1, 0.36, 1);   /* quint-out */
+  --ease-wissel: cubic-bezier(0.65, 0, 0.35, 1); /* in-out */
+  --duur-snel: 180ms;
+  --duur-basis: 320ms;
+  --duur-traag: 650ms;
+}
