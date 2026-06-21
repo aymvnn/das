@@ -69,8 +69,8 @@ export const campagne = {
   // vertrouwelijke duʿā'-verzoeken en de grotere-gift-aanvragen.
   contactEmail: "info@trefpunt-capelle.nl",
 
-  // TODO: vervang door de echte websitelink zodra het domein live is.
-  siteUrl: "https://trefpunt-capelle.nl",
+  // De website-URL (gebruikt in de WhatsApp-deeltekst en de share-tags).
+  siteUrl: "https://dasactie.nl",
 
   // De WhatsApp-community waar de gemeenschap samenkomt (uitnodigingslink).
   // Alle algemene "via WhatsApp"-knoppen op de site verwijzen hierheen.
