@@ -197,6 +197,113 @@
 }
 .scroll-hint svg { animation: hint-dobber 2.6s var(--ease-wissel) infinite; }
 
+/* ===================== 1b · ZO WERKT EEN DRUPPEL ===================== */
+.sectie-uitleg {
+  background: var(--c-paper);
+  padding-block: clamp(3rem, 7vw, 5rem);
+}
+.sectie-uitleg .sectie-kop { margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+
+.uitleg-flow {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 940px;
+  display: grid;
+  gap: clamp(1.4rem, 4vw, 2rem);
+}
+.uitleg-stap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+}
+.uitleg-druppel {
+  flex: none;
+  width: 38px;
+  display: grid;
+  place-items: center;
+}
+.uitleg-druppel svg {
+  width: 30px;
+  height: auto;
+  fill: var(--c-teal);
+  filter: drop-shadow(0 6px 10px -6px rgba(0, 132, 126, 0.5));
+}
+.uitleg-stap:nth-child(2) .uitleg-druppel svg { fill: var(--c-mint); }
+.uitleg-stap:nth-child(3) .uitleg-druppel svg { fill: var(--c-amber); }
+.uitleg-stap p {
+  margin: 0;
+  font-size: var(--t-lead);
+  line-height: 1.4;
+  color: var(--c-ink);
+}
+.uitleg-stap strong { color: var(--c-navy); }
+/* stippellijn-stroompje tussen de druppels (mobiel: verticaal) */
+.uitleg-stap::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 2.9rem;
+  bottom: calc(var(--sp-md) * -1 - 0.35rem);
+  border-left: 1.5px dotted var(--c-aqua-deep);
+}
+.uitleg-stap:last-child::after { display: none; }
+
+.uitleg-gloss {
+  max-width: 56ch;
+  margin: clamp(2rem, 5vw, 2.75rem) auto 0;
+  text-align: center;
+  font-size: var(--t-sm);
+  color: var(--c-ink-soft);
+}
+.uitleg-gloss strong { color: var(--c-teal-btn); }
+
+.uitleg-cta {
+  margin-top: clamp(1.75rem, 4.5vw, 2.75rem);
+  text-align: center;
+}
+.uitleg-tegaan {
+  font-size: var(--t-lead);
+  color: var(--c-navy);
+  margin-bottom: var(--sp-md);
+}
+.uitleg-tegaan strong {
+  color: var(--c-amber-diep);
+  font-variant-numeric: tabular-nums;
+}
+.uitleg-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-sm);
+}
+
+@media (min-width: 760px) {
+  .uitleg-flow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    position: relative;
+  }
+  .uitleg-flow::before {
+    content: "";
+    position: absolute;
+    top: 21px;
+    left: 16.6%;
+    right: 16.6%;
+    border-top: 1.5px dotted var(--c-aqua-deep);
+    z-index: 0;
+  }
+  .uitleg-stap {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--sp-sm);
+    z-index: 1;
+  }
+  .uitleg-stap::after { display: none; }
+  .uitleg-stap p { max-width: 24ch; margin-inline: auto; }
+}
+
 /* ===================== 2 · DE KOEPEL ===================== */
 .sectie-koepel {
   background: var(--c-aqua);
@@ -290,16 +397,17 @@
 .druppelraster .rasterdruppel {
   width: 100%;
   aspect-ratio: 10 / 13.4;
-  fill: var(--c-aqua-deep);
-  transition: fill 420ms var(--ease-water);
-  transition-delay: calc(var(--di, 0) * 3ms);
+  /* leeg = bijna onzichtbaar, zodat gevulde druppels figuur zijn, geen grijze wafel */
+  fill: rgba(0, 132, 126, 0.1);
+  transition: fill 520ms var(--ease-water);
+  transition-delay: calc(var(--di, 0) * 4ms);
 }
 .druppelraster .rasterdruppel.is-gevuld { fill: var(--c-teal); }
 .druppelraster .rasterdruppel.is-volgende {
-  fill: var(--c-paper-warm);
-  stroke: var(--c-teal);
-  stroke-width: 1.4;
-  stroke-dasharray: 3 2.4;
+  /* de volgende druppel = jouw druppel, in de geefkleur amber */
+  fill: var(--c-amber);
+  stroke: var(--c-amber-dark);
+  stroke-width: 1.2;
   animation: golf-pols 2.8s var(--ease-wissel) infinite;
   transform-origin: center;
 }
@@ -317,14 +425,16 @@
   line-height: 1.55;
   color: var(--c-navy);
 }
+.koepel-cta {
+  margin-top: clamp(1.75rem, 4.5vw, 2.75rem);
+  text-align: center;
+}
 
 @media (min-width: 880px) {
   .koepel-layout {
     grid-template-columns: 1.05fr 1fr;
   }
-  .koepel-visual { width: min(38vw, 440px); }
-  .golven-lijst { grid-template-columns: repeat(2, 1fr); }
-  .golf-item { font-size: var(--t-sm); padding: 0.8rem 1.1rem; }
+  .koepel-visual { width: min(50vw, 500px); }
 }
 
 /* ===================== 3 · WAAROM ===================== */
@@ -746,7 +856,7 @@
 /* ===================== 7 · DONEREN ===================== */
 /* ===================== 6b · VOOR WIE ===================== */
 /* Vanaf hier opent de warme finale: zonlicht tot en met het doneer-moment. */
-.sectie-voorwie { background: var(--c-zonlicht); padding-bottom: 0; }
+.sectie-voorwie { background: var(--c-zonlicht); }
 .sectie-voorwie .sectie-kop { margin-bottom: clamp(1.75rem, 4vw, 2.5rem); }
 .sectie-voorwie .kicker,
 .sectie-doneren .kicker { color: var(--c-amber-diep); }
@@ -792,8 +902,22 @@
   max-width: 44ch;
 }
 
-.sectie-doneren { background: var(--c-zonlicht); }
+.sectie-doneren {
+  background:
+    radial-gradient(125% 62% at 50% -8%, rgba(245, 156, 0, 0.1), transparent 62%),
+    var(--c-zonlicht);
+}
 
+.doneer-bedankt {
+  background: var(--c-teal);
+  color: #fff;
+  border-radius: var(--radius-md);
+  padding: var(--sp-md) var(--sp-lg);
+  margin-bottom: var(--sp-lg);
+  font-weight: 600;
+  text-align: center;
+  box-shadow: var(--schaduw-zacht);
+}
 .bedrag-chips {
   list-style: none;
   padding: 0;

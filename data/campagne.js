@@ -101,7 +101,7 @@ export const campagne = {
       naam: "De Buurvaders van Schollevaar",
       doelCents: 250000, // Druppel — € 2.500
       opgehaaldCents: 250000, // € 2.500 — doel behaald!
-      beschrijving: "Vaders uit de wijk Schollevaar. Hun druppel is binnen — en ze gaan gewoon door.",
+      beschrijving: "Vaders uit de wijk Schollevaar. Hun druppel is binnen, en ze gaan gewoon door.",
       whatsappLink: "",
     },
     {
@@ -145,7 +145,7 @@ export const campagne = {
       foto: "assets/img/acties/klusweekend.webp",
     },
     {
-      titel: "Tapijtdag — de zaal kleurt blauw",
+      titel: "Tapijtdag: de zaal kleurt blauw",
       beschrijving: "Baan voor baan rolden vaders en zonen het nieuwe gebedstapijt uit. Aan het eind van de dag stond er een gebedszaal.",
       foto: "assets/img/acties/tapijtdag.webp",
     },

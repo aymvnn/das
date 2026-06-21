@@ -40,10 +40,13 @@ function renderTeller() {
   qsa("[data-pct]").forEach((el) => (el.textContent = pctTekst(pct)));
   qsa("[data-pct-lang]").forEach((el) => (el.textContent = pctTekst(pct)));
 
-  const druppelZin = `${druppels} van de ${TOTAAL_DRUPPELS} druppels gevallen`;
+  const druppelZin = `${druppels} van de ${TOTAAL_DRUPPELS} druppels gevuld`;
   qsa("[data-druppels-zin]").forEach((el) => (el.textContent = druppelZin));
   qsa("[data-druppels-zin-2]").forEach(
     (el) => (el.textContent = `${druppels} druppels gevuld, ${TOTAAL_DRUPPELS - druppels} te gaan`),
+  );
+  qsa("[data-druppels-tegaan]").forEach(
+    (el) => (el.textContent = TOTAAL_DRUPPELS - druppels),
   );
 
   const golfZin =
@@ -104,16 +107,16 @@ function renderGolvenLijst() {
     const bedrag = euro(GOLF_CENTS * i);
     const label =
       i <= behaald
-        ? `Golf ${i} — ${bedrag} — binnen`
+        ? `Golf ${i}: ${bedrag} · binnen`
         : i === behaald + 1
-          ? `Golf ${i} — ${bedrag} — de volgende`
-          : `Golf ${i} — ${bedrag}`;
+          ? `Golf ${i}: ${bedrag} · de volgende`
+          : `Golf ${i}: ${bedrag}`;
     li.setAttribute("aria-label", label);
     li.innerHTML = `
       <span class="golf-status" aria-hidden="true">${i <= behaald ? VINKJE : ""}</span>
       <span class="golf-naam">Golf ${i}</span>
       <span class="golf-bedrag">${bedrag}</span>`;
-    li.title = i <= behaald ? `Golf ${i} — ${bedrag} ✓` : `Golf ${i} — ${bedrag}`;
+    li.title = i <= behaald ? `Golf ${i}: ${bedrag} ✓` : `Golf ${i}: ${bedrag}`;
     lijst.append(li);
   }
 }
@@ -132,10 +135,10 @@ function renderDruppelraster() {
       d: "M5 .8C6.9 3.4 8.55 5.8 8.55 8.35A3.55 3.55 0 0 1 5 11.9 3.55 3.55 0 0 1 1.45 8.35C1.45 5.8 3.1 3.4 5 .8Z",
     });
     svg.append(pad);
-    if (i === gevuld && gevuld < TOTAAL_DRUPPELS) {
+    if (i === TOTAAL_DRUPPELS - gevuld - 1 && gevuld < TOTAAL_DRUPPELS) {
       svg.classList.add("is-volgende");
       const titel = svgEl("title");
-      titel.textContent = "De volgende druppel — die van jou?";
+      titel.textContent = "De volgende druppel: die van jou?";
       svg.prepend(titel);
     }
     frag.append(svg);
@@ -239,7 +242,7 @@ function renderContactLinks() {
   );
 
   // Delen: geen nummer — opent de kies-een-chat-lijst van WhatsApp zelf
-  const deelTekst = `Salaam! 💧 Wij kopen samen ons gebedshuis in Capelle — druppel voor druppel, meedoen kan al vanaf € 10. Kijk en doe mee: ${campagne.siteUrl}`;
+  const deelTekst = `Salaam! 💧 Wij kopen samen ons gebedshuis in Capelle, druppel voor druppel. Meedoen kan al vanaf € 10. Kijk en doe mee: ${campagne.siteUrl}`;
   set("[data-wa-deel]", `https://wa.me/?text=${encodeURIComponent(deelTekst)}`);
 
   const mailOnderwerp = encodeURIComponent("Druppels van Sakīnah");

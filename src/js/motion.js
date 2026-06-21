@@ -60,9 +60,12 @@ export function startDruppelraster() {
   const gevuld = Number(raster.dataset.gevuld || 0);
   const druppels = raster.querySelectorAll(".rasterdruppel");
   const vul = () => {
-    for (let i = 0; i < gevuld && i < druppels.length; i++) {
-      druppels[i].style.setProperty("--di", i);
-      druppels[i].classList.add("is-gevuld");
+    const n = druppels.length;
+    // Van onderaf vullen: het water stijgt (bottom-up), onderste druppel eerst.
+    for (let k = 0; k < gevuld && k < n; k++) {
+      const idx = n - 1 - k;
+      druppels[idx].style.setProperty("--di", k);
+      druppels[idx].classList.add("is-gevuld");
     }
   };
   if (reducedMotion()) {
@@ -179,7 +182,7 @@ export function plaatsGolfDividers() {
   const NAVY_DIEP = "#17203d";
   const ZONLICHT = "#fbf4e6"; // moet gelijk zijn aan --c-zonlicht (sectie-voorwie)
   const plekken = [
-    [".sectie-koepel", PAPER],
+    [".sectie-koepel", ZONLICHT],
     [".sectie-teams", NAVY],
     [".sectie-betekenis", ZONLICHT],
     [".sectie-faq", NAVY_DIEP],

@@ -1,4 +1,4 @@
-// Interacties: IBAN kopiëren, FAQ-accordeon.
+// Interacties: IBAN kopiëren, bedrag kiezen + doneren, FAQ-accordeon.
 import { campagne } from "../../data/campagne.js";
 
 /* --- IBAN kopiëren met bevestiging --- */
@@ -34,46 +34,83 @@ export function startIbanKopieren() {
   });
 }
 
-/* --- Bedrag kiezen onder "Doneren" ---
-   Klik op een bedrag = dat bedrag oplichten (gekozen). Zodra er een
-   betaallink in campagne.idealLink staat, verschijnt de iDEAL-knop met
-   het gekozen bedrag erin. Zonder link gebeurt er alleen visueel iets. --- */
+/* --- Bedrag kiezen + doneren onder "Doneren" ---
+   Klik op een bedrag = dat bedrag oplichten (gekozen) en de doneerknop tonen.
+   Klik op de knop:
+     - Is er een vaste betaallink (campagne.idealLink)? Dan daarheen (Tier A).
+     - Anders maken we via /api/create-checkout een Stripe Checkout-sessie en
+       sturen we door naar iDEAL/creditcard (Tier B).
+   Werkt online betalen (nog) niet, dan blijft overmaken via de IBAN mogelijk. --- */
 export function startBedragKiezen() {
   const groep = document.querySelector("[data-bedrag-keuze]");
   if (!groep) return;
   const chips = [...groep.querySelectorAll("[data-bedrag-chip]")];
   if (!chips.length) return;
 
-  const idealKnop = document.querySelector("[data-ideal-knop]");
-  const idealBedrag = idealKnop?.querySelector("[data-ideal-bedrag]");
+  const knop = document.querySelector("[data-ideal-knop]");
+  const knopBedrag = knop?.querySelector("[data-ideal-bedrag]");
+  const teamKeuze = document.querySelector("[data-team-keuze]");
   const link = (campagne.idealLink || "").trim();
-  const linkHeeftBedragPlek = /\{bedrag\}|\{centen\}/.test(link);
 
-  // Link zonder plek voor een bedrag? Dan mag de knop meteen zichtbaar.
-  if (idealKnop && link && !linkHeeftBedragPlek) {
-    idealKnop.href = link;
-    idealKnop.hidden = false;
-  }
+  let gekozenEuro = 0;
 
   const kies = (chip) => {
-    const euro = Number(chip.dataset.euro);
+    gekozenEuro = Number(chip.dataset.euro) || 0;
     chips.forEach((c) => {
       const actief = c === chip;
       c.classList.toggle("is-actief", actief);
       c.setAttribute("aria-pressed", actief ? "true" : "false");
     });
-
-    // Nog geen betaallink: het bedrag is alleen visueel gekozen.
-    if (!idealKnop || !link) return;
-
-    idealKnop.href = link
-      .replace(/\{bedrag\}/g, String(euro))
-      .replace(/\{centen\}/g, String(euro * 100));
-    idealKnop.hidden = false;
-    if (idealBedrag) idealBedrag.textContent = ` € ${euro.toLocaleString("nl-NL")}`;
+    if (!knop) return;
+    knop.hidden = gekozenEuro <= 0;
+    if (knopBedrag && gekozenEuro > 0) {
+      knopBedrag.textContent = ` € ${gekozenEuro.toLocaleString("nl-NL")}`;
+    }
   };
-
   chips.forEach((chip) => chip.addEventListener("click", () => kies(chip)));
+
+  if (!knop) return;
+
+  knop.addEventListener("click", async (e) => {
+    e.preventDefault();
+    if (gekozenEuro <= 0) return;
+
+    // Tier A - vaste betaallink ingevuld in campagne.idealLink
+    if (link) {
+      const href = link
+        .replace(/\{bedrag\}/g, String(gekozenEuro))
+        .replace(/\{centen\}/g, String(gekozenEuro * 100));
+      window.location.href = href;
+      return;
+    }
+
+    // Tier B - Stripe Checkout via onze eigen API
+    if (knop.dataset.bezig === "1") return;
+    knop.dataset.bezig = "1";
+    knop.setAttribute("aria-busy", "true");
+    try {
+      const res = await fetch("/api/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cents: gekozenEuro * 100,
+          team: teamKeuze?.value || "",
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (data && data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      throw new Error("geen betaal-URL");
+    } catch {
+      knop.dataset.bezig = "";
+      knop.removeAttribute("aria-busy");
+      alert(
+        "Online doneren lukt op dit moment even niet. Je kunt je druppel ook overmaken via de IBAN hieronder - alvast bedankt.",
+      );
+    }
+  });
 }
 
 /* --- FAQ: vloeiend open- en dichtvouwen ---

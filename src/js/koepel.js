@@ -122,7 +122,7 @@ export function bouwKoepel() {
       "data-golf": i,
     });
     const titel = svgEl("title");
-    titel.textContent = `Golf ${i} — ${euro(GOLF_CENTS * i)}${i <= behaald ? " ✓" : ""}`;
+    titel.textContent = `Golf ${i}: ${euro(GOLF_CENTS * i)}${i <= behaald ? " ✓" : ""}`;
     lijn.append(titel);
     mijlpalen.append(lijn);
   }
