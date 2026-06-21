@@ -24,7 +24,7 @@ export const campagne = {
   // Vul hier het TOTAAL in centen in. Voorbeeld: € 20.000 → 2000000.
   // Dit wordt AUTOMATISCH OPGETELD bij de online donaties die de site live uit
   // Stripe ophaalt — de online iDEAL-donaties hoef je dus NIET zelf bij te houden.
-  buitenStripeCents: 0, // € 0  (vul hier het bedrag in dat al buiten de site is opgehaald)
+  buitenStripeCents: 2000000, // € 20.000  (al buiten de site opgehaald: bankoverschrijving/contant/eerdere acties)
 
   // De totale stand wordt automatisch berekend: Stripe-donaties + buitenStripeCents.
   // Dit veld is alleen een terugval voor als de live koppeling even onbereikbaar is;
@@ -32,7 +32,7 @@ export const campagne = {
   opgehaaldCents: 0,
 
   // ✏️ WERK DIT BIJ: de datum die bij de teller staat ("Stand per …").
-  laatsteUpdate: "12 juni 2026",
+  laatsteUpdate: "21 juni 2026",
 
   // ✏️ De overdrachtsdatum: de dag dat het pand bij de notaris van ons wordt.
   // Schrijf 'm voluit, net als laatsteUpdate: "30 september 2026".
@@ -71,6 +71,10 @@ export const campagne = {
   // TODO: vervang door de echte websitelink zodra het domein live is.
   siteUrl: "https://trefpunt-capelle.nl",
 
+  // De WhatsApp-community waar de gemeenschap samenkomt (uitnodigingslink).
+  // Alle algemene "via WhatsApp"-knoppen op de site verwijzen hierheen.
+  whatsappCommunity: "https://chat.whatsapp.com/HOZSyUVUcfCASXlPDPdwHz?s=sh&p=a&ilr=1&amv=0",
+
   /* --- WATERDRAGERS (TEAMS) -------------------------------
      Per team: naam, doelCents, opgehaaldCents, beschrijving.
      De doelniveaus heten:
@@ -87,57 +91,57 @@ export const campagne = {
     {
       naam: "Ondernemers van de Terp",
       doelCents: 2500000, // Bron — € 25.000
-      opgehaaldCents: 500000, // € 5.000
+      opgehaaldCents: 0, // € 0
       beschrijving: "Winkeliers en zzp'ers rond winkelcentrum de Terp leggen samen een bron aan.",
       whatsappLink: "",
     },
     {
       naam: "Team Al-Fajr",
       doelCents: 1000000, // Golf — € 10.000
-      opgehaaldCents: 415000, // € 4.150
+      opgehaaldCents: 0, // € 0
       beschrijving: "Acht vrienden die elkaar al kennen sinds de koranschool. Nu bouwen ze samen verder.",
       whatsappLink: "",
     },
     {
       naam: "Jongeren Dār as-Sakīnah",
       doelCents: 1000000, // Golf — € 10.000
-      opgehaaldCents: 278000, // € 2.780
+      opgehaaldCents: 0, // € 0
       beschrijving: "De jongste generatie organiseert carwashes en een FIFA-toernooi. Onze toekomst, hun thuis.",
       whatsappLink: "",
     },
     {
       naam: "De Buurvaders van Schollevaar",
       doelCents: 250000, // Druppel — € 2.500
-      opgehaaldCents: 250000, // € 2.500 — doel behaald!
-      beschrijving: "Vaders uit de wijk Schollevaar. Hun druppel is binnen, en ze gaan gewoon door.",
+      opgehaaldCents: 0, // € 0
+      beschrijving: "Vaders uit de wijk Schollevaar, klaar om samen hun druppel te dragen.",
       whatsappLink: "",
     },
     {
       naam: "Familie El Amrani & co",
       doelCents: 250000, // Druppel — € 2.500
-      opgehaaldCents: 215000, // € 2.150
+      opgehaaldCents: 0, // € 0
       beschrijving: "Drie generaties, één familie-app, één doel. Opa doet de duʿā', de kleinkinderen de actie.",
       whatsappLink: "",
     },
     {
       naam: "Zusters van de Zondagochtend",
       doelCents: 500000, // Stroom — € 5.000
-      opgehaaldCents: 192500, // € 1.925
+      opgehaaldCents: 0, // € 0
       beschrijving: "De zusters van de zondagse halaqa bakken, breien en verkopen voor het huis van rust.",
       whatsappLink: "",
     },
     {
       naam: "Koranschool-ouders",
       doelCents: 500000, // Stroom — € 5.000
-      opgehaaldCents: 86000, // € 860
+      opgehaaldCents: 0, // € 0
       beschrijving: "Onze kinderen leren hier hun eerste soera's. Wij zorgen dat dat zo blijft.",
       whatsappLink: "",
     },
     {
       naam: "Team Eerste Golf",
       doelCents: 250000, // Druppel — € 2.500
-      opgehaaldCents: 13500, // € 135 — net gestart
-      beschrijving: "Gisteren opgericht in de groepsapp. Vandaag de eerste druppels. Doe met ze mee!",
+      opgehaaldCents: 0, // € 0
+      beschrijving: "Net opgericht in de groepsapp. Klaar voor de eerste druppels. Doe met ze mee!",
       whatsappLink: "",
     },
   ],

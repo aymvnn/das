@@ -209,48 +209,30 @@ function renderActies() {
 
 /* --- WhatsApp- en maillinks met vooringevulde teksten --- */
 function renderContactLinks() {
-  const nr = campagne.whatsappNummer;
-  const wa = (tekst) => `https://wa.me/${nr}?text=${encodeURIComponent(tekst)}`;
   const set = (sel, href) => qsa(sel).forEach((el) => (el.href = href));
+  const mail = (onderwerp) =>
+    `mailto:${campagne.contactEmail}?subject=${encodeURIComponent(onderwerp)}`;
 
-  set(
-    "[data-wa-team]",
-    wa(
-      "Salaam! Ik wil een Waterdragers-team starten voor Druppels van Sakīnah. 🌊\nTeamnaam: …\nOns doel: Druppel € 2.500 / Stroom € 5.000 / Golf € 10.000 / Bron € 25.000",
-    ),
-  );
-  set(
-    "[data-wa-dua]",
-    wa("Salaam. Ik heb een duʿā'-verzoek voor de imam (vertrouwelijk): …"),
-  );
-  set(
-    "[data-wa-actie]",
-    wa("Salaam! Ons team heeft een actie gehouden voor Druppels van Sakīnah. Hierbij de foto's en een korte beschrijving: …"),
-  );
-  set(
-    "[data-wa-bedrijf]",
-    wa("Salaam! Ik wil met mijn bedrijf bijdragen aan Druppels van Sakīnah (bedrijfsteam of in natura). Kunnen we even schakelen?"),
-  );
-  set("[data-wa-contact]", wa("Salaam! Ik heb een vraag over Druppels van Sakīnah: …"));
-  set(
-    "[data-wa-groot]",
-    wa("Salaam. Ik wil graag in vertrouwen een grotere bijdrage bespreken voor Druppels van Sakīnah."),
-  );
-  set(
-    "[data-mail-groot]",
-    `mailto:${campagne.contactEmail}?subject=${encodeURIComponent("Grotere bijdrage — Druppels van Sakīnah")}`,
-  );
+  // Algemene "via WhatsApp"-acties verwijzen naar de WhatsApp-community.
+  // Geen community-link ingevuld? Dan valt het terug op e-mail.
+  const community = (campagne.whatsappCommunity || "").trim();
+  const samen = community || mail("Druppels van Sakīnah");
+  set("[data-wa-team]", samen);
+  set("[data-wa-actie]", samen);
+  set("[data-wa-bedrijf]", samen);
+  set("[data-wa-contact]", samen);
+
+  // Vertrouwelijk / discreet → per e-mail, NIET via de openbare community.
+  set("[data-wa-dua]", mail("Duʿā'-verzoek (vertrouwelijk)"));
+  set("[data-wa-groot]", mail("Grotere bijdrage — Druppels van Sakīnah"));
+  set("[data-mail-groot]", mail("Grotere bijdrage — Druppels van Sakīnah"));
 
   // Delen: geen nummer — opent de kies-een-chat-lijst van WhatsApp zelf
   const deelTekst = `Salaam! 💧 Wij kopen samen ons gebedshuis in Capelle, druppel voor druppel. Meedoen kan al vanaf € 10. Kijk en doe mee: ${campagne.siteUrl}`;
   set("[data-wa-deel]", `https://wa.me/?text=${encodeURIComponent(deelTekst)}`);
 
-  const mailOnderwerp = encodeURIComponent("Druppels van Sakīnah");
-  set("[data-mail-contact]", `mailto:${campagne.contactEmail}?subject=${mailOnderwerp}`);
-  set(
-    "[data-mail-bedrijf]",
-    `mailto:${campagne.contactEmail}?subject=${encodeURIComponent("Bedrijfsbijdrage — Druppels van Sakīnah")}`,
-  );
+  set("[data-mail-contact]", mail("Druppels van Sakīnah"));
+  set("[data-mail-bedrijf]", mail("Bedrijfsbijdrage — Druppels van Sakīnah"));
 }
 
 /* --- Logo's (header, footer) --- */
