@@ -13,21 +13,30 @@ onderdeel uitleg in gewone taal.
 
 ## 1. De teller bijwerken (doe dit wekelijks)
 
-Zoek in `data/campagne.js` deze twee regels:
+De **online donaties (iDEAL/creditcard via de site) tellen automatisch mee**.
+Die haalt de site live bij de betaaldienst (Stripe) op, dus daar hoef je niets
+voor te doen.
+
+Wat je **wél** zelf bijhoudt, zijn donaties die **buiten de site** binnenkwamen:
+bankoverschrijving naar de stichtingsrekening, contant, of eerdere acties. Zoek
+in `data/campagne.js`:
 
 ```js
-opgehaaldCents: 2200000, // € 22.000
+buitenStripeCents: 0,        // € 0
 laatsteUpdate: "12 juni 2026",
 ```
 
-- **opgehaaldCents** = het opgehaalde bedrag **in centen**.
-  Dus: € 31.500 → `3150000` (plak gewoon twee nullen achter het bedrag
-  in euro's zonder punten: 31500 → 3150000).
+- **buitenStripeCents** = het TOTAAL van alle donaties buiten de site, **in centen**.
+  Dus € 20.000 → `2000000` (plak twee nullen achter het bedrag in euro's zonder
+  punten: 20000 → 2000000). Dit wordt automatisch bij de online donaties opgeteld.
 - **laatsteUpdate** = de datum die bezoekers zien bij "Stand per …".
 
-Sla op en publiceer (zie stap 5). De druppels, golven, het waterpeil in
-de koepel en alle percentages rekenen zichzelf uit — daar hoef je niets
-voor te doen.
+Sla op en publiceer (zie stap 5). De totale stand, de druppels, de golven en het
+waterpeil in de koepel rekenen zichzelf uit: online donaties + buitenStripeCents
+samen.
+
+> Het veld `opgehaaldCents` hoef je niet meer aan te raken; de site berekent de
+> totale stand zelf (Stripe-donaties + buitenStripeCents).
 
 ### De overdrachtsdatum invullen (zodra die definitief is)
 

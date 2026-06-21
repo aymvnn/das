@@ -24,6 +24,8 @@ import { campagne } from "../../data/campagne.js";
    Lukt het niet (geen backend / offline / nog geen sleutel), dan blijft
    gewoon de waarde in data/campagne.js staan: stille fallback. --- */
 async function laadStand() {
+  const buitenStripe = Number(campagne.buitenStripeCents) || 0;
+  let stripeCents = null;
   try {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 1200);
@@ -32,14 +34,18 @@ async function laadStand() {
       headers: { Accept: "application/json" },
     });
     clearTimeout(t);
-    if (!res.ok) return;
-    const data = await res.json();
-    if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
-      campagne.opgehaaldCents = data.totalCents;
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
+        stripeCents = data.totalCents;
+      }
     }
   } catch {
-    /* geen backend / offline: behoud de waarde uit campagne.js */
+    /* Stripe onbereikbaar */
   }
+  // Totale stand = online Stripe-donaties + handmatig buiten-Stripe-bedrag.
+  // Is Stripe onbereikbaar, dan tonen we ten minste de bekende buiten-Stripe-donaties.
+  campagne.opgehaaldCents = (stripeCents || 0) + buitenStripe;
 }
 
 /* --- Bedankt-bericht na terugkeer uit de betaling --- */

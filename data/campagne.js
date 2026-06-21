@@ -19,9 +19,17 @@ export const campagne = {
   // Het einddoel. Verander dit niet zomaar: 400 druppels × € 1.000.
   doelCents: 40000000, // € 400.000
 
-  // ✏️ WERK DIT BIJ: het totaal opgehaalde bedrag, in centen.
-  // Voorbeeld: € 22.000 → 2200000. € 38.450,50 → 3845050.
-  opgehaaldCents: 2200000, // € 22.000
+  // ✏️ WERK DIT BIJ — DONATIES BUITEN DE WEBSITE (bankoverschrijving, contant,
+  // eerdere acties, kortom alles wat NIET via de iDEAL-knop op de site binnenkwam).
+  // Vul hier het TOTAAL in centen in. Voorbeeld: € 20.000 → 2000000.
+  // Dit wordt AUTOMATISCH OPGETELD bij de online donaties die de site live uit
+  // Stripe ophaalt — de online iDEAL-donaties hoef je dus NIET zelf bij te houden.
+  buitenStripeCents: 0, // € 0  (vul hier het bedrag in dat al buiten de site is opgehaald)
+
+  // De totale stand wordt automatisch berekend: Stripe-donaties + buitenStripeCents.
+  // Dit veld is alleen een terugval voor als de live koppeling even onbereikbaar is;
+  // normaal hoef je het niet aan te raken (het wordt automatisch overschreven).
+  opgehaaldCents: 0,
 
   // ✏️ WERK DIT BIJ: de datum die bij de teller staat ("Stand per …").
   laatsteUpdate: "12 juni 2026",
