@@ -65,7 +65,8 @@ export const campagne = {
   // (internationaal formaat, zonder + of spaties: 31612345678).
   whatsappNummer: "31600000000",
 
-  // TODO: vervang door het echte e-mailadres van de stichting.
+  // Het e-mailadres van de stichting (bevestigd). Hierheen gaan o.a. de
+  // vertrouwelijke duʿā'-verzoeken en de grotere-gift-aanvragen.
   contactEmail: "info@trefpunt-capelle.nl",
 
   // TODO: vervang door de echte websitelink zodra het domein live is.
@@ -84,6 +85,9 @@ export const campagne = {
 
   /* --- WATERDRAGERS (TEAMS) -------------------------------
      Per team: naam, doelCents, opgehaaldCents, beschrijving.
+     ✏️ opgehaaldCents = wat dit team tot nu toe ophaalde, IN CENTEN
+        (€ 4.150 → 415000). Vul dit per team HANDMATIG bij; de teamstanden
+        lopen niet automatisch mee met de online donaties.
      De doelniveaus heten:
        Druppel  € 2.500   →   250000
        Stroom   € 5.000   →   500000

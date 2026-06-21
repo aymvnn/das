@@ -78,6 +78,9 @@ Zoek het blok `teams: [ ... ]`. Elk team ziet er zo uit:
   eronder en pas de gegevens aan.
 - **Doelbedragen:** Druppel `250000` · Stroom `500000` · Golf `1000000`
   · Bron `2500000`.
+- **Bedrag bijwerken:** zet `opgehaaldCents` op wat dit team tot nu toe
+  ophaalde, **in centen** (€ 4.150 → `415000`). Dit vul je zelf bij; de
+  teamstanden lopen niet automatisch mee met de online donaties.
 - **Team verwijderen:** haal het hele blok weg (inclusief de `},`).
 - De volgorde in het bestand is de volgorde op de site — zet bijv. het
   best presterende team bovenaan.
