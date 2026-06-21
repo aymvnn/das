@@ -59,6 +59,13 @@ export const campagne = {
   // geen plek voor een bedrag nodig? Plak dan gewoon de kale link.
   idealLink: "",
 
+  // OPTIONEEL: een vaste Stripe Payment Link (https://buy.stripe.com/...) met
+  // "klant kiest zelf het bedrag". Vul je deze in, dan wijst de QR-code op de
+  // site er rechtstreeks naartoe (scannen = direct in de Stripe-betaalpagina).
+  // Leeg laten = de QR opent de doneer-sectie van de site, waar één tik je
+  // alsnog meteen naar Stripe brengt.
+  stripePaymentLink: "",
+
   /* --- CONTACT -------------------------------------------- */
 
   // TODO: vervang door het echte campagne-WhatsAppnummer

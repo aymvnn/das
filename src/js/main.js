@@ -17,7 +17,7 @@ import {
   startLazyVideos,
   plaatsGolfDividers,
 } from "./motion.js";
-import { startIbanKopieren, startBedragKiezen, startFaq } from "./interactions.js";
+import { startIbanKopieren, startBedragKiezen, startQrDoneren, startFaq } from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
 
 /* --- Live stand ophalen (Stripe via /api/total) ---
@@ -92,6 +92,7 @@ async function init() {
   startLazyVideos();
   startIbanKopieren();
   startBedragKiezen();
+  startQrDoneren();
   startFaq();
   toonBedankt();
 }

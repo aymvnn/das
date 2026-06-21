@@ -194,19 +194,40 @@
           <p class="kicker">Doneren</p>
           <h2 id="doneren-titel">Doneer jouw druppel</h2>
           <p class="sectie-intro">
-            Elk bedrag is welkom. Ter inspiratie: met z'n vieren draag je samen
-            al een hele druppel.
+            Kies een bedrag en je gaat direct naar de beveiligde betaalpagina:
+            iDEAL, creditcard of Apple Pay. Eén tik.
           </p>
         </header>
 
-        <ul class="bedrag-chips" data-reveal data-bedrag-keuze role="group" aria-label="Kies een bedrag">
-          <li><button type="button" class="chip" data-bedrag-chip data-euro="10" aria-pressed="false">€&nbsp;10</button></li>
-          <li><button type="button" class="chip" data-bedrag-chip data-euro="25" aria-pressed="false">€&nbsp;25</button></li>
-          <li><button type="button" class="chip" data-bedrag-chip data-euro="50" aria-pressed="false">€&nbsp;50</button></li>
-          <li><button type="button" class="chip" data-bedrag-chip data-euro="100" aria-pressed="false">€&nbsp;100</button></li>
-          <li><button type="button" class="chip" data-bedrag-chip data-euro="250" aria-pressed="false">€&nbsp;250</button></li>
-          <li><button type="button" class="chip chip-druppel" data-bedrag-chip data-euro="1000" aria-pressed="false"><svg class="druppel-icoon" viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg>€&nbsp;1.000 · een hele druppel</button></li>
+        <ul class="bedrag-chips" data-reveal data-bedrag-keuze role="group" aria-label="Kies een bedrag en doneer">
+          <li><button type="button" class="chip" data-bedrag-chip data-euro="10">€&nbsp;10</button></li>
+          <li><button type="button" class="chip" data-bedrag-chip data-euro="25">€&nbsp;25</button></li>
+          <li><button type="button" class="chip" data-bedrag-chip data-euro="50">€&nbsp;50</button></li>
+          <li><button type="button" class="chip" data-bedrag-chip data-euro="100">€&nbsp;100</button></li>
+          <li><button type="button" class="chip" data-bedrag-chip data-euro="250">€&nbsp;250</button></li>
+          <li><button type="button" class="chip chip-druppel" data-bedrag-chip data-euro="1000"><svg class="druppel-icoon" viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg>€&nbsp;1.000 · een hele druppel</button></li>
         </ul>
+
+        <form class="bedrag-ander" data-reveal data-bedrag-eigen-form>
+          <label for="eigen-bedrag">Of een ander bedrag</label>
+          <div class="bedrag-ander-rij">
+            <span class="bedrag-euroteken" aria-hidden="true">€</span>
+            <input id="eigen-bedrag" type="number" inputmode="numeric" min="1" max="100000" step="1" placeholder="bijv. 75" data-bedrag-eigen />
+            <button type="submit" class="btn btn-doneer" data-doneer-eigen>Doneer</button>
+          </div>
+        </form>
+
+        <p class="doneer-status" data-doneer-status role="status" hidden></p>
+
+        <p class="doneer-veilig" data-reveal>
+          <svg class="slot-icoon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5Zm3 8H9V6a3 3 0 0 1 6 0v3Z"/></svg>
+          Veilig betalen via Stripe — wij zien je kaartgegevens nooit.
+        </p>
+
+        <div class="qr-doneren" data-reveal>
+          <div class="qr-doneren-code" data-qr-doneren role="img" aria-label="QR-code om op je telefoon te doneren"></div>
+          <p>Kijk je op de computer? <strong>Scan met je telefoon</strong> en rond je gift onderweg af.</p>
+        </div>
 
         <p class="chips-groot" data-reveal>
           Een grotere gift in gedachten?
@@ -215,10 +236,11 @@
         </p>
 
         <div class="doneer-kaart" data-reveal>
-          <h3>Maak je bijdrage over</h3>
+          <h3>Liever zelf overmaken?</h3>
           <p class="doneer-uitleg">
-            Zet bij de omschrijving <strong>„Druppel"</strong>. Doe je mee met een
-            team? Zet er dan je teamnaam bij. Dat mag, maar het hoeft niet.
+            Maak over op onderstaand rekeningnummer en zet bij de omschrijving
+            <strong>„Druppel"</strong>. Doe je mee met een team? Zet er dan je
+            teamnaam bij. Dat mag, maar het hoeft niet.
           </p>
           <!-- TODO: laten checken door imam: formulering geven namens een ander / sadaqah jāriyah -->
           <p class="doneer-uitleg doneer-namens">
@@ -235,20 +257,6 @@
               <span class="kopieer-ok" hidden>Gekopieerd ✓</span>
             </button>
           </div>
-
-          <div class="qr-blok">
-            <!-- TODO: vervang qr-betaal.png door de echte betaal-QR van de bank -->
-            <img src="/assets/qr-betaal.png" alt="QR-code voor betalen via je bankapp (volgt binnenkort)" width="160" height="160" loading="lazy" />
-            <p>Scan met je bankapp</p>
-          </div>
-
-          <p class="ideal-noot">
-            Kies hierboven een bedrag en doneer in één keer via iDEAL of creditcard. Liever zelf overmaken? Gebruik de IBAN hierboven.
-            <!-- TODO: zodra de betaallink klaar is, vul je 'm in bij `idealLink`
-                 in data/campagne.js. De knop verschijnt dan vanzelf met het
-                 gekozen bedrag erin. Niets in de HTML aanpassen. -->
-            <a class="btn btn-doneer btn-ideal" href="#" hidden data-ideal-knop>Doneer<span data-ideal-bedrag></span> via iDEAL</a>
-          </p>
         </div>
 
         <aside class="dua-blok" data-reveal>
