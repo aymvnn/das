@@ -1342,6 +1342,42 @@
 .footer-gegevens p { color: var(--c-ivoor-licht); line-height: 1.8; }
 .footer-sub { color: var(--c-ivoor-zacht); font-size: var(--t-xs); }
 
+.footer-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--sp-md);
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+.footer-social-label {
+  font-size: var(--t-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-ivoor-zacht);
+}
+.social-link {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--c-ivoor-licht);
+  border: 1px solid rgba(240, 239, 239, 0.22);
+  transition:
+    color var(--duur-snel) ease,
+    border-color var(--duur-snel) ease,
+    transform var(--duur-snel) var(--ease-water);
+}
+.social-link svg { width: 20px; height: 20px; }
+@media (hover: hover) {
+  .social-link:hover {
+    color: var(--c-mint);
+    border-color: var(--c-mint);
+    transform: translateY(-2px);
+  }
+}
+
 .footer-noot {
   margin-top: clamp(2rem, 6vw, 3rem);
   padding-top: var(--sp-lg);

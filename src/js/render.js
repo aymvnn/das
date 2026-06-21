@@ -233,6 +233,17 @@ function renderContactLinks() {
 
   set("[data-mail-contact]", mail("Druppels van Sakīnah"));
   set("[data-mail-bedrijf]", mail("Bedrijfsbijdrage — Druppels van Sakīnah"));
+
+  // Sociale kanalen: vul de href, of verberg het icoon als er geen link is.
+  const social = campagne.social || {};
+  const setSocial = (sel, url) =>
+    qsa(sel).forEach((el) => {
+      if (url) el.href = url;
+      else el.hidden = true;
+    });
+  setSocial("[data-social-instagram]", social.instagram);
+  setSocial("[data-social-tiktok]", social.tiktok);
+  setSocial("[data-social-facebook]", social.facebook);
 }
 
 /* --- Logo's (header, footer) --- */

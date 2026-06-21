@@ -75,6 +75,13 @@ export const campagne = {
   // Alle algemene "via WhatsApp"-knoppen op de site verwijzen hierheen.
   whatsappCommunity: "https://chat.whatsapp.com/HOZSyUVUcfCASXlPDPdwHz?s=sh&p=a&ilr=1&amv=0",
 
+  // Sociale kanalen (laat een veld leeg "" om dat icoon te verbergen).
+  social: {
+    instagram: "https://instagram.com/hettrefpunt.darassakinah",
+    tiktok: "https://www.tiktok.com/@trefpunt.dar.assa",
+    facebook: "https://www.facebook.com/profile.php?id=61587113072523",
+  },
+
   /* --- WATERDRAGERS (TEAMS) -------------------------------
      Per team: naam, doelCents, opgehaaldCents, beschrijving.
      De doelniveaus heten:
