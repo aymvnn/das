@@ -16,13 +16,18 @@ export default async function handler(req, res) {
     let count = 0;
     const teams = {};
 
-    // Autopaginerend: telt alle geslaagde EUR-betalingen op.
+    // Autopaginerend: telt geslaagde EUR-betalingen op.
     for await (const pi of stripe.paymentIntents.list({ limit: 100 })) {
       if (pi.status !== "succeeded" || pi.currency !== "eur") continue;
+      const meta = pi.metadata || {};
+      // BELANGRIJK: alleen donaties van DEZE campagne meetellen (gemarkeerd in
+      // create-checkout met kenmerk "Druppel"). Zo tellen eventuele andere
+      // betalingen in hetzelfde Stripe-account NOOIT mee in de teller.
+      if (meta.kenmerk !== "Druppel") continue;
       const amt = pi.amount_received || pi.amount || 0;
       totalCents += amt;
       count += 1;
-      const team = (pi.metadata && pi.metadata.team) || "";
+      const team = meta.team || "";
       if (team) teams[team] = (teams[team] || 0) + amt;
     }
 
