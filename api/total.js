@@ -16,14 +16,14 @@ export default async function handler(req, res) {
     let count = 0;
     const teams = {};
 
-    // Autopaginerend: telt geslaagde EUR-betalingen op.
+    // Autopaginerend: telt ALLE geslaagde EUR-betalingen op.
+    // Dit Stripe-account (ayman@trefpunt-capelle.nl) is uitsluitend voor de
+    // stichting, dus elke betaling = een donatie (via welke methode dan ook).
+    // LET OP: zou dit account ooit ook niet-donaties verwerken, dan moet hier
+    // weer gefilterd worden op metadata.kenmerk === "Druppel".
     for await (const pi of stripe.paymentIntents.list({ limit: 100 })) {
       if (pi.status !== "succeeded" || pi.currency !== "eur") continue;
       const meta = pi.metadata || {};
-      // BELANGRIJK: alleen donaties van DEZE campagne meetellen (gemarkeerd in
-      // create-checkout met kenmerk "Druppel"). Zo tellen eventuele andere
-      // betalingen in hetzelfde Stripe-account NOOIT mee in de teller.
-      if (meta.kenmerk !== "Druppel") continue;
       const amt = pi.amount_received || pi.amount || 0;
       totalCents += amt;
       count += 1;
