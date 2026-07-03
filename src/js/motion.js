@@ -51,16 +51,26 @@ function animeerTeller(naarCents, duur) {
   tellerRaf = requestAnimationFrame(stap);
 }
 
+function zetTellerDirect(cents) {
+  if (tellerRaf) {
+    cancelAnimationFrame(tellerRaf);
+    tellerRaf = null;
+  }
+  tellerHuidig = cents;
+  if (tellerEl) tellerEl.textContent = euro(cents);
+}
+
 export function startTeller() {
   tellerEl = document.querySelector("[data-countup]");
   if (!tellerEl) return;
   const doel = campagne.opgehaaldCents;
-  tellerHuidig = 0;
-  if (reducedMotion()) {
-    tellerEl.textContent = euro(doel);
-    tellerHuidig = doel;
+  // Onzichtbare tab of reduced-motion: geen rAF-animatie (die pauzeert dan),
+  // maar meteen het juiste bedrag tonen — nooit een blijvende € 0.
+  if (reducedMotion() || document.hidden) {
+    zetTellerDirect(doel);
     return;
   }
+  tellerHuidig = 0;
   tellerEl.textContent = euro(0);
   animeerTeller(doel, 1900);
 }
@@ -68,9 +78,8 @@ export function startTeller() {
 export function updateTellerNaar(nieuwCents) {
   if (!tellerEl) return;
   if (Math.round(nieuwCents) === Math.round(tellerHuidig)) return;
-  if (reducedMotion()) {
-    tellerEl.textContent = euro(nieuwCents);
-    tellerHuidig = nieuwCents;
+  if (reducedMotion() || document.hidden) {
+    zetTellerDirect(nieuwCents);
     return;
   }
   animeerTeller(nieuwCents, 1100);
