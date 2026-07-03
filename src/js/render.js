@@ -30,7 +30,7 @@ export function renderAlles() {
 }
 
 /* --- Teller & samenvattende zinnen --- */
-function renderTeller() {
+export function renderTeller() {
   const druppels = druppelsGevallen();
   const golven = golvenBehaald();
   const pct = percentage();

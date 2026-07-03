@@ -4,12 +4,13 @@ import "../css/base.css";
 import "../css/sections.css";
 import "../css/scenes.css";
 
-import { renderAlles } from "./render.js";
+import { renderAlles, renderTeller } from "./render.js";
 import { startHeroAnimatie } from "./hero-anim.js";
-import { bouwKoepel } from "./koepel.js";
+import { bouwKoepel, updateKoepel } from "./koepel.js";
 import {
   startReveals,
   startTeller,
+  updateTellerNaar,
   startTeamBalken,
   startDruppelraster,
   startHeader,
@@ -20,32 +21,45 @@ import {
 import { startIbanKopieren, startBedragKiezen, startQrDoneren, startFaq } from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
 
-/* --- Live stand ophalen (Stripe via /api/total) ---
-   Lukt het niet (geen backend / offline / nog geen sleutel), dan blijft
-   gewoon de waarde in data/campagne.js staan: stille fallback. --- */
-async function laadStand() {
-  const buitenStripe = Number(campagne.buitenStripeCents) || 0;
-  let stripeCents = null;
+/* --- Stand ophalen ---
+   De totale stand = online Stripe-donaties (/api/total) + het handmatige
+   buiten-Stripe-bedrag uit campagne.js. We renderen eerst meteen met het
+   buiten-Stripe-bedrag (geen wachten), tellen daarna de Stripe-donaties erbij,
+   en verversen periodiek zodat nieuwe donaties vanzelf op de teller verschijnen. --- */
+function standCents(stripeCents) {
+  return (Number(stripeCents) || 0) + (Number(campagne.buitenStripeCents) || 0);
+}
+
+async function haalStripeTotaal() {
   try {
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 1200);
+    const t = setTimeout(() => ctrl.abort(), 8000);
     const res = await fetch("/api/total", {
       signal: ctrl.signal,
       headers: { Accept: "application/json" },
+      cache: "no-store",
     });
     clearTimeout(t);
-    if (res.ok) {
-      const data = await res.json();
-      if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
-        stripeCents = data.totalCents;
-      }
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
+      return data.totalCents;
     }
   } catch {
     /* Stripe onbereikbaar */
   }
-  // Totale stand = online Stripe-donaties + handmatig buiten-Stripe-bedrag.
-  // Is Stripe onbereikbaar, dan tonen we ten minste de bekende buiten-Stripe-donaties.
-  campagne.opgehaaldCents = (stripeCents || 0) + buitenStripe;
+  return null;
+}
+
+async function ververStand() {
+  const stripe = await haalStripeTotaal();
+  if (stripe === null) return; // API onbereikbaar: houd de huidige stand
+  const nieuw = standCents(stripe);
+  if (nieuw === campagne.opgehaaldCents) return;
+  campagne.opgehaaldCents = nieuw;
+  renderTeller(); // pct / druppels / "nog X te gaan" bijwerken
+  updateTellerNaar(nieuw); // teller naar het nieuwe bedrag laten lopen
+  updateKoepel(); // waterpeil meebewegen
 }
 
 /* --- Bedankt-bericht na terugkeer uit de betaling --- */
@@ -65,22 +79,22 @@ function toonBedankt() {
   history.replaceState({}, "", location.pathname + location.hash);
 }
 
-async function init() {
-  // Direct zichtbaar, geen data nodig: hero meteen tonen (niet wachten op de stand)
+function init() {
+  // Hero meteen tonen (geen data nodig)
   startHeroAnimatie();
   startHeader();
   document
     .querySelectorAll(".hero [data-reveal]")
     .forEach((el) => el.classList.add("is-zichtbaar"));
 
-  // Live stand ophalen (snel; valt stil terug op campagne.js)
-  await laadStand();
+  // Direct renderen met het bekende buiten-Stripe-bedrag (instant, geen wachten)
+  campagne.opgehaaldCents = standCents(0);
 
   // 1. Data de pagina in
   renderAlles();
   plaatsGolfDividers();
 
-  // 2. De koepel-scène (met de actuele stand)
+  // 2. De koepel-scène
   bouwKoepel();
 
   // 3. Choreografie & interactie
@@ -95,6 +109,11 @@ async function init() {
   startQrDoneren();
   startFaq();
   toonBedankt();
+
+  // 4. Stripe-donaties erbij tellen en daarna live blijven verversen,
+  //    zodat elke nieuwe donatie vanzelf op de teller verschijnt.
+  ververStand();
+  setInterval(ververStand, 25000);
 }
 
 init();

@@ -23,34 +23,57 @@ export function startReveals() {
   els.forEach((el) => io.observe(el));
 }
 
-/* --- De teller telt op zodra hij in beeld komt --- */
-export function startTeller() {
-  const el = document.querySelector("[data-countup]");
-  if (!el) return;
-  const doel = campagne.opgehaaldCents;
+/* --- De teller ---
+   Staat boven de vouw, dus meteen animeren (geen scroll-trigger nodig).
+   updateTellerNaar() laat 'm live naar een nieuw totaal lopen bij verse donaties. --- */
+let tellerEl = null;
+let tellerHuidig = 0; // laatst getoonde waarde in centen
+let tellerRaf = null;
 
+function animeerTeller(naarCents, duur) {
+  if (!tellerEl) return;
+  if (tellerRaf) cancelAnimationFrame(tellerRaf);
+  const van = tellerHuidig;
+  let t0 = null;
+  const stap = (now) => {
+    if (t0 === null) t0 = now;
+    const t = Math.min(1, (now - t0) / duur);
+    tellerHuidig = van + (naarCents - van) * easeOutQuint(t);
+    tellerEl.textContent = euro(tellerHuidig);
+    if (t < 1) {
+      tellerRaf = requestAnimationFrame(stap);
+    } else {
+      tellerHuidig = naarCents;
+      tellerEl.textContent = euro(naarCents);
+      tellerRaf = null;
+    }
+  };
+  tellerRaf = requestAnimationFrame(stap);
+}
+
+export function startTeller() {
+  tellerEl = document.querySelector("[data-countup]");
+  if (!tellerEl) return;
+  const doel = campagne.opgehaaldCents;
+  tellerHuidig = 0;
   if (reducedMotion()) {
-    el.textContent = euro(doel);
+    tellerEl.textContent = euro(doel);
+    tellerHuidig = doel;
     return;
   }
-  el.textContent = euro(0);
-  const io = new IntersectionObserver(
-    (entries) => {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      const DUUR = 1900;
-      let t0 = null;
-      const stap = (now) => {
-        if (t0 === null) t0 = now;
-        const t = Math.min(1, (now - t0) / DUUR);
-        el.textContent = euro(doel * easeOutQuint(t));
-        if (t < 1) requestAnimationFrame(stap);
-      };
-      requestAnimationFrame(stap);
-    },
-    { threshold: 0.5 },
-  );
-  io.observe(el);
+  tellerEl.textContent = euro(0);
+  animeerTeller(doel, 1900);
+}
+
+export function updateTellerNaar(nieuwCents) {
+  if (!tellerEl) return;
+  if (Math.round(nieuwCents) === Math.round(tellerHuidig)) return;
+  if (reducedMotion()) {
+    tellerEl.textContent = euro(nieuwCents);
+    tellerHuidig = nieuwCents;
+    return;
+  }
+  animeerTeller(nieuwCents, 1100);
 }
 
 /* --- Druppelraster vult zich druppel voor druppel in beeld --- */

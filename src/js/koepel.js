@@ -36,6 +36,11 @@ import {
   euro,
 } from "./utils.js";
 
+// Verwijzingen zodat de koepel live kan meebewegen met nieuwe donaties.
+let _zetPeil = null;
+let _mijlpalen = null;
+let _peil = 0; // huidig getoond waterpeil in procenten
+
 const laag = (paths, cls) => `
   <g transform="${ARTBOARD_TRANSFORM}"><g transform="${LAAG_TRANSFORM}">
     ${paths.map((p) => `<g transform="${p.transform}"><path d="${p.d}" class="${cls}" fill-rule="nonzero"/></g>`).join("")}
@@ -129,8 +134,11 @@ export function bouwKoepel() {
 
   /* --- waterpeil animeren naar het echte percentage --- */
   const zetPeil = (p) => {
+    _peil = p;
     waterpeil.setAttribute("transform", `translate(0 ${yVoorPct(p).toFixed(2)})`);
   };
+  _zetPeil = zetPeil;
+  _mijlpalen = mijlpalen;
   zetPeil(0.0001);
 
   if (reducedMotion()) {
@@ -210,4 +218,31 @@ export function bouwKoepel() {
       timer = setInterval(valDruppel, 6500 + Math.random() * 2000);
     }
   });
+}
+
+/* --- Live bijwerken: waterpeil + mijlpalen naar de huidige stand animeren --- */
+export function updateKoepel() {
+  if (!_zetPeil) return;
+  const nieuwPct = percentage();
+  const behaald = golvenBehaald();
+  if (_mijlpalen) {
+    _mijlpalen.querySelectorAll(".mijlpaal").forEach((lijn) => {
+      const i = Number(lijn.dataset.golf);
+      lijn.classList.toggle("is-behaald", i <= behaald);
+      lijn.classList.toggle("is-volgende", i === behaald + 1);
+    });
+  }
+  if (reducedMotion()) {
+    _zetPeil(nieuwPct);
+    return;
+  }
+  const van = _peil;
+  const t0 = performance.now();
+  const DUUR = 1400;
+  const stap = (now) => {
+    const t = Math.min(1, (now - t0) / DUUR);
+    _zetPeil(van + (nieuwPct - van) * easeOutQuint(t));
+    if (t < 1) requestAnimationFrame(stap);
+  };
+  requestAnimationFrame(stap);
 }
