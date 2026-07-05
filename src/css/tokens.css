@@ -64,6 +64,7 @@
   /* --- Typografie --- */
   --font-sans: "Bergen Sans", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
   --font-arabisch: "Reem Kufi", "Bergen Sans", sans-serif;
+  --font-ar: "Cairo", "Segoe UI", "Tahoma", "Geeza Pro", "Noto Sans Arabic", sans-serif;
 
   --t-display: clamp(2.5rem, 7.6vw + 0.5rem, 4.75rem);
   --t-h2: clamp(1.8rem, 4.2vw + 0.5rem, 2.9rem);
@@ -101,4 +102,9 @@
   --duur-snel: 180ms;
   --duur-basis: 320ms;
   --duur-traag: 650ms;
+}
+
+/* Arabische modus: alle tekst in Cairo (systeem-Arabisch als terugval). */
+html.is-ar {
+  --font-sans: var(--font-ar);
 }

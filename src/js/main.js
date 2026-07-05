@@ -20,6 +20,7 @@ import {
 } from "./motion.js";
 import { startIbanKopieren, startBedragKiezen, startQrDoneren, startFaq } from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
+import { initI18n, zetTaal, taal, t } from "./i18n.js";
 
 /* --- Stand ophalen ---
    De totale stand = online Stripe-donaties (/api/total) + het handmatige
@@ -71,15 +72,26 @@ function toonBedankt() {
     const melding = document.createElement("p");
     melding.className = "doneer-bedankt";
     melding.setAttribute("role", "status");
-    melding.textContent =
-      "Bārak Allāhoe fīk — je druppel is binnen. Moge Allah het van je aannemen.";
+    melding.textContent = t("bedankt.tekst");
     doneren.querySelector(".container")?.prepend(melding);
   }
   doneren?.scrollIntoView({ behavior: "smooth", block: "start" });
   history.replaceState({}, "", location.pathname + location.hash);
 }
 
+function opTaalWissel() {
+  // Dynamische, vertaalde teksten opnieuw in de gekozen taal zetten.
+  renderTeller();
+}
+
 function init() {
+  // Taal (bewaarde keuze) + statische teksten toepassen, vóór het renderen
+  initI18n(opTaalWissel);
+  const taalKnop = document.querySelector("[data-taal-knop]");
+  if (taalKnop) {
+    taalKnop.addEventListener("click", () => zetTaal(taal() === "ar" ? "nl" : "ar"));
+  }
+
   // Hero meteen tonen (geen data nodig)
   startHeroAnimatie();
   startHeader();

@@ -9,6 +9,7 @@ import {
   percentage,
 } from "../../data/campagne.js";
 import { euro, pctTekst, svgEl } from "./utils.js";
+import { t, tf } from "./i18n.js";
 import { logoMarkup, VIEWBOX_W, VIEWBOX_H, DROP_PATH } from "./logo-paths.js";
 
 const qs = (sel, root = document) => root.querySelector(sel);
@@ -40,7 +41,7 @@ export function renderTeller() {
   qsa("[data-pct]").forEach((el) => (el.textContent = pctTekst(pct)));
   qsa("[data-pct-lang]").forEach((el) => (el.textContent = pctTekst(pct)));
 
-  const druppelZin = `${druppels} van de ${TOTAAL_DRUPPELS} druppels gevuld`;
+  const druppelZin = tf("js.druppelsZin", { druppels, totaal: TOTAAL_DRUPPELS });
   qsa("[data-druppels-zin]").forEach((el) => (el.textContent = druppelZin));
   qsa("[data-druppels-zin-2]").forEach(
     (el) => (el.textContent = `${druppels} druppels gevuld, ${TOTAAL_DRUPPELS - druppels} te gaan`),
@@ -51,10 +52,10 @@ export function renderTeller() {
 
   const golfZin =
     golven === 0
-      ? `de eerste golf (€ 25.000) is in zicht`
+      ? t("js.golfInZicht")
       : golven === 1
-        ? `golf 1 is binnen, op weg naar golf 2`
-        : `${golven} van de ${TOTAAL_GOLVEN} golven zijn binnen`;
+        ? t("js.golf1Binnen")
+        : tf("js.golvenBinnen", { golven, totaal: TOTAAL_GOLVEN });
   qsa("[data-golven-zin]").forEach((el) => (el.textContent = golfZin));
 
   qsa("[data-iban]").forEach((el) => (el.textContent = campagne.iban));
@@ -85,10 +86,10 @@ function renderOverdracht() {
   const dagen = Math.ceil((datum - vandaag) / 86400000);
   if (dagen < 0) return;
   const zin =
-    dagen === 0 ? "vandaag is de overdracht"
-    : dagen === 1 ? "nog 1 dag tot de overdracht"
-    : dagen < 14 ? `nog ${dagen} dagen tot de overdracht`
-    : `nog ${Math.round(dagen / 7)} weken tot de overdracht`;
+    dagen === 0 ? t("js.vandaagOverdracht")
+    : dagen === 1 ? t("js.nog1Dag")
+    : dagen < 14 ? tf("js.nogDagen", { n: dagen })
+    : tf("js.nogWeken", { n: Math.round(dagen / 7) });
   qsa("[data-overdracht-zin]").forEach((el) => (el.textContent = zin));
 }
 

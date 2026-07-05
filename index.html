@@ -47,7 +47,7 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#inhoud">Direct naar inhoud</a>
+  <a class="skip-link" href="#inhoud" data-i18n="ui.naarInhoud">Direct naar inhoud</a>
 
   <!-- ===================== HEADER ===================== -->
   <header class="site-header" id="top">
@@ -57,12 +57,17 @@
         <span class="brand-name">Dār as-Sakīnah</span>
       </a>
       <nav class="site-nav" aria-label="Hoofdnavigatie">
-        <a href="#waarom">Waarom</a>
-        <a href="#waterdragers">Waterdragers</a>
-        <a href="#acties">Acties</a>
-        <a href="#faq">Vragen</a>
+        <a href="#waarom" data-i18n="nav.waarom">Waarom</a>
+        <a href="#waterdragers" data-i18n="nav.waterdragers">Waterdragers</a>
+        <a href="#acties" data-i18n="nav.acties">Acties</a>
+        <a href="#faq" data-i18n="nav.vragen">Vragen</a>
       </nav>
-      <a class="btn btn-doneer btn-header" href="#doneren">Doneer<span class="btn-header-extra"> jouw druppel</span></a>
+      <div class="header-eind">
+        <button class="taal-knop" type="button" data-taal-knop data-i18n-attr="aria-label:ui.taalKnopLabel">
+          <span data-taal-label data-i18n="ui.taalKnop">AR</span>
+        </button>
+        <a class="btn btn-doneer btn-header" href="#doneren"><span data-i18n="cta.doneerKort">Doneer</span><span class="btn-header-extra" data-i18n="cta.doneerExtra"> jouw druppel</span></a>
+      </div>
     </div>
   </header>
 
@@ -80,9 +85,9 @@
           </noscript>
         </div>
 
-        <p class="hero-kicker" data-reveal>Druppels van Sakīnah</p>
-        <h1 class="hero-title" id="hero-titel" data-reveal>Samen vullen we<br />het huis van rust</h1>
-        <p class="hero-lead" data-reveal>
+        <p class="hero-kicker" data-reveal data-i18n="hero.kicker">Druppels van Sakīnah</p>
+        <h1 class="hero-title" id="hero-titel" data-reveal data-i18n-html="hero.titel">Samen vullen we<br />het huis van rust</h1>
+        <p class="hero-lead" data-reveal data-i18n-html="hero.lead">
           Wij, vaders, moeders, kinderen en grootouders van Dār as-Sakīnah in
           Capelle aan den IJssel, kopen ons eigen gebedshuis. Niet alleen met
           grote gevers, maar juist ook met honderden kleine druppels.
@@ -92,26 +97,26 @@
         <div class="hero-teller" data-reveal role="group" aria-label="Stand van de campagne">
           <p class="teller-bedrag">
             <span class="teller-euro" data-countup data-cents-opgehaald>€&nbsp;0</span>
-            <span class="teller-doel">van <span data-doel>€&nbsp;400.000</span></span>
+            <span class="teller-doel"><span data-i18n="teller.van">van</span> <span data-doel>€&nbsp;400.000</span></span>
           </p>
           <p class="teller-druppels">
             <svg class="druppel-icoon" viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg>
             <span data-druppels-zin>… van de 400 druppels gevuld</span>
             <span class="teller-pct" data-pct></span>
           </p>
-          <p class="teller-aftellen">De koopovereenkomst is getekend. <span data-overdracht-zin>Het aftellen is begonnen</span>.</p>
-          <p class="teller-stand">Live stand · <a class="teller-toelichting" href="#faq">elke online gift telt direct mee</a></p>
+          <p class="teller-aftellen"><span data-i18n="teller.aftellen">De koopovereenkomst is getekend.</span> <span data-overdracht-zin data-i18n="js.aftellenBegonnen">Het aftellen is begonnen</span>.</p>
+          <p class="teller-stand"><span data-i18n="teller.live">Live stand ·</span> <a class="teller-toelichting" href="#faq" data-i18n="teller.liveLink">elke online gift telt direct mee</a></p>
         </div>
 
         <div class="hero-cta" data-reveal>
-          <a class="btn btn-doneer btn-lg" href="#doneren">Doneer jouw druppel</a>
-          <a class="btn btn-ghost btn-lg" href="#waterdragers">Word Waterdrager</a>
+          <a class="btn btn-doneer btn-lg" href="#doneren" data-i18n="cta.doneer">Doneer jouw druppel</a>
+          <a class="btn btn-ghost btn-lg" href="#waterdragers" data-i18n="hero.cta.waterdrager">Word Waterdrager</a>
         </div>
 
-        <p class="hero-subline" data-reveal>Eén druppel, eindeloze kringen.</p>
+        <p class="hero-subline" data-reveal data-i18n="hero.subline">Eén druppel, eindeloze kringen.</p>
       </div>
 
-      <a class="scroll-hint" href="#zo-werkt" aria-label="Scroll naar beneden">
+      <a class="scroll-hint" href="#zo-werkt" aria-label="Scroll naar beneden" data-i18n-attr="aria-label:hero.scroll">
         <svg viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg>
       </a>
     </section>

@@ -51,12 +51,36 @@
 }
 .site-nav a:hover { color: var(--c-teal); }
 
-.btn-header { margin-left: auto; font-size: var(--t-sm); padding: 0.7em 1.3em; }
+.btn-header { font-size: var(--t-sm); padding: 0.7em 1.3em; }
 .btn-header-extra { display: none; }
+
+.header-eind {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  margin-inline-start: auto;
+}
+.taal-knop {
+  flex: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: var(--t-sm);
+  line-height: 1;
+  color: var(--c-navy);
+  background: transparent;
+  border: 1.5px solid var(--c-line);
+  border-radius: 999px;
+  padding: 0.5em 0.9em;
+  cursor: pointer;
+  transition: border-color var(--duur-snel) ease, color var(--duur-snel) ease;
+}
+@media (hover: hover) {
+  .taal-knop:hover { border-color: var(--c-teal); color: var(--c-teal); }
+}
 
 @media (min-width: 760px) {
   .site-nav { display: flex; }
-  .btn-header { margin-left: 0; }
+  .header-eind { margin-inline-start: 0; }
   .btn-header-extra { display: inline; }
 }
 

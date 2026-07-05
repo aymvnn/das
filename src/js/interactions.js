@@ -1,5 +1,6 @@
 // Interacties: IBAN kopiëren, doneren (één tik), QR naar de betaalpagina, FAQ.
 import { campagne } from "../../data/campagne.js";
+import { t } from "./i18n.js";
 
 /* --- IBAN kopiëren met bevestiging --- */
 export function startIbanKopieren() {
@@ -58,13 +59,13 @@ export function startBedragKiezen() {
   async function doneer(euroRuw) {
     const euro = Math.round(Number(euroRuw) || 0);
     if (!(euro >= 1 && euro <= 100000)) {
-      meld("Vul een bedrag van minimaal € 1 in.", true);
+      meld(t("doneren.bedragFout"), true);
       eigenInput?.focus();
       return;
     }
     if (bezig) return;
     bezig = true;
-    meld("Je wordt doorgestuurd naar de beveiligde betaalpagina…");
+    meld(t("doneren.bezig"));
 
     // Tier A — vaste betaallink (bijv. een Stripe Payment Link met bedrag)
     if (link) {
@@ -89,10 +90,7 @@ export function startBedragKiezen() {
       throw new Error("geen betaal-URL");
     } catch {
       bezig = false;
-      meld(
-        "Online doneren lukt nu even niet. Je kunt je druppel ook overmaken via de IBAN hieronder — alvast bedankt.",
-        true,
-      );
+      meld(t("doneren.foutMelding"), true);
     }
   }
 
