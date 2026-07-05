@@ -31,7 +31,8 @@ export const campagne = {
   // normaal hoef je het niet aan te raken (het wordt automatisch overschreven).
   opgehaaldCents: 0,
 
-  // ✏️ WERK DIT BIJ: de datum die bij de teller staat ("Stand per …").
+  // Alleen voor je eigen administratie: de teller op de site is nu live en
+  // toont geen "Stand per …"-datum meer.
   laatsteUpdate: "21 juni 2026",
 
   // ✏️ De overdrachtsdatum: de dag dat het pand bij de notaris van ons wordt.

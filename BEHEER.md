@@ -29,7 +29,8 @@ laatsteUpdate: "12 juni 2026",
 - **buitenStripeCents** = het TOTAAL van alle donaties buiten de site, **in centen**.
   Dus € 20.000 → `2000000` (plak twee nullen achter het bedrag in euro's zonder
   punten: 20000 → 2000000). Dit wordt automatisch bij de online donaties opgeteld.
-- **laatsteUpdate** = de datum die bezoekers zien bij "Stand per …".
+- **laatsteUpdate** = alleen voor je eigen administratie. De teller op de site
+  is nu **live** en toont geen "Stand per …"-datum meer.
 
 Sla op en publiceer (zie stap 5). De totale stand, de druppels, de golven en het
 waterpeil in de koepel rekenen zichzelf uit: online donaties + buitenStripeCents
