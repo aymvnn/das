@@ -80,8 +80,17 @@ function toonBedankt() {
 }
 
 function opTaalWissel() {
-  // Dynamische, vertaalde teksten opnieuw in de gekozen taal zetten.
-  renderTeller();
+  // Dynamische, datagedreven blokken (teller, teams, acties, overdracht,
+  // gedeelde WhatsApp-tekst) opnieuw in de gekozen taal opbouwen. renderAlles
+  // is idempotent: teams-/actielijsten worden eerst geleegd.
+  renderAlles();
+
+  // Nieuw opgebouwde teams/acties meteen tonen (geen her-animatie/flits) en
+  // hun voortgangsbalken opnieuw laten vullen.
+  document
+    .querySelectorAll("[data-teams-lijst] [data-reveal], [data-acties-lijst] [data-reveal]")
+    .forEach((el) => el.classList.add("is-zichtbaar"));
+  startTeamBalken();
 }
 
 function init() {

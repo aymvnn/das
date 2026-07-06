@@ -267,10 +267,10 @@
 .uitleg-stap::after {
   content: "";
   position: absolute;
-  left: 18px;
+  inset-inline-start: 18px;
   top: 2.9rem;
   bottom: calc(var(--sp-md) * -1 - 0.35rem);
-  border-left: 1.5px dotted var(--c-aqua-deep);
+  border-inline-start: 1.5px dotted var(--c-aqua-deep);
 }
 .uitleg-stap:last-child::after { display: none; }
 
@@ -377,7 +377,7 @@
   transition: background-color var(--duur-snel) ease;
 }
 .golf-item .golf-naam { font-weight: 600; color: var(--c-navy); white-space: nowrap; }
-.golf-item .golf-bedrag { margin-left: auto; white-space: nowrap; }
+.golf-item .golf-bedrag { margin-inline-start: auto; white-space: nowrap; }
 .golf-status {
   width: 19px;
   height: 19px;
@@ -555,7 +555,7 @@
   max-width: 420px;
   font-variant-numeric: tabular-nums;
   background: var(--c-azure-zacht);
-  border-left: 3px solid var(--c-azure);
+  border-inline-start: 3px solid var(--c-azure);
   border-radius: var(--radius-sm);
   padding: clamp(0.9rem, 2.5vw, 1.25rem) clamp(1rem, 3vw, 1.5rem);
 }
@@ -607,14 +607,14 @@
 .stap {
   counter-increment: stap;
   position: relative;
-  padding-left: 4.25rem;
+  padding-inline-start: 4.25rem;
   min-height: 3.5rem;
 }
 .stap::before {
   /* druppelvormig nummer (echte druppel via clip-path) */
   content: counter(stap);
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 0;
   width: 46px;
   height: 58px;
@@ -634,10 +634,10 @@
   /* stippellijn-stroompje naar de volgende stap */
   content: "";
   position: absolute;
-  left: 1.42rem;
+  inset-inline-start: 1.42rem;
   top: 3.8rem;
   bottom: -1.6rem;
-  border-left: 1.5px dotted var(--c-aqua-deep);
+  border-inline-start: 1.5px dotted var(--c-aqua-deep);
 }
 .stap:last-child::after { display: none; }
 .stap h3 { margin-bottom: 0.3rem; }
@@ -658,14 +658,14 @@
 
 @media (min-width: 880px) {
   .stappen { grid-template-columns: repeat(4, 1fr); gap: var(--sp-xl); }
-  .stap { padding-left: 0; padding-top: 4.5rem; }
-  .stap::before { top: 0; left: 0; }
+  .stap { padding-inline-start: 0; padding-top: 4.5rem; }
+  .stap::before { top: 0; inset-inline-start: 0; }
   .stap::after {
-    left: 3.4rem;
-    right: -1.4rem;
+    inset-inline-start: 3.4rem;
+    inset-inline-end: -1.4rem;
     top: 1.7rem;
     bottom: auto;
-    border-left: 0;
+    border-inline-start: 0;
     border-top: 1.5px dotted var(--c-aqua-deep);
   }
   .geen-team {
@@ -1033,8 +1033,10 @@
   color: var(--c-navy);
   background: var(--c-paper-warm);
   border: 1px solid var(--c-line);
-  border-right: 0;
-  border-radius: 999px 0 0 999px;
+  border-inline-end: 0;
+  /* logische hoeken: rond aan de start-zijde (spiegelt vanzelf in RTL) */
+  border-start-start-radius: 999px;
+  border-end-start-radius: 999px;
 }
 .bedrag-ander input {
   flex: 1;
@@ -1050,7 +1052,14 @@
 }
 .bedrag-ander input::placeholder { color: var(--c-ink-soft); font-weight: 400; }
 .bedrag-ander input:focus-visible { outline: 2px solid var(--c-teal); outline-offset: -1px; }
-.bedrag-ander .btn { flex: none; border-radius: 0 999px 999px 0; padding-inline: 1.3em; }
+.bedrag-ander .btn {
+  flex: none;
+  /* logische hoeken: rond aan de end-zijde (spiegelt vanzelf in RTL) */
+  border-radius: 0;
+  border-start-end-radius: 999px;
+  border-end-end-radius: 999px;
+  padding-inline: 1.3em;
+}
 
 .doneer-status {
   text-align: center;
@@ -1094,7 +1103,7 @@
   padding: 6px;
 }
 .qr-doneren-code svg { width: 100%; height: 100%; display: block; }
-.qr-doneren p { font-size: var(--t-sm); color: var(--c-ink-soft); margin: 0; text-align: left; }
+.qr-doneren p { font-size: var(--t-sm); color: var(--c-ink-soft); margin: 0; text-align: start; }
 .qr-doneren strong { color: var(--c-navy); }
 @media (min-width: 760px) {
   .qr-doneren { display: flex; }

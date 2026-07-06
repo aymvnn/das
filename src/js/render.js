@@ -9,11 +9,29 @@ import {
   percentage,
 } from "../../data/campagne.js";
 import { euro, pctTekst, svgEl } from "./utils.js";
-import { t, tf } from "./i18n.js";
+import { t, tf, taal } from "./i18n.js";
 import { logoMarkup, VIEWBOX_W, VIEWBOX_H, DROP_PATH } from "./logo-paths.js";
 
 const qs = (sel, root = document) => root.querySelector(sel);
 const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
+
+// Kies het veld in de actieve taal; val terug op het Nederlands als de
+// _ar-variant leeg of afwezig is.
+const veld = (obj, sleutel) => {
+  if (taal() === "ar") {
+    const ar = obj[`${sleutel}_ar`];
+    if (ar != null && String(ar).trim() !== "") return ar;
+  }
+  return obj[sleutel];
+};
+
+// Kleine HTML-escaper voor datagedreven tekst die via innerHTML wordt gezet.
+const esc = (s) =>
+  String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 
 const VINKJE =
   '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.8 6.2 4.6 9l5.6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -78,7 +96,7 @@ function parseNlDatum(str) {
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
-function renderOverdracht() {
+export function renderOverdracht() {
   const datum = parseNlDatum(campagne.overdrachtsdatum);
   if (!datum) return;
   const vandaag = new Date();
@@ -150,39 +168,47 @@ function renderDruppelraster() {
 
 /* --- Waterdragers-teams --- */
 const NIVEAUS = [
-  [250000, "Druppel"],
-  [500000, "Stroom"],
-  [1000000, "Golf"],
-  [2500000, "Bron"],
+  [250000, "niveau.druppel"],
+  [500000, "niveau.stroom"],
+  [1000000, "niveau.golf"],
+  [2500000, "niveau.bron"],
 ];
 const niveauNaam = (doelCents) => {
-  for (const [cents, naam] of NIVEAUS) if (doelCents <= cents) return naam;
-  return "Bron";
+  for (const [cents, sleutel] of NIVEAUS) if (doelCents <= cents) return t(sleutel);
+  return t("niveau.bron");
 };
 
-function renderTeams() {
+export function renderTeams() {
   const lijst = qs("[data-teams-lijst]");
   if (!lijst) return;
+  lijst.textContent = ""; // idempotent: opnieuw opbouwen bij taalwissel
 
   campagne.teams.forEach((team, i) => {
     const pct = Math.min(100, (team.opgehaaldCents / team.doelCents) * 100);
     const behaald = team.opgehaaldCents >= team.doelCents;
+    const naam = veld(team, "naam");
+    const beschrijving = veld(team, "beschrijving");
+    const ariaVoortgang = tf("js.team.ariaVoortgang", {
+      naam,
+      op: euro(team.opgehaaldCents),
+      doel: euro(team.doelCents),
+    });
     const li = document.createElement("li");
     li.className = `team-rij${behaald ? " is-behaald" : ""}`;
     li.setAttribute("data-reveal", "");
     li.style.setProperty("--i", i % 4);
     li.innerHTML = `
       <div class="team-kop">
-        <h3 class="team-naam">${team.naam}</h3>
+        <h3 class="team-naam">${esc(naam)}</h3>
         <span class="team-niveau${behaald ? " is-behaald" : ""}">${
-          behaald ? "Doel behaald ✓" : niveauNaam(team.doelCents)
+          behaald ? esc(t("js.team.doelBehaald")) : esc(niveauNaam(team.doelCents))
         }</span>
       </div>
-      <p class="team-beschrijving">${team.beschrijving}</p>
+      <p class="team-beschrijving">${esc(beschrijving)}</p>
       <div class="team-voortgang">
         <div class="team-balk" role="progressbar"
              aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(pct)}"
-             aria-label="Voortgang ${team.naam}: ${euro(team.opgehaaldCents)} van ${euro(team.doelCents)}">
+             aria-label="${esc(ariaVoortgang)}">
           <div class="team-balk-vulling" data-balk-pct="${pct}"></div>
         </div>
         <p class="team-cijfers"><strong>${euro(team.opgehaaldCents)}</strong> / ${euro(team.doelCents)}</p>
@@ -192,18 +218,21 @@ function renderTeams() {
 }
 
 /* --- Acties --- */
-function renderActies() {
+export function renderActies() {
   const lijst = qs("[data-acties-lijst]");
   if (!lijst) return;
+  lijst.textContent = ""; // idempotent: opnieuw opbouwen bij taalwissel
   campagne.acties.forEach((actie, i) => {
+    const titel = veld(actie, "titel");
+    const beschrijving = veld(actie, "beschrijving");
     const li = document.createElement("li");
     li.className = "actie-kaart";
     li.setAttribute("data-reveal", "");
     li.style.setProperty("--i", i);
     li.innerHTML = `
-      <img src="/${actie.foto}" alt="${actie.titel}" loading="lazy" width="900" height="675" />
-      <h3>${actie.titel}</h3>
-      <p>${actie.beschrijving}</p>`;
+      <img src="/${esc(actie.foto)}" alt="${esc(titel)}" loading="lazy" width="900" height="675" />
+      <h3>${esc(titel)}</h3>
+      <p>${esc(beschrijving)}</p>`;
     lijst.append(li);
   });
 }
@@ -229,7 +258,7 @@ function renderContactLinks() {
   set("[data-mail-groot]", mail("Grotere bijdrage — Druppels van Sakīnah"));
 
   // Delen: geen nummer — opent de kies-een-chat-lijst van WhatsApp zelf
-  const deelTekst = `Salaam! 💧 Wij kopen samen ons gebedshuis in Capelle, druppel voor druppel. Meedoen kan al vanaf € 10. Kijk en doe mee: ${campagne.siteUrl}`;
+  const deelTekst = tf("js.deelTekst", { url: campagne.siteUrl });
   set("[data-wa-deel]", `https://wa.me/?text=${encodeURIComponent(deelTekst)}`);
 
   set("[data-mail-contact]", mail("Druppels van Sakīnah"));

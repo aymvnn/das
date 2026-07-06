@@ -125,37 +125,37 @@
     <section class="sectie sectie-uitleg" id="zo-werkt" aria-labelledby="uitleg-titel">
       <div class="container">
         <header class="sectie-kop sectie-kop-midden" data-reveal>
-          <p class="kicker">In het kort</p>
-          <h2 id="uitleg-titel">Zo werkt een druppel</h2>
+          <p class="kicker" data-i18n="uitleg.kicker">In het kort</p>
+          <h2 id="uitleg-titel" data-i18n="uitleg.titel">Zo werkt een druppel</h2>
         </header>
 
         <ol class="uitleg-flow" data-reveal aria-label="De campagne in drie stappen">
           <li class="uitleg-stap" style="--i: 0">
             <span class="uitleg-druppel" aria-hidden="true"><svg viewBox="0 0 10 14"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg></span>
-            <p><strong>Eén druppel is €&nbsp;1.000.</strong> Jij doet al mee vanaf €&nbsp;10.</p>
+            <p data-i18n-html="uitleg.stap1"><strong>Eén druppel is €&nbsp;1.000.</strong> Jij doet al mee vanaf €&nbsp;10.</p>
           </li>
           <li class="uitleg-stap" style="--i: 1">
             <span class="uitleg-druppel" aria-hidden="true"><svg viewBox="0 0 10 14"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg></span>
-            <p><strong>400 druppels</strong> vullen samen de koepel.</p>
+            <p data-i18n-html="uitleg.stap2"><strong>400 druppels</strong> vullen samen de koepel.</p>
           </li>
           <li class="uitleg-stap" style="--i: 2">
             <span class="uitleg-druppel" aria-hidden="true"><svg viewBox="0 0 10 14"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg></span>
-            <p><strong>Is de koepel vol, dan is het huis van ons.</strong> Voorgoed.</p>
+            <p data-i18n-html="uitleg.stap3"><strong>Is de koepel vol, dan is het huis van ons.</strong> Voorgoed.</p>
           </li>
         </ol>
 
-        <p class="uitleg-gloss" data-reveal>
+        <p class="uitleg-gloss" data-reveal data-i18n-html="uitleg.gloss">
           En <strong>Waterdragers</strong>? Dat zijn teams van vrienden, familie of buren
           die samen één druppel of meer ophalen.
         </p>
 
         <div class="uitleg-cta" data-reveal>
-          <p class="uitleg-tegaan">
+          <p class="uitleg-tegaan" data-i18n-html="uitleg.tegaan">
             Nog <strong data-druppels-tegaan>…</strong> druppels te gaan tot het huis van ons is.
           </p>
           <div class="uitleg-knoppen">
-            <a class="btn btn-doneer btn-lg" href="#doneren">Doneer jouw druppel</a>
-            <a class="btn btn-ghost" href="#waterdragers">Word Waterdrager</a>
+            <a class="btn btn-doneer btn-lg" href="#doneren" data-i18n="cta.doneer">Doneer jouw druppel</a>
+            <a class="btn btn-ghost" href="#waterdragers" data-i18n="hero.cta.waterdrager">Word Waterdrager</a>
           </div>
         </div>
       </div>
@@ -165,9 +165,9 @@
     <section class="sectie sectie-koepel" id="koepel" aria-labelledby="koepel-titel">
       <div class="container">
         <header class="sectie-kop" data-reveal>
-          <p class="kicker">De stand van het water</p>
-          <h2 id="koepel-titel">Druppel voor druppel<br />vult de koepel zich</h2>
-          <p class="sectie-intro">
+          <p class="kicker" data-i18n="koepel.kicker">De stand van het water</p>
+          <h2 id="koepel-titel" data-i18n-html="koepel.titel">Druppel voor druppel<br />vult de koepel zich</h2>
+          <p class="sectie-intro" data-i18n-html="koepel.intro">
             Elke €&nbsp;1.000 is één druppel. Elke €&nbsp;25.000 vormt samen een golf.
             Zestien golven, en het huis is voorgoed van ons allemaal.
           </p>
@@ -176,12 +176,12 @@
         <figure class="koepel-figuur" data-reveal>
           <div class="koepel-visual" data-koepel role="img" aria-label="De koepel van Dār as-Sakīnah, gevuld met water tot het opgehaalde percentage"></div>
           <figcaption class="koepel-caption">
-            Het water staat op <strong data-pct-lang>…</strong>:
+            <span data-i18n="koepel.captionPre">Het water staat op</span> <strong data-pct-lang>…</strong>:
             <span data-golven-zin>…</span>
           </figcaption>
         </figure>
 
-        <p class="koepel-landing" data-reveal>
+        <p class="koepel-landing" data-reveal data-i18n="koepel.landing">
           En als de koepel vol is? Dan is dit geen campagne meer, maar gewoon
           ons adres: het vrijdaggebed dat elke week groeit en steeds meer mensen
           trekt, de koranschool waar kinderen hun eerste soera's leren, de
@@ -196,9 +196,9 @@
     <section class="sectie sectie-doneren" id="doneren" aria-labelledby="doneren-titel">
       <div class="container container-smal">
         <header class="sectie-kop sectie-kop-midden" data-reveal>
-          <p class="kicker">Doneren</p>
-          <h2 id="doneren-titel">Doneer jouw druppel</h2>
-          <p class="sectie-intro">
+          <p class="kicker" data-i18n="doneren.kicker">Doneren</p>
+          <h2 id="doneren-titel" data-i18n="doneren.titel">Doneer jouw druppel</h2>
+          <p class="sectie-intro" data-i18n="doneren.intro">
             Kies een bedrag en je gaat direct naar de beveiligde betaalpagina:
             iDEAL, creditcard of Apple Pay. Eén tik.
           </p>
@@ -210,15 +210,15 @@
           <li><button type="button" class="chip" data-bedrag-chip data-euro="50">€&nbsp;50</button></li>
           <li><button type="button" class="chip" data-bedrag-chip data-euro="100">€&nbsp;100</button></li>
           <li><button type="button" class="chip" data-bedrag-chip data-euro="250">€&nbsp;250</button></li>
-          <li><button type="button" class="chip chip-druppel" data-bedrag-chip data-euro="1000"><svg class="druppel-icoon" viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg>€&nbsp;1.000 · een hele druppel</button></li>
+          <li><button type="button" class="chip chip-druppel" data-bedrag-chip data-euro="1000"><svg class="druppel-icoon" viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg><span data-i18n-html="doneren.chip1000">€&nbsp;1.000 · een hele druppel</span></button></li>
         </ul>
 
         <form class="bedrag-ander" data-reveal data-bedrag-eigen-form>
-          <label for="eigen-bedrag">Of een ander bedrag</label>
+          <label for="eigen-bedrag" data-i18n="doneren.anderLabel">Of een ander bedrag</label>
           <div class="bedrag-ander-rij">
             <span class="bedrag-euroteken" aria-hidden="true">€</span>
-            <input id="eigen-bedrag" type="number" inputmode="numeric" min="1" max="100000" step="1" placeholder="bijv. 75" data-bedrag-eigen />
-            <button type="submit" class="btn btn-doneer" data-doneer-eigen>Doneer</button>
+            <input id="eigen-bedrag" type="number" inputmode="numeric" min="1" max="100000" step="1" placeholder="bijv. 75" data-bedrag-eigen data-i18n-attr="placeholder:doneren.anderPlaceholder" />
+            <button type="submit" class="btn btn-doneer" data-doneer-eigen data-i18n="doneren.anderKnop">Doneer</button>
           </div>
         </form>
 
@@ -226,52 +226,52 @@
 
         <p class="doneer-veilig" data-reveal>
           <svg class="slot-icoon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5Zm3 8H9V6a3 3 0 0 1 6 0v3Z"/></svg>
-          Veilig betalen via Stripe — wij zien je kaartgegevens nooit.
+          <span data-i18n="doneren.veilig">Veilig betalen via Stripe — wij zien je kaartgegevens nooit.</span>
         </p>
 
         <div class="qr-doneren" data-reveal>
           <div class="qr-doneren-code" data-qr-doneren role="img" aria-label="QR-code om op je telefoon te doneren"></div>
-          <p>Kijk je op de computer? <strong>Scan met je telefoon</strong> en rond je gift onderweg af.</p>
+          <p data-i18n-html="doneren.qr">Kijk je op de computer? <strong>Scan met je telefoon</strong> en rond je gift onderweg af.</p>
         </div>
 
         <p class="chips-groot" data-reveal>
-          Een grotere gift in gedachten?
-          <a class="tekstlink" data-mail-groot href="#">Mail</a> ons gerust
-          persoonlijk. Dat regelen we discreet.
+          <span data-i18n="doneren.grootPre">Een grotere gift in gedachten?</span>
+          <a class="tekstlink" data-mail-groot href="#" data-i18n="doneren.grootMail">Mail</a>
+          <span data-i18n="doneren.grootPost">ons gerust persoonlijk. Dat regelen we discreet.</span>
         </p>
 
         <div class="doneer-kaart" data-reveal>
-          <h3>Liever zelf overmaken?</h3>
-          <p class="doneer-uitleg">
+          <h3 data-i18n="doneren.kaartTitel">Liever zelf overmaken?</h3>
+          <p class="doneer-uitleg" data-i18n-html="doneren.kaartUitleg">
             Maak over op onderstaand rekeningnummer en zet bij de omschrijving
             <strong>„Druppel"</strong>. Doe je mee met een team? Zet er dan je
             teamnaam bij. Dat mag, maar het hoeft niet.
           </p>
           <!-- TODO: laten checken door imam: formulering geven namens een ander / sadaqah jāriyah -->
-          <p class="doneer-uitleg doneer-namens">
+          <p class="doneer-uitleg doneer-namens" data-i18n="doneren.namens">
             Je kunt jouw druppel ook geven namens iemand anders: je ouders,
             je kind, of iemand die er niet meer is. Sadaqah jāriyah telt ook voor
             hen door.
           </p>
           <div class="iban-blok">
-            <p class="iban-label">IBAN</p>
+            <p class="iban-label" data-i18n="doneren.ibanLabel">IBAN</p>
             <p class="iban-nummer" data-iban>NL77 RABO 0170 9862 92</p>
-            <p class="iban-tnv">t.n.v. <span data-tnv>Stichting IV Het Trefpunt</span></p>
+            <p class="iban-tnv"><span data-i18n="doneren.tnvPre">t.n.v.</span> <span data-tnv>Stichting IV Het Trefpunt</span></p>
             <button class="btn btn-secundair" type="button" data-kopieer-iban>
-              <span class="kopieer-tekst">Kopieer IBAN</span>
-              <span class="kopieer-ok" hidden>Gekopieerd ✓</span>
+              <span class="kopieer-tekst" data-i18n="doneren.kopieerIban">Kopieer IBAN</span>
+              <span class="kopieer-ok" hidden data-i18n="doneren.gekopieerd">Gekopieerd ✓</span>
             </button>
           </div>
         </div>
 
         <aside class="dua-blok" data-reveal>
-          <h3>Liever (ook) een duʿā'-verzoek?</h3>
-          <p>
+          <h3 data-i18n="dua.titel">Liever (ook) een duʿā'-verzoek?</h3>
+          <p data-i18n="dua.tekst">
             Wil je dat er voor jou of een naaste duʿā' wordt gedaan? Stuur je
             verzoek mee. Het komt vertrouwelijk bij de imam terecht en wordt
             nooit gedeeld.
           </p>
-          <a class="tekstlink" data-wa-dua href="#">Stuur een vertrouwelijk duʿā'-verzoek</a>
+          <a class="tekstlink" data-wa-dua href="#" data-i18n="dua.knop">Stuur een vertrouwelijk duʿā'-verzoek</a>
         </aside>
       </div>
     </section>
@@ -280,14 +280,14 @@
     <section class="sectie sectie-waarom" id="waarom" aria-labelledby="waarom-titel">
       <div class="container">
         <header class="sectie-kop" data-reveal>
-          <p class="kicker">Waarom dit, waarom nu</p>
-          <h2 id="waarom-titel">Een thuis dat we al jaren dragen.<br />Nu kunnen we het kopen</h2>
+          <p class="kicker" data-i18n="waarom.kicker">Waarom dit, waarom nu</p>
+          <h2 id="waarom-titel" data-i18n-html="waarom.titel">Een thuis dat we al jaren dragen.<br />Nu kunnen we het kopen</h2>
         </header>
 
         <div class="waarom-beat" data-reveal>
           <div class="waarom-tekst">
-            <h3><span class="beat-nr" aria-hidden="true">1</span>Samen opgebouwd</h3>
-            <p>
+            <h3><span class="beat-nr" aria-hidden="true" data-i18n="waarom.beat1.nr">1</span><span data-i18n="waarom.beat1.titel">Samen opgebouwd</span></h3>
+            <p data-i18n="waarom.beat1.tekst">
               Met eigen handen maakten we van dit gebouw een thuis. Vrijwilligers
               sloopten, schilderden en legden vloeren. Vaders en zonen rolden baan
               voor baan het gebedstapijt uit. En elke vrijdag is de zaal voller dan
@@ -296,27 +296,27 @@
             </p>
           </div>
           <figure class="waarom-drieluik">
-            <img src="/assets/img/tapijt-start.webp" alt="De lege zaal met de eerste tapijtbanen klaar om uit te rollen" loading="lazy" width="1200" height="900" />
-            <img src="/assets/img/tapijt-bezig.webp" alt="Een vrijwilliger rolt een baan gebedstapijt uit in de zaal" loading="lazy" width="1200" height="900" />
-            <img src="/assets/img/tapijt-klaar.webp" alt="De gebedszaal met het volledig gelegde blauw-met-terracotta tapijt" loading="lazy" width="1200" height="900" />
-            <figcaption>Eén klusdag in maart: van kale vloer tot gebedszaal, door de gemeenschap zelf.</figcaption>
+            <img src="/assets/img/tapijt-start.webp" alt="De lege zaal met de eerste tapijtbanen klaar om uit te rollen" data-i18n-attr="alt:waarom.beat1.alt1" loading="lazy" width="1200" height="900" />
+            <img src="/assets/img/tapijt-bezig.webp" alt="Een vrijwilliger rolt een baan gebedstapijt uit in de zaal" data-i18n-attr="alt:waarom.beat1.alt2" loading="lazy" width="1200" height="900" />
+            <img src="/assets/img/tapijt-klaar.webp" alt="De gebedszaal met het volledig gelegde blauw-met-terracotta tapijt" data-i18n-attr="alt:waarom.beat1.alt3" loading="lazy" width="1200" height="900" />
+            <figcaption data-i18n="waarom.beat1.cap">Eén klusdag in maart: van kale vloer tot gebedszaal, door de gemeenschap zelf.</figcaption>
           </figure>
         </div>
 
         <div class="waarom-beat waarom-beat-pand" data-reveal>
           <div class="pand-galerij">
             <figure class="waarom-pandfoto">
-              <img src="/assets/img/pand-water-regen.webp" alt="Het pand aan de Borndiep 2B weerspiegeld in het water, terwijl de regen druppelringen op het oppervlak maakt" loading="lazy" width="1920" height="1072" />
-              <figcaption><strong>Borndiep 2B</strong> · Capelle aan den IJssel · het huis van rust, aan het water.</figcaption>
+              <img src="/assets/img/pand-water-regen.webp" alt="Het pand aan de Borndiep 2B weerspiegeld in het water, terwijl de regen druppelringen op het oppervlak maakt" data-i18n-attr="alt:waarom.beat2.altwater" loading="lazy" width="1920" height="1072" />
+              <figcaption data-i18n-html="waarom.beat2.pandcap"><strong>Borndiep 2B</strong> · Capelle aan den IJssel · het huis van rust, aan het water.</figcaption>
             </figure>
             <div class="pand-minis">
-              <img src="/assets/img/pand-lente.webp" alt="Het pand in het voorjaar, met bloeiende tulpen op het terras aan het water" loading="lazy" width="1920" height="1072" />
-              <img src="/assets/img/pand-daken.webp" alt="De karakteristieke terracotta daken van het pand, van bovenaf gezien" loading="lazy" width="1600" height="1195" />
+              <img src="/assets/img/pand-lente.webp" alt="Het pand in het voorjaar, met bloeiende tulpen op het terras aan het water" data-i18n-attr="alt:waarom.beat2.altlente" loading="lazy" width="1920" height="1072" />
+              <img src="/assets/img/pand-daken.webp" alt="De karakteristieke terracotta daken van het pand, van bovenaf gezien" data-i18n-attr="alt:waarom.beat2.altdaken" loading="lazy" width="1600" height="1195" />
             </div>
           </div>
           <div class="waarom-tekst">
-            <h3><span class="beat-nr" aria-hidden="true">2</span>De kans van een generatie</h3>
-            <p>
+            <h3><span class="beat-nr" aria-hidden="true" data-i18n="waarom.beat2.nr">2</span><span data-i18n="waarom.beat2.titel">De kans van een generatie</span></h3>
+            <p data-i18n-html="waarom.beat2.tekst">
               Nu kunnen we het pand aan de Borndiep 2B <em>kopen</em>. De
               koopovereenkomst is op 21 mei 2026 getekend.
               <span data-overdracht-zin>Het aftellen is begonnen</span>. Wat
@@ -331,22 +331,22 @@
 
         <div class="waarom-beat" data-reveal>
           <div class="waarom-tekst">
-            <h3><span class="beat-nr" aria-hidden="true">3</span>Transparantie staat voorop</h3>
-            <p>
+            <h3><span class="beat-nr" aria-hidden="true" data-i18n="waarom.beat3.nr">3</span><span data-i18n="waarom.beat3.titel">Transparantie staat voorop</span></h3>
+            <p data-i18n="waarom.beat3.tekst">
               We halen €&nbsp;400.000 op. Dat dekt de volledige aankoop, niet meer
               en niet minder. Elke euro gaat naar het pand: niets naar salarissen,
               niets naar lopende kosten.
             </p>
             <dl class="bedrag-opbouw">
-              <div><dt>Koopsom Borndiep 2B</dt><dd>€&nbsp;358.422</dd></div>
-              <div><dt>Overdrachtsbelasting</dt><dd>€&nbsp;37.276</dd></div>
-              <div><dt>Notaris &amp; kadaster</dt><dd>€&nbsp;4.302</dd></div>
-              <div class="bedrag-totaal"><dt>Samen</dt><dd>€&nbsp;400.000</dd></div>
+              <div><dt data-i18n="waarom.opbouw.koopsom">Koopsom Borndiep 2B</dt><dd>€&nbsp;358.422</dd></div>
+              <div><dt data-i18n="waarom.opbouw.overdracht">Overdrachtsbelasting</dt><dd>€&nbsp;37.276</dd></div>
+              <div><dt data-i18n-html="waarom.opbouw.notaris">Notaris &amp; kadaster</dt><dd>€&nbsp;4.302</dd></div>
+              <div class="bedrag-totaal"><dt data-i18n="waarom.opbouw.samen">Samen</dt><dd>€&nbsp;400.000</dd></div>
             </dl>
-            <p class="voetnoot">Na afloop publiceren we een volledige financiële verantwoording.</p>
+            <p class="voetnoot" data-i18n="waarom.voetnoot">Na afloop publiceren we een volledige financiële verantwoording.</p>
           </div>
           <figure class="waarom-interieur">
-            <img src="/assets/img/gebedszaal-tapijt.webp" alt="De vernieuwde gebedszaal met blauw tapijt in warm licht" loading="lazy" width="1400" height="1875" />
+            <img src="/assets/img/gebedszaal-tapijt.webp" alt="De vernieuwde gebedszaal met blauw tapijt in warm licht" data-i18n-attr="alt:waarom.beat3.alt" loading="lazy" width="1400" height="1875" />
           </figure>
         </div>
       </div>
@@ -356,32 +356,32 @@
     <section class="sectie sectie-hoe" id="hoe" aria-labelledby="hoe-titel">
       <div class="container">
         <header class="sectie-kop" data-reveal>
-          <p class="kicker">Hoe het werkt</p>
-          <h2 id="hoe-titel">Van groepsapp tot golf,<br />in vier stappen</h2>
+          <p class="kicker" data-i18n="hoe.kicker">Hoe het werkt</p>
+          <h2 id="hoe-titel" data-i18n-html="hoe.titel">Van groepsapp tot golf,<br />in vier stappen</h2>
         </header>
 
         <ol class="stappen">
           <li class="stap" data-reveal style="--i: 0">
-            <h3>Vorm je team</h3>
-            <p>Vrienden, familie, je straat, je werk: vanaf twee mensen ben je een team van Waterdragers.</p>
+            <h3 data-i18n="hoe.stap1.titel">Vorm je team</h3>
+            <p data-i18n="hoe.stap1.tekst">Vrienden, familie, je straat, je werk: vanaf twee mensen ben je een team van Waterdragers.</p>
           </li>
           <li class="stap" data-reveal style="--i: 1">
-            <h3>Kies jullie doel</h3>
-            <p>Druppel (€&nbsp;2.500), Stroom (€&nbsp;5.000), Golf (€&nbsp;10.000) of Bron (€&nbsp;25.000). Kies wat past. Bijstellen mag altijd.</p>
+            <h3 data-i18n="hoe.stap2.titel">Kies jullie doel</h3>
+            <p data-i18n-html="hoe.stap2.tekst">Druppel (€&nbsp;2.500), Stroom (€&nbsp;5.000), Golf (€&nbsp;10.000) of Bron (€&nbsp;25.000). Kies wat past. Bijstellen mag altijd.</p>
           </li>
           <li class="stap" data-reveal style="--i: 2">
-            <h3>Doneer met je teamnaam</h3>
-            <p>Wie meedoet, kan de teamnaam bij de overschrijving zetten. Zo komen jullie druppels samen op deze pagina. Het mag, het hoeft niet.</p>
+            <h3 data-i18n="hoe.stap3.titel">Doneer met je teamnaam</h3>
+            <p data-i18n="hoe.stap3.tekst">Wie meedoet, kan de teamnaam bij de overschrijving zetten. Zo komen jullie druppels samen op deze pagina. Het mag, het hoeft niet.</p>
           </li>
           <li class="stap" data-reveal style="--i: 3">
-            <h3>Doneer, volg en vier</h3>
-            <p>Zie jullie balk stijgen, vier elke mijlpaal in de groepsapp en zie jullie druppels samen de koepel vullen.</p>
+            <h3 data-i18n="hoe.stap4.titel">Doneer, volg en vier</h3>
+            <p data-i18n="hoe.stap4.tekst">Zie jullie balk stijgen, vier elke mijlpaal in de groepsapp en zie jullie druppels samen de koepel vullen.</p>
           </li>
         </ol>
 
         <aside class="geen-team" data-reveal>
-          <p><strong>Geen team?</strong> Doneer gewoon jouw druppel. Meedoen kan al vanaf €&nbsp;10.</p>
-          <a class="btn btn-doneer" href="#doneren">Doneer direct</a>
+          <p data-i18n-html="hoe.geenTeam"><strong>Geen team?</strong> Doneer gewoon jouw druppel. Meedoen kan al vanaf €&nbsp;10.</p>
+          <a class="btn btn-doneer" href="#doneren" data-i18n="hoe.geenTeamKnop">Doneer direct</a>
         </aside>
       </div>
     </section>
@@ -390,19 +390,19 @@
     <section class="sectie sectie-teams" id="waterdragers" aria-labelledby="teams-titel">
       <div class="container">
         <header class="sectie-kop" data-reveal>
-          <p class="kicker">De teams</p>
-          <h2 id="teams-titel">Waterdragers</h2>
-          <p class="sectie-intro">
+          <p class="kicker" data-i18n="teams.kicker">De teams</p>
+          <h2 id="teams-titel" data-i18n="teams.titel">Waterdragers</h2>
+          <p class="sectie-intro" data-i18n="teams.intro">
             Teams die zelfstandig een bedrag bij elkaar brengen, ieder met een
             eigen doel, allemaal voor hetzelfde huis.
           </p>
         </header>
 
-        <ul class="niveau-legenda" data-reveal aria-label="De vier teamdoelen">
-          <li><span class="niveau-naam">Druppel</span> €&nbsp;2.500</li>
-          <li><span class="niveau-naam">Stroom</span> €&nbsp;5.000</li>
-          <li><span class="niveau-naam">Golf</span> €&nbsp;10.000</li>
-          <li><span class="niveau-naam">Bron</span> €&nbsp;25.000</li>
+        <ul class="niveau-legenda" data-reveal aria-label="De vier teamdoelen" data-i18n-attr="aria-label:teams.legendaLabel">
+          <li><span class="niveau-naam" data-i18n="niveau.druppel">Druppel</span> €&nbsp;2.500</li>
+          <li><span class="niveau-naam" data-i18n="niveau.stroom">Stroom</span> €&nbsp;5.000</li>
+          <li><span class="niveau-naam" data-i18n="niveau.golf">Golf</span> €&nbsp;10.000</li>
+          <li><span class="niveau-naam" data-i18n="niveau.bron">Bron</span> €&nbsp;25.000</li>
         </ul>
 
         <ol class="teams-lijst" data-teams-lijst>
@@ -410,15 +410,15 @@
         </ol>
 
         <div class="team-start" data-reveal>
-          <h3>Start jouw team</h3>
-          <p>
+          <h3 data-i18n="teams.startTitel">Start jouw team</h3>
+          <p data-i18n="teams.startTekst">
             Stuur ons een appje met je teamnaam en jullie doel. Wij zetten je
             team binnen een dag op deze pagina. Aanmelden gaat gewoon via WhatsApp,
             zonder formulieren.
           </p>
           <a class="btn btn-primary btn-lg" data-wa-team href="#" rel="noopener">
             <svg class="wa-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.9 9.9 0 0 0-8.5 15.1L2 22l5-1.4A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8Zm-3.1 4c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.5 1 2.6c.1.2 1.8 2.8 4.4 3.8 2.2.9 2.6.7 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.1-.2 0-.4.1-.5l.6-.7c.2-.2.2-.4.1-.6L9.5 8.2c-.1-.3-.3-.4-.6-.4Z"/></svg>
-            Start jouw team via WhatsApp
+            <span data-i18n="teams.startKnop">Start jouw team via WhatsApp</span>
           </a>
         </div>
       </div>
@@ -429,12 +429,12 @@
       <div class="container container-smal">
         <p class="arabisch" lang="ar" dir="rtl" data-reveal>سَكِينَة</p>
         <header class="sectie-kop sectie-kop-midden" data-reveal>
-          <p class="kicker kicker-licht">De betekenis</p>
-          <h2 id="betekenis-titel">De rust die neerdaalt</h2>
+          <p class="kicker kicker-licht" data-i18n="betekenis.kicker">De betekenis</p>
+          <h2 id="betekenis-titel" data-i18n="betekenis.titel">De rust die neerdaalt</h2>
         </header>
 
         <div class="betekenis-tekst" data-reveal>
-          <p>
+          <p data-i18n-html="betekenis.tekst">
             <em>Sakīnah</em> is de rust die Allah laat neerdalen in de harten van
             de gelovigen, een kalmte die je niet kunt kopen of afdwingen, alleen
             ontvangen. Ons gebedshuis draagt die belofte in zijn naam:
@@ -442,28 +442,29 @@
           </p>
 
           <figure class="betekenis-beeld" data-reveal>
-            <img src="/assets/img/moskee-sfeer.webp" alt="Twee kinderen spelen rustig op het gebedstapijt in de lichte, ruime gebedszaal" loading="lazy" width="1600" height="893" />
-            <figcaption>De rust van dit huis, voor wie na ons komt.</figcaption>
+            <img src="/assets/img/moskee-sfeer.webp" alt="Twee kinderen spelen rustig op het gebedstapijt in de lichte, ruime gebedszaal" data-i18n-attr="alt:betekenis.alt" loading="lazy" width="1600" height="893" />
+            <figcaption data-i18n="betekenis.cap">De rust van dit huis, voor wie na ons komt.</figcaption>
           </figure>
 
           <!-- TODO: onderstaande vertalingen en bronvermeldingen definitief laten
-               controleren door de imam vóór livegang. -->
+               controleren door de imam vóór livegang. In AR-modus tonen we de
+               originele Arabische ayah/hadith (authentieker). -->
           <blockquote class="citaat" data-reveal>
-            <p>„Hij is het Die de sakīnah deed neerdalen in de harten van de
+            <p data-i18n="betekenis.citaat1">„Hij is het Die de sakīnah deed neerdalen in de harten van de
             gelovigen, zodat zij geloof toevoegen aan hun geloof."</p>
-            <cite>Koran, Soera Al-Fath 48:4</cite>
+            <cite data-i18n="betekenis.citaat1.bron">Koran, Soera Al-Fath 48:4</cite>
           </blockquote>
 
           <blockquote class="citaat" data-reveal>
-            <p>„Er komt geen volk samen in één van de huizen van Allah, het Boek
+            <p data-i18n="betekenis.citaat2">„Er komt geen volk samen in één van de huizen van Allah, het Boek
             van Allah reciterend en het samen bestuderend, of de sakīnah daalt
             op hen neer, de barmhartigheid omhult hen en de engelen omringen hen."</p>
-            <cite>Overgeleverd in Sahih Muslim 2699</cite>
+            <cite data-i18n="betekenis.citaat2.bron">Overgeleverd in Sahih Muslim 2699</cite>
           </blockquote>
 
           <div class="oermodel" data-reveal>
-            <h3>De put van ʿUthmān</h3>
-            <p>
+            <h3 data-i18n="betekenis.oermodel.titel">De put van ʿUthmān</h3>
+            <p data-i18n-html="betekenis.oermodel.tekst">
               Toen de moslims in Medina dorst leden, kocht ʿUthmān ibn ʿAffān de
               put van Rūma en schonk hem aan de gemeenschap. Veertien eeuwen later
               bestaat zijn waqf nog steeds. Uit die ene gift groeiden palmgaarden,
@@ -472,7 +473,7 @@
             </p>
           </div>
 
-          <p class="betekenis-slot" data-reveal>
+          <p class="betekenis-slot" data-reveal data-i18n="betekenis.slot">
             Eén druppel, eindeloze kringen: bij elk gebed dat hier wordt
             verricht, ontvang jij beloning.
           </p>
@@ -484,23 +485,23 @@
     <section class="sectie sectie-voorwie" id="voorwie" aria-labelledby="voorwie-titel">
       <div class="container container-smal">
         <header class="sectie-kop sectie-kop-midden" data-reveal>
-          <p class="kicker">Jouw druppel</p>
-          <h2 id="voorwie-titel">Voor wie geef jij jouw druppel?</h2>
+          <p class="kicker" data-i18n="voorwie.kicker">Jouw druppel</p>
+          <h2 id="voorwie-titel" data-i18n="voorwie.titel">Voor wie geef jij jouw druppel?</h2>
         </header>
 
         <div class="voorwie-regels">
-          <p data-reveal style="--i: 0"><strong>Voor je ouders</strong>, dat hun gebed hier een vaste plek houdt.</p>
-          <p data-reveal style="--i: 1"><strong>Voor je kinderen</strong>, dat ze hun eerste soera leren in een zaal die van ons is.</p>
-          <p data-reveal style="--i: 2"><strong>Voor wie hier straks zelf vader of moeder is</strong>, en een kind aan de hand mee naar binnen neemt.</p>
-          <p data-reveal style="--i: 3"><strong>Voor jezelf</strong>, voor elke keer dat je hier op adem komt.</p>
+          <p data-reveal style="--i: 0" data-i18n-html="voorwie.regel1"><strong>Voor je ouders</strong>, dat hun gebed hier een vaste plek houdt.</p>
+          <p data-reveal style="--i: 1" data-i18n-html="voorwie.regel2"><strong>Voor je kinderen</strong>, dat ze hun eerste soera leren in een zaal die van ons is.</p>
+          <p data-reveal style="--i: 2" data-i18n-html="voorwie.regel3"><strong>Voor wie hier straks zelf vader of moeder is</strong>, en een kind aan de hand mee naar binnen neemt.</p>
+          <p data-reveal style="--i: 3" data-i18n-html="voorwie.regel4"><strong>Voor jezelf</strong>, voor elke keer dat je hier op adem komt.</p>
         </div>
 
         <figure class="voorwie-beeld" data-reveal>
-          <img src="/assets/img/gemeenschap-gebed.webp" alt="Rijen biddende mannen op het blauwe gebedstapijt, van achteren gezien" loading="lazy" width="1100" height="1467" />
-          <figcaption>Het vrijdaggebed aan de Borndiep, elke week voller.</figcaption>
+          <img src="/assets/img/gemeenschap-gebed.webp" alt="Rijen biddende mannen op het blauwe gebedstapijt, van achteren gezien" data-i18n-attr="alt:voorwie.alt" loading="lazy" width="1100" height="1467" />
+          <figcaption data-i18n="voorwie.cap">Het vrijdaggebed aan de Borndiep, elke week voller.</figcaption>
         </figure>
 
-        <p class="voorwie-slot" data-reveal>Denk aan één naam. Geef voor diegene jouw druppel.</p>
+        <p class="voorwie-slot" data-reveal data-i18n="voorwie.slot">Denk aan één naam. Geef voor diegene jouw druppel.</p>
       </div>
     </section>
 
@@ -509,20 +510,20 @@
       <div class="container">
         <div class="deel-layout">
           <div class="deel-tekst" data-reveal>
-            <p class="kicker">Deel de druppel</p>
-            <h2 id="deel-titel">Eén bericht kan een golf in beweging zetten</h2>
-            <p>
+            <p class="kicker" data-i18n="deel.kicker">Deel de druppel</p>
+            <h2 id="deel-titel" data-i18n="deel.titel">Eén bericht kan een golf in beweging zetten</h2>
+            <p data-i18n="deel.tekst">
               De meeste druppels beginnen met een berichtje in een groepsapp.
               Deel de campagne, of zet de druppelvideo op je WhatsApp-status.
             </p>
             <div class="deel-knoppen">
               <a class="btn btn-primary btn-lg" data-wa-deel href="#" rel="noopener">
                 <svg class="wa-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.9 9.9 0 0 0-8.5 15.1L2 22l5-1.4A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8Zm-3.1 4c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.5 1 2.6c.1.2 1.8 2.8 4.4 3.8 2.2.9 2.6.7 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.1-.2 0-.4.1-.5l.6-.7c.2-.2.2-.4.1-.6L9.5 8.2c-.1-.3-.3-.4-.6-.4Z"/></svg>
-                Deel via WhatsApp
+                <span data-i18n="deel.knop">Deel via WhatsApp</span>
               </a>
               <div class="deel-downloads">
-                <a class="tekstlink" href="/assets/video/logo-druppels-story.mp4" download="druppels-van-sakinah-status.mp4">Download statusvideo (9:16)</a>
-                <a class="tekstlink" href="/assets/video/logo-druppels-vierkant.mp4" download="druppels-van-sakinah-vierkant.mp4">Download vierkante video (1:1)</a>
+                <a class="tekstlink" href="/assets/video/logo-druppels-story.mp4" download="druppels-van-sakinah-status.mp4" data-i18n="deel.download916">Download statusvideo (9:16)</a>
+                <a class="tekstlink" href="/assets/video/logo-druppels-vierkant.mp4" download="druppels-van-sakinah-vierkant.mp4" data-i18n="deel.download11">Download vierkante video (1:1)</a>
               </div>
             </div>
           </div>
@@ -546,8 +547,8 @@
     <section class="sectie sectie-acties" id="acties" aria-labelledby="acties-titel">
       <div class="container">
         <header class="sectie-kop" data-reveal>
-          <p class="kicker">Uit de gemeenschap</p>
-          <h2 id="acties-titel">Tot nu…</h2>
+          <p class="kicker" data-i18n="acties.kicker">Uit de gemeenschap</p>
+          <h2 id="acties-titel" data-i18n="acties.titel">Tot nu…</h2>
         </header>
 
         <ul class="acties-strook" data-acties-lijst>
@@ -555,10 +556,8 @@
         </ul>
 
         <p class="acties-oproep" data-reveal>
-          Organiseer je eigen actie, zoals een bakactie, sponsorloop, carwash
-          of charity-iftar, en
-          <a class="tekstlink" data-wa-actie href="#" rel="noopener">stuur je foto's via WhatsApp</a>.
-          De mooiste acties krijgen een plek op deze pagina.
+          <span data-i18n="acties.oproep.pre">Organiseer je eigen actie, zoals een bakactie, sponsorloop, carwash of charity-iftar, en</span>
+          <a class="tekstlink" data-wa-actie href="#" rel="noopener" data-i18n="acties.oproep.link">stuur je foto's via WhatsApp</a><span data-i18n="acties.oproep.post">. De mooiste acties krijgen een plek op deze pagina.</span>
         </p>
       </div>
     </section>
@@ -567,16 +566,16 @@
     <section class="sectie sectie-sponsors" id="sponsors" aria-labelledby="sponsors-titel">
       <div class="container container-smal">
         <div class="sponsors-kaart" data-reveal>
-          <p class="kicker">Voor bedrijven</p>
-          <h2 id="sponsors-titel">Onderneem mee</h2>
-          <p>
+          <p class="kicker" data-i18n="sponsors.kicker">Voor bedrijven</p>
+          <h2 id="sponsors-titel" data-i18n="sponsors.titel">Onderneem mee</h2>
+          <p data-i18n="sponsors.tekst">
             Ook als bedrijf kun je Waterdrager zijn: vorm een bedrijfsteam met je
             collega's of draag bij in natura: materiaal, vakwerk of diensten voor
             het pand. We denken graag mee over wat bij jouw zaak past.
           </p>
           <div class="sponsors-knoppen">
-            <a class="btn btn-ghost" data-wa-bedrijf href="#" rel="noopener">App met ons</a>
-            <a class="btn btn-ghost" data-mail-bedrijf href="#">Mail de stichting</a>
+            <a class="btn btn-ghost" data-wa-bedrijf href="#" rel="noopener" data-i18n="sponsors.knopApp">App met ons</a>
+            <a class="btn btn-ghost" data-mail-bedrijf href="#" data-i18n="sponsors.knopMail">Mail de stichting</a>
           </div>
         </div>
       </div>
@@ -586,14 +585,14 @@
     <section class="sectie sectie-faq" id="faq" aria-labelledby="faq-titel">
       <div class="container container-smal">
         <header class="sectie-kop" data-reveal>
-          <p class="kicker">Veelgestelde vragen</p>
-          <h2 id="faq-titel">Eerlijke antwoorden</h2>
+          <p class="kicker" data-i18n="faq.kicker">Veelgestelde vragen</p>
+          <h2 id="faq-titel" data-i18n="faq.titel">Eerlijke antwoorden</h2>
         </header>
 
         <div class="faq-lijst" data-reveal>
           <details class="faq-item">
-            <summary>Waar is het geld precies voor?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q1">Waar is het geld precies voor?</summary>
+            <div class="faq-body"><p data-i18n="faq.a1">
               Uitsluitend voor de aankoop van het pand aan de Borndiep 2B in
               Capelle aan den IJssel: de koopsom plus de bijbehorende
               overdrachtskosten. Er gaat niets naar salarissen of lopende kosten.
@@ -601,8 +600,8 @@
           </details>
 
           <details class="faq-item">
-            <summary>Hoe is de € 400.000 opgebouwd?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q2">Hoe is de € 400.000 opgebouwd?</summary>
+            <div class="faq-body"><p data-i18n-html="faq.a2">
               Koopsom €&nbsp;358.422, overdrachtsbelasting circa €&nbsp;37.276 en
               notaris- en kadasterkosten circa €&nbsp;4.302. Samen €&nbsp;400.000.
               Na afloop publiceren we een volledige financiële verantwoording.
@@ -610,8 +609,8 @@
           </details>
 
           <details class="faq-item">
-            <summary>Waarom nu doneren en niet later?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q3">Waarom nu doneren en niet later?</summary>
+            <div class="faq-body"><p data-i18n-html="faq.a3">
               Omdat het aftellen al loopt: de koopovereenkomst is op 21 mei 2026
               getekend en bij de overdracht moet de volledige koopsom klaarstaan.
               <span data-overdracht-zin>De definitieve overdrachtsdatum lees je hier als eerste</span>.
@@ -621,8 +620,8 @@
           </details>
 
           <details class="faq-item">
-            <summary>Zijn donaties anoniem?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q4">Zijn donaties anoniem?</summary>
+            <div class="faq-body"><p data-i18n="faq.a4">
               Ja. Wij publiceren nooit wie wat gaf: geen namen, geen bedragen.
               Op de site zie je alleen totalen en teamtotalen. In stilte geven is
               islamitisch gezien zelfs aanbevolen.
@@ -630,16 +629,16 @@
           </details>
 
           <details class="faq-item">
-            <summary>Kan ik zonder team doneren?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q5">Kan ik zonder team doneren?</summary>
+            <div class="faq-body"><p data-i18n="faq.a5">
               Zeker, de meeste druppels komen van losse gevers. Maak gewoon over
               met de omschrijving „Druppel". Een team is leuk, geen voorwaarde.
             </p></div>
           </details>
 
           <details class="faq-item">
-            <summary>Kan ik gespreid doneren?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q6">Kan ik gespreid doneren?</summary>
+            <div class="faq-body"><p data-i18n-html="faq.a6">
               Ja. Je kunt zelf een periodieke overschrijving instellen in je
               bankapp, bijvoorbeeld €&nbsp;25 per maand. Zet er „Druppel" bij,
               dan telt elke termijn gewoon mee.
@@ -647,8 +646,8 @@
           </details>
 
           <details class="faq-item">
-            <summary>Wat gebeurt er als het doel later of eerder wordt gehaald?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q7">Wat gebeurt er als het doel later of eerder wordt gehaald?</summary>
+            <div class="faq-body"><p data-i18n="faq.a7">
               Elke euro is en blijft geoormerkt voor de aankoop van het pand.
               Gaat het sneller dan gepland: prachtig, dan ronden we eerder af.
               Duurt het langer: dan blijft je bijdrage veilig staan voor precies
@@ -657,8 +656,8 @@
           </details>
 
           <details class="faq-item">
-            <summary>Hoe lang loopt de campagne?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q8">Hoe lang loopt de campagne?</summary>
+            <div class="faq-body"><p data-i18n-html="faq.a8">
               Tot de koepel vol is, en de tijd dringt: de koopovereenkomst is al
               getekend, dus bij de overdracht bij de notaris moet de volledige
               koopsom klaarstaan. <span data-overdracht-zin>Zodra er een definitieve
@@ -671,8 +670,8 @@
           </details>
 
           <details class="faq-item">
-            <summary>Hoe dien ik een duʿā'-verzoek in?</summary>
-            <div class="faq-body"><p>
+            <summary data-i18n="faq.q9">Hoe dien ik een duʿā'-verzoek in?</summary>
+            <div class="faq-body"><p data-i18n="faq.a9">
               Via de knop in de doneer-sectie stuur je je verzoek per e-mail.
               Het komt vertrouwelijk bij de imam terecht en wordt met niemand
               anders gedeeld. Een verzoek insturen kan ook zonder donatie.
@@ -692,11 +691,10 @@
           -->
 
           <details class="faq-item">
-            <summary>Ik heb een andere vraag. Waar kan ik terecht?</summary>
+            <summary data-i18n="faq.q10">Ik heb een andere vraag. Waar kan ik terecht?</summary>
             <div class="faq-body"><p>
-              App ons gerust via de knoppen op deze pagina, of mail naar
-              <a class="tekstlink" data-mail-contact href="#">de stichting</a>.
-              We antwoorden meestal binnen een dag.
+              <span data-i18n="faq.a10.pre">App ons gerust via de knoppen op deze pagina, of mail naar</span>
+              <a class="tekstlink" data-mail-contact href="#" data-i18n="faq.a10.link">de stichting</a><span data-i18n="faq.a10.post">. We antwoorden meestal binnen een dag.</span>
             </p></div>
           </details>
         </div>
@@ -707,7 +705,7 @@
     <div class="sticky-cta" data-sticky-cta hidden>
       <a class="btn btn-doneer btn-lg" href="#doneren">
         <svg class="druppel-icoon" viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg>
-        Doneer jouw druppel
+        <span data-i18n="sticky.doneer">Doneer jouw druppel</span>
       </a>
     </div>
   </main>
@@ -730,13 +728,13 @@
       <div class="container">
         <div class="footer-kop">
           <span class="footer-logo" aria-hidden="true" data-logo-footer></span>
-          <p class="footer-claim">Elke druppel telt.<br />Samen vullen we het huis van rust.</p>
-          <a class="btn btn-doneer btn-lg" href="#doneren">Doneer jouw druppel</a>
+          <p class="footer-claim" data-i18n-html="footer.claim">Elke druppel telt.<br />Samen vullen we het huis van rust.</p>
+          <a class="btn btn-doneer btn-lg" href="#doneren" data-i18n="cta.doneer">Doneer jouw druppel</a>
         </div>
 
         <div class="footer-gegevens">
           <div>
-            <h3>Stichting</h3>
+            <h3 data-i18n="footer.stichting">Stichting</h3>
             <p>
               Stichting IV Het Trefpunt<br />
               <span class="footer-sub">Islamitisch Verbindingshuis Het Trefpunt</span><br />
@@ -746,25 +744,25 @@
             <p class="footer-sub">KvK <span data-kvk>99465655</span></p>
           </div>
           <div>
-            <h3>Doneren</h3>
+            <h3 data-i18n="footer.doneren">Doneren</h3>
             <p>
               <span data-iban>NL77 RABO 0170 9862 92</span><br />
-              t.n.v. <span data-tnv>Stichting IV Het Trefpunt</span><br />
-              o.v.v. „Druppel" + eventueel je teamnaam
+              <span data-i18n="doneren.tnvPre">t.n.v.</span> <span data-tnv>Stichting IV Het Trefpunt</span><br />
+              <span data-i18n="footer.ovv">o.v.v. „Druppel" + eventueel je teamnaam</span>
             </p>
           </div>
           <div>
-            <h3>Contact</h3>
+            <h3 data-i18n="footer.contact">Contact</h3>
             <p>
-              <a class="tekstlink-licht" data-mail-contact href="#">E-mail de stichting</a><br />
-              <a class="tekstlink-licht" data-wa-contact href="#" rel="noopener">WhatsApp-community</a><br />
-              <a class="tekstlink-licht" href="/privacy.html">Privacy</a>
+              <a class="tekstlink-licht" data-mail-contact href="#" data-i18n="footer.email">E-mail de stichting</a><br />
+              <a class="tekstlink-licht" data-wa-contact href="#" rel="noopener" data-i18n="footer.whatsapp">WhatsApp-community</a><br />
+              <a class="tekstlink-licht" href="/privacy.html" data-i18n="footer.privacy">Privacy</a>
             </p>
           </div>
         </div>
 
         <div class="footer-social" data-reveal>
-          <span class="footer-social-label">Volg ons</span>
+          <span class="footer-social-label" data-i18n="footer.volgOns">Volg ons</span>
           <a class="social-link" data-social-instagram href="#" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
           </a>
@@ -777,7 +775,7 @@
         </div>
 
         <p class="footer-noot">
-          Geen cookies, geen trackers, alleen druppels. ·
+          <span data-i18n="footer.noot">Geen cookies, geen trackers, alleen druppels. ·</span>
           <span data-jaar>2026</span> Dār as-Sakīnah
         </p>
       </div>

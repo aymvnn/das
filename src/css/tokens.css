@@ -108,3 +108,9 @@
 html.is-ar {
   --font-sans: var(--font-ar);
 }
+/* Arabisch schrift is cursief verbonden: letter-spacing breekt de ligaturen.
+   Zet daarom in AR-modus alle tracking terug naar normaal (specificiteit
+   0-1-1 overschrijft de losse .kicker/cite/label-regels zonder !important). */
+html.is-ar * {
+  letter-spacing: normal;
+}
