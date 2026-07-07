@@ -21,6 +21,7 @@ import {
 import { startIbanKopieren, startBedragKiezen, startQrDoneren, startFaq } from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
 import { initI18n, zetTaal, taal, t } from "./i18n.js";
+import { inject as injectAnalytics } from "@vercel/analytics";
 
 /* --- Stand ophalen ---
    De totale stand = online Stripe-donaties (/api/total) + het handmatige
@@ -94,6 +95,11 @@ function opTaalWissel() {
 }
 
 function init() {
+  // Cookieloze, privacyvriendelijke bezoekersstatistieken (Vercel Web Analytics):
+  // telt paginaweergaven zonder cookies, zonder persoonsgegevens en zonder
+  // cross-site tracking. Zie de privacyverklaring.
+  injectAnalytics();
+
   // Taal (bewaarde keuze) + statische teksten toepassen, vóór het renderen
   initI18n(opTaalWissel);
   const taalKnop = document.querySelector("[data-taal-knop]");

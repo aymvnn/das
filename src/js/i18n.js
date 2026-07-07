@@ -103,7 +103,7 @@ const T = {
     "footer.whatsapp": "WhatsApp-community",
     "footer.privacy": "Privacy",
     "footer.volgOns": "Volg ons",
-    "footer.noot": "Geen cookies, geen trackers, alleen druppels. ·",
+    "footer.noot": "Geen cookies, geen advertenties, alleen druppels. ·",
 
     // --- Waarom ---
     "waarom.kicker": "Waarom dit, waarom nu",
@@ -241,9 +241,9 @@ const T = {
     "privacy.docTitle": "Privacy · Druppels van Sakīnah",
     "privacy.kicker": "Privacy",
     "privacy.h1": "Kort en eerlijk",
-    "privacy.p1": "Deze website is gebouwd om je te informeren en niets meer. We houden je niet in de gaten en we verzamelen niets over je.",
-    "privacy.h2a": "Geen cookies, geen trackers",
-    "privacy.p2": "Deze site plaatst geen cookies, gebruikt geen analytics en laadt niets van advertentie- of socialmediabedrijven. Lettertypen, beelden en video's worden vanaf onze eigen server geladen. Er kijkt geen derde partij mee.",
+    "privacy.p1": "Deze website is gebouwd om je te informeren en niets meer. We volgen je niet en verzamelen geen persoonsgegevens over je.",
+    "privacy.h2a": "Privacyvriendelijk, zonder cookies",
+    "privacy.p2": "Deze site plaatst geen cookies en toont geen advertenties. Om te zien hoevéél mensen de campagne bezoeken, gebruiken we alleen cookieloze, privacyvriendelijke bezoekersstatistieken (Vercel Web Analytics): die tellen paginaweergaven zonder je te volgen tussen websites, zonder persoonsgegevens op te slaan en zonder een profiel van je te maken. Lettertypen, beelden en video's laden vanaf onze eigen server; we laden niets van advertentie- of socialmediabedrijven.",
     "privacy.h2b": "Wat we wél (even) verwerken",
     "privacy.li1": "<strong>Als je ons appt of mailt:</strong> dan zien we natuurlijk je nummer of e-mailadres en je bericht. Dat gebruiken we alleen om je te antwoorden en bewaren we niet langer dan nodig.",
     "privacy.li2": "<strong>Als je doneert per bankoverschrijving:</strong> dan staat je naam op ons bankafschrift, zoals bij elke overboeking. We publiceren nooit wie wat gaf en delen donateursgegevens met niemand.",
@@ -366,7 +366,7 @@ const T = {
     "footer.whatsapp": "مجتمع واتساب",
     "footer.privacy": "الخصوصية",
     "footer.volgOns": "تابِعنا",
-    "footer.noot": "لا ملفات تعريف، لا متتبّعات، قطراتٌ فقط. ·",
+    "footer.noot": "لا ملفات تعريف، لا إعلانات، قطراتٌ فقط. ·",
 
     // --- Waarom ---
     "waarom.kicker": "لماذا الآن، ولماذا هذا",
@@ -504,9 +504,9 @@ const T = {
     "privacy.docTitle": "الخصوصية · قطرات السكينة",
     "privacy.kicker": "الخصوصية",
     "privacy.h1": "بإيجازٍ وصِدق",
-    "privacy.p1": "بُني هذا الموقع ليُعلِمك، لا أكثر. نحن لا نراقبك، ولا نجمع عنك شيئًا.",
-    "privacy.h2a": "لا ملفات تعريف، لا متتبّعات",
-    "privacy.p2": "لا يضع هذا الموقع ملفات تعريف، ولا يستخدم أدوات تحليل، ولا يُحمّل شيئًا من شركات الإعلان أو التواصل الاجتماعي. الخطوط والصور ومقاطع الفيديو تُحمَّل من خادمنا الخاص. ولا يطّلع عليها أيّ طرفٍ ثالث.",
+    "privacy.p1": "بُني هذا الموقع ليُعلِمك، لا أكثر. نحن لا نتعقّبك، ولا نجمع عنك بياناتٍ شخصية.",
+    "privacy.h2a": "خصوصيةٌ محترمة، دون ملفات تعريف",
+    "privacy.p2": "لا يضع هذا الموقع ملفات تعريف ولا يعرض إعلانات. ولمعرفة عدد زوّار الحملة فقط، نستخدم إحصاءات زياراتٍ محترمةً للخصوصية وخاليةً من ملفات التعريف (Vercel Web Analytics): تَعُدّ مشاهدات الصفحات دون تعقّبك عبر المواقع، ودون تخزين بياناتٍ شخصية، ودون إنشاء ملفٍّ تعريفيّ عنك. أمّا الخطوط والصور ومقاطع الفيديو فتُحمَّل من خادمنا الخاص؛ ولا نُحمّل شيئًا من شركات الإعلان أو التواصل الاجتماعي.",
     "privacy.h2b": "ما الذي نعالجه (مؤقّتًا) فعلًا",
     "privacy.li1": "<strong>إن راسلتنا على واتساب أو بالبريد:</strong> فسنرى بالطبع رقمك أو بريدك الإلكتروني ورسالتك. نستخدم ذلك فقط للردّ عليك، ولا نحتفظ به أطول من اللازم.",
     "privacy.li2": "<strong>إن تبرّعت بتحويلٍ مصرفي:</strong> فسيظهر اسمك في كشف حسابنا، كما في أيّ تحويل. لكنّنا لا ننشر أبدًا مَن تبرّع بماذا، ولا نشارك بيانات المتبرّعين مع أحد.",

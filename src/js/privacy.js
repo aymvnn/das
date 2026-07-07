@@ -7,6 +7,10 @@ import "../css/scenes.css";
 import { campagne } from "../../data/campagne.js";
 import { logoMarkup, VIEWBOX_W, VIEWBOX_H } from "./logo-paths.js";
 import { initI18n, zetTaal, taal, t } from "./i18n.js";
+import { inject as injectAnalytics } from "@vercel/analytics";
+
+// Zelfde cookieloze bezoekersstatistieken als op de hoofdpagina.
+injectAnalytics();
 
 const mini = document.querySelector("[data-logo-mini]");
 if (mini) {
