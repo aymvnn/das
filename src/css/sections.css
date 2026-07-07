@@ -159,6 +159,18 @@
   color: var(--c-teal);
   margin-bottom: var(--sp-sm);
 }
+/* Descriptor: benoemt in één oogopslag wát dit is (onze moskee) en wáár, hoog
+   in de hero. Klein pin-icoon + plaats. */
+.hero-descriptor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: -0.15rem 0 0.5rem;
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--c-navy);
+}
+.hero-descriptor svg { width: 15px; height: 15px; color: var(--c-teal); flex: none; }
 .hero-title {
   font-size: var(--t-display);
   line-height: 1.04;
@@ -247,6 +259,13 @@
   font-size: var(--t-sm);
   font-style: italic;
   color: var(--c-ink-soft);
+}
+
+/* Mobiel: compactere druppelanimatie + iets minder hero-padding, zodat de kern
+   (kicker + descriptor + titel + begin van de teller) samen boven de vouw valt. */
+@media (max-width: 640px) {
+  .hero-anim { width: clamp(120px, 30vw, 200px); margin-bottom: clamp(0.4rem, 1.4vh, 1.2rem); }
+  .hero { padding-block: clamp(4.5rem, 11vh, 8rem) clamp(3rem, 7vh, 6rem); }
 }
 
 .scroll-hint {

@@ -26,6 +26,7 @@ const T = {
 
     // --- Hero ---
     "hero.kicker": "Druppels van Sakīnah",
+    "hero.descriptor": "Onze moskee in Capelle aan den IJssel",
     "hero.titel": "Samen vullen we<br />het huis van rust",
     "hero.lead":
       'Wij, vaders, moeders, kinderen en grootouders van Dār as-Sakīnah in Capelle aan den IJssel, kopen ons eigen gebedshuis. Niet alleen met grote gevers, maar juist ook met honderden kleine druppels. <strong>Jij doet al mee vanaf €&nbsp;10.</strong>',
@@ -289,6 +290,7 @@ const T = {
 
     // --- Hero ---
     "hero.kicker": "قطرات السكينة",
+    "hero.descriptor": "مسجدنا في كابيله آن دن آيسل",
     "hero.titel": "معًا نملأ<br />بيت السكينة",
     "hero.lead":
       'نحن، آباءُ وأمهاتُ وأبناءُ وأجدادُ «دار السكينة» في كابيله آن دن آيسل، نشتري بيت عبادتنا الخاص. ليس بالمتبرعين الكبار وحدهم، بل قبل كل شيء بمئات القطرات الصغيرة. <strong>تُشارك بدءًا من €&nbsp;10.</strong>',
