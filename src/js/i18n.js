@@ -169,7 +169,7 @@ const T = {
     "betekenis.tekst":
       "<em>Sakīnah</em> is de rust die Allah laat neerdalen in de harten van de gelovigen, een kalmte die je niet kunt kopen of afdwingen, alleen ontvangen. Ons gebedshuis draagt die belofte in zijn naam: Dār as-Sakīnah, het huis van rust.",
     "betekenis.cap": "De rust van dit huis, voor wie na ons komt.",
-    "betekenis.alt": "Twee kinderen spelen rustig op het gebedstapijt in de lichte, ruime gebedszaal",
+    "betekenis.alt": "Rijen gebedstapijt in blauw en zand vullen de lichte, ruime gebedszaal",
     "betekenis.citaat1": "„Hij is het Die de sakīnah deed neerdalen in de harten van de gelovigen, zodat zij geloof toevoegen aan hun geloof.\"",
     "betekenis.citaat1.bron": "Koran, Soera Al-Fath 48:4",
     "betekenis.citaat2": "„Er komt geen volk samen in één van de huizen van Allah, het Boek van Allah reciterend en het samen bestuderend, of de sakīnah daalt op hen neer, de barmhartigheid omhult hen en de engelen omringen hen.\"",
@@ -433,7 +433,7 @@ const T = {
     "betekenis.tekst":
       "<em>السكينة</em> هي الطمأنينة التي يُنزِلها الله في قلوب المؤمنين، سكونٌ لا يُشترى ولا يُنتزَع، بل يُوهَب وهبًا. وبيت عبادتنا يحمل هذا الوعد في اسمه: دار السكينة، بيت الطمأنينة.",
     "betekenis.cap": "سكينة هذا البيت، لمن يأتي بعدنا.",
-    "betekenis.alt": "طفلان يلعبان بهدوء على سجّاد الصلاة في قاعةٍ فسيحةٍ مضيئة",
+    "betekenis.alt": "صفوف من سجاد الصلاة بالألوان الأزرق والرملي تملأ قاعة الصلاة الفسيحة والمضيئة",
     "betekenis.citaat1": "﴿هُوَ الَّذِي أَنزَلَ السَّكِينَةَ فِي قُلُوبِ الْمُؤْمِنِينَ لِيَزْدَادُوا إِيمَانًا مَّعَ إِيمَانِهِمْ﴾",
     "betekenis.citaat1.bron": "القرآن الكريم، سورة الفتح ٤٨:٤",
     "betekenis.citaat2": "«ما اجتمع قومٌ في بيتٍ من بيوت الله يتلون كتاب الله ويتدارسونه بينهم إلّا نزلت عليهم السكينة، وغشِيتهم الرحمة، وحفّتهم الملائكة، وذكرهم الله فيمن عنده.»",

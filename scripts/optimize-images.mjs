@@ -25,6 +25,8 @@ const JOBS = [
   // Interieur
   [path.join(AI, "Keep_the_existing_composition,_layout,_202606112313.jpeg"), "gebedszaal-tapijt.webp", 1400, 80],
   [path.join(AI, "childrenplayinginmosque.jpeg"), "moskee-sfeer.webp", 1600, 78],
+  [path.join(SRC, "Keep_the_existing_composition,_architecture_202607071003.jpeg"), "gebedszaal-compleet.webp", 1800, 80],
+  [path.join(SRC, "Prayer_hall_interior_morning_day…_202607070956.jpeg"), "gebedszaal-compleet-hoek.webp", 1600, 78],
   [path.join(DRIVE, "IMG_1183.jpeg"), "tapijt-daglicht.webp", 1400, 78],
   // Privacy: gemeenschapsfoto bewust klein houden zodat niemand herkenbaar is
   [path.join(DRIVE, "IMG_1188.jpeg"), "gemeenschap-gebed.webp", 1100, 75],
