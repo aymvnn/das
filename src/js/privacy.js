@@ -8,9 +8,14 @@ import { campagne } from "../../data/campagne.js";
 import { logoMarkup, VIEWBOX_W, VIEWBOX_H } from "./logo-paths.js";
 import { initI18n, zetTaal, taal, t } from "./i18n.js";
 import { inject as injectAnalytics } from "@vercel/analytics";
+import { startCookieToestemming } from "./consent.js";
 
 // Zelfde cookieloze bezoekersstatistieken als op de hoofdpagina.
 injectAnalytics();
+
+// Zelfde cookiebanner voor Microsoft Clarity als op de hoofdpagina, plus de
+// "cookie-instellingen wijzigen"-link hieronder op deze pagina.
+startCookieToestemming();
 
 const mini = document.querySelector("[data-logo-mini]");
 if (mini) {

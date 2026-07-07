@@ -40,6 +40,9 @@ svg {
   display: none !important;
 }
 
+/* Zet op <html> zolang de video-lightbox open staat */
+html.geen-scroll { overflow: hidden; }
+
 img {
   height: auto;
 }

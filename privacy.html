@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy · Druppels van Sakīnah</title>
-  <meta name="description" content="Privacyverklaring van de campagnewebsite Druppels van Sakīnah: geen cookies, geen advertenties, alleen cookieloze en privacyvriendelijke bezoekersstatistieken." />
+  <meta name="description" content="Privacyverklaring van de campagnewebsite Druppels van Sakīnah: standaard geen cookies of advertenties, cookieloze bezoekersstatistieken, en optionele sessie-analyse (Microsoft Clarity) alleen met jouw toestemming." />
   <meta name="robots" content="noindex" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <script type="module" src="/src/js/privacy.js"></script>
@@ -46,6 +46,19 @@
         niets van advertentie- of socialmediabedrijven.
       </p>
 
+      <h2 data-i18n="privacy.h2clarity">Extra sessie-analyse, alleen met jouw toestemming</h2>
+      <p data-i18n-html="privacy.pClarity">
+        Als je bij de cookiebanner op ‘Accepteren’ klikt, gebruiken we daarnaast
+        Microsoft Clarity: die laat ons anoniem zien hoe bezoekers door de site
+        klikken en scrollen (met heatmaps en schermopnames, waarbij ingevulde
+        velden automatisch gemaskeerd worden), zodat we de site kunnen
+        verbeteren. Clarity plaatst dan cookies en deelt gegevens met Microsoft,
+        volgens het <a class="tekstlink" href="https://clarity.microsoft.com/terms" rel="noopener" target="_blank">privacybeleid van Clarity</a>.
+        Kies je voor ‘Weigeren’, dan laden we Clarity niet en verandert er niets
+        aan de rest van deze pagina. Je kunt je keuze altijd wijzigen via
+        <a class="tekstlink" href="#" data-cookie-instellingen>cookie-instellingen wijzigen</a>.
+      </p>
+
       <h2 data-i18n="privacy.h2b">Wat we wél (even) verwerken</h2>
       <ul>
         <li data-i18n-html="privacy.li1">
@@ -80,5 +93,18 @@
       <p><a class="tekstlink" href="/" data-i18n="privacy.terug">← Terug naar de campagne</a></p>
     </div>
   </main>
+
+  <!-- Cookiebanner: Microsoft Clarity laadt pas ná akkoord -->
+  <div class="cookie-banner" data-cookie-banner hidden role="dialog" aria-label="Cookie-toestemming">
+    <div class="cookie-banner-inner">
+      <p data-i18n-html="cookies.tekst">
+        We gebruiken alleen analyse-cookies (Microsoft Clarity) als je daarmee instemt, om te zien hoe bezoekers de site gebruiken. Lees onze <a class="tekstlink" href="/privacy.html">privacyverklaring</a>.
+      </p>
+      <div class="cookie-banner-knoppen">
+        <button type="button" class="btn btn-ghost" data-cookie-weigeren data-i18n="cookies.weigeren">Weigeren</button>
+        <button type="button" class="btn btn-primary" data-cookie-accepteren data-i18n="cookies.accepteren">Accepteren</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

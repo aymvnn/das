@@ -1302,6 +1302,211 @@
   .deel-layout { grid-template-columns: 7fr 5fr; }
 }
 
+/* --- Campagnevideo-carrousel --- */
+.video-carrousel-blok { margin-top: clamp(3rem, 8vw, 5rem); }
+.video-carrousel-titel { font-size: var(--t-h3); color: var(--c-navy); }
+.video-carrousel-uitleg {
+  margin-top: 0.4rem;
+  max-width: 60ch;
+  color: var(--c-ink-soft);
+  font-size: var(--t-sm);
+}
+
+.video-carrousel-wrap {
+  position: relative;
+  margin-top: var(--sp-lg);
+}
+.video-carrousel {
+  display: flex;
+  gap: clamp(0.7rem, 2vw, 1.1rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  list-style: none;
+  padding: 0.4rem 0.1rem 1rem;
+  margin: -0.4rem -0.1rem -1rem;
+}
+.video-carrousel::-webkit-scrollbar { display: none; }
+.video-carrousel > li { flex: 0 0 auto; scroll-snap-align: start; }
+
+.video-kaart {
+  position: relative;
+  display: block;
+  width: clamp(120px, 26vw, 152px);
+  aspect-ratio: 9 / 16;
+  border: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--c-navy);
+  box-shadow: var(--schaduw-zacht);
+  transition: transform var(--duur-basis) var(--ease-water);
+}
+.video-kaart:hover,
+.video-kaart:focus-visible { transform: translateY(-4px); }
+.video-kaart img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-kaart::after {
+  /* leesbaarheid label onderin */
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(23, 32, 61, 0.85), rgba(23, 32, 61, 0));
+  pointer-events: none;
+}
+.video-kaart-speel {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--c-teal-btn);
+  box-shadow: 0 6px 18px -6px rgba(23, 32, 61, 0.5);
+  transition: transform var(--duur-snel) ease;
+}
+.video-kaart-speel svg { width: 1.1rem; height: 1.1rem; translate: 1px 0; fill: currentColor; }
+.video-kaart:hover .video-kaart-speel,
+.video-kaart:focus-visible .video-kaart-speel { transform: scale(1.08); }
+.video-kaart-label {
+  position: absolute;
+  inset-inline: 0.6rem;
+  bottom: 0.55rem;
+  color: #fff;
+  font-size: var(--t-xs);
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: start;
+}
+
+.carrousel-pijl {
+  display: none;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 1;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 0;
+  background: var(--c-paper-warm);
+  color: var(--c-navy);
+  box-shadow: var(--schaduw-zacht);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+.carrousel-pijl svg { width: 1.1rem; height: 1.1rem; }
+.carrousel-pijl-l { inset-inline-start: -1.2rem; }
+.carrousel-pijl-r { inset-inline-end: -1.2rem; }
+.carrousel-pijl[hidden] { display: none; }
+@media (min-width: 700px) {
+  .carrousel-pijl { display: flex; }
+}
+
+/* --- Video-lightbox (voorbeeld bekijken + delen/downloaden) --- */
+.video-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+.video-lightbox-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 20, 38, 0.86);
+  backdrop-filter: blur(2px);
+}
+.video-lightbox-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--sp-md);
+  justify-items: center;
+  width: min(92vw, 360px);
+}
+.video-lightbox-scherm {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #000;
+  box-shadow: var(--schaduw-diep);
+}
+.video-lightbox-video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+
+.video-lightbox-sluit {
+  position: absolute;
+  top: 0.6rem;
+  inset-inline-end: 0.6rem;
+  z-index: 1;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(15, 20, 38, 0.55);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.video-lightbox-sluit svg { width: 1rem; height: 1rem; }
+
+.video-lightbox-pijl {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+}
+.video-lightbox-pijl svg { width: 1.2rem; height: 1.2rem; }
+.video-lightbox-pijl-l { inset-inline-start: -0.5rem; }
+.video-lightbox-pijl-r { inset-inline-end: -0.5rem; }
+@media (min-width: 640px) {
+  .video-lightbox-pijl-l { inset-inline-start: -3.4rem; }
+  .video-lightbox-pijl-r { inset-inline-end: -3.4rem; }
+}
+
+.video-lightbox-acties { width: 100%; text-align: center; }
+.video-lightbox-titel {
+  color: var(--c-ivoor-licht);
+  font-weight: 600;
+  margin-bottom: var(--sp-sm);
+}
+.video-lightbox-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  justify-content: center;
+}
+.video-lightbox-knoppen .btn-ghost {
+  color: #fff;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.55);
+}
+.video-lightbox-knoppen .btn-ghost:hover { background: rgba(255, 255, 255, 0.1); }
+
 /* ===================== 8 · ACTIES ===================== */
 .sectie-acties { background: var(--c-paper); }
 
@@ -1441,6 +1646,33 @@
 .sticky-cta .btn { width: min(100%, 420px); }
 @media (min-width: 880px) {
   .sticky-cta { display: none; }
+}
+
+/* ===================== COOKIEBANNER (Microsoft Clarity) =====================
+   Bewust een compacte kaart rechtsonder (niet volle breedte) zodat hij nooit
+   botst met de sticky doneer-CTA onderin op mobiel. */
+.cookie-banner {
+  position: fixed;
+  z-index: 45;
+  inset-inline-end: 1rem;
+  bottom: 5.5rem;
+  width: min(92vw, 380px);
+  background: var(--c-paper-warm);
+  border-radius: var(--radius-md);
+  box-shadow: var(--schaduw-diep);
+  padding: 1.1rem 1.25rem;
+}
+.cookie-banner-inner { display: grid; gap: var(--sp-md); }
+.cookie-banner p { margin: 0; font-size: var(--t-sm); color: var(--c-ink-soft); }
+.cookie-banner-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+  justify-content: flex-end;
+}
+.cookie-banner .btn { padding: 0.6em 1.15em; font-size: var(--t-sm); }
+@media (min-width: 880px) {
+  .cookie-banner { bottom: 1.5rem; }
 }
 
 /* ===================== 11 · FOOTER ===================== */

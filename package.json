@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "assets": "node scripts/optimize-images.mjs"
+    "assets": "node scripts/optimize-images.mjs",
+    "videos": "node scripts/prepare-campagne-videos.mjs"
   },
   "devDependencies": {
     "sharp": "^0.34.2",

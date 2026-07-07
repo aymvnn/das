@@ -104,7 +104,7 @@ const T = {
     "footer.whatsapp": "WhatsApp-community",
     "footer.privacy": "Privacy",
     "footer.volgOns": "Volg ons",
-    "footer.noot": "Geen cookies, geen advertenties, alleen druppels. ·",
+    "footer.noot": "Geen cookies zonder toestemming, geen advertenties, alleen druppels. ·",
 
     // --- Waarom ---
     "waarom.kicker": "Waarom dit, waarom nu",
@@ -196,7 +196,24 @@ const T = {
     "deel.tekst": "De meeste druppels beginnen met een berichtje in een groepsapp. Deel de campagne, of zet de druppelvideo op je WhatsApp-status.",
     "deel.knop": "Deel via WhatsApp",
     "deel.download916": "Download statusvideo (9:16)",
-    "deel.download11": "Download vierkante video (1:1)",
+    "deel.downloadAlles": "Download alle campagnevideo's (zip)",
+    "deel.carrousel.titel": "Campagnevideo's om te delen",
+    "deel.carrousel.uitleg": "Tik op een video om ’m te bekijken. Deel ’m direct via WhatsApp, of download ’m los.",
+    "deel.carrousel.vorige": "Vorige video's",
+    "deel.carrousel.volgende": "Volgende video's",
+    "deel.video.story1": "Eén druppel, eindeloze kringen",
+    "deel.video.story3": "Het aftellen is begonnen",
+    "deel.video.campagne1": "Elke euro telt",
+    "deel.video.campagne2": "Capelle krijgt een moskee",
+    "deel.video.campagne3": "We kopen ons gebouw",
+    "deel.video.campagne4": "Jouw gift telt mee",
+    "deel.video.water1": "Duizend druppels, één moskee",
+    "deel.video.water2": "Jouw gift is een druppel",
+    "deel.lightbox.deel": "Deel via WhatsApp",
+    "deel.lightbox.download": "Download",
+    "deel.lightbox.sluiten": "Sluiten",
+    "deel.lightbox.vorige": "Vorige video",
+    "deel.lightbox.volgende": "Volgende video",
 
     // --- Acties ---
     "acties.kicker": "Uit de gemeenschap",
@@ -243,8 +260,10 @@ const T = {
     "privacy.kicker": "Privacy",
     "privacy.h1": "Kort en eerlijk",
     "privacy.p1": "Deze website is gebouwd om je te informeren en niets meer. We volgen je niet en verzamelen geen persoonsgegevens over je.",
-    "privacy.h2a": "Privacyvriendelijk, zonder cookies",
-    "privacy.p2": "Deze site plaatst geen cookies en toont geen advertenties. Om te zien hoevéél mensen de campagne bezoeken, gebruiken we alleen cookieloze, privacyvriendelijke bezoekersstatistieken (Vercel Web Analytics): die tellen paginaweergaven zonder je te volgen tussen websites, zonder persoonsgegevens op te slaan en zonder een profiel van je te maken. Lettertypen, beelden en video's laden vanaf onze eigen server; we laden niets van advertentie- of socialmediabedrijven.",
+    "privacy.h2a": "Privacyvriendelijk, met keuze over cookies",
+    "privacy.p2": "Deze site plaatst standaard geen cookies en toont geen advertenties. Om te zien hoevéél mensen de campagne bezoeken, gebruiken we altijd cookieloze, privacyvriendelijke bezoekersstatistieken (Vercel Web Analytics): die tellen paginaweergaven zonder je te volgen tussen websites, zonder persoonsgegevens op te slaan en zonder een profiel van je te maken. Lettertypen, beelden en video's laden vanaf onze eigen server; we laden niets van advertentie- of socialmediabedrijven.",
+    "privacy.h2clarity": "Extra sessie-analyse, alleen met jouw toestemming",
+    "privacy.pClarity": "Als je bij de cookiebanner op ‘Accepteren’ klikt, gebruiken we daarnaast Microsoft Clarity: die laat ons anoniem zien hoe bezoekers door de site klikken en scrollen (met heatmaps en schermopnames, waarbij ingevulde velden automatisch gemaskeerd worden), zodat we de site kunnen verbeteren. Clarity plaatst dan cookies en deelt gegevens met Microsoft, volgens het <a class=\"tekstlink\" href=\"https://clarity.microsoft.com/terms\" rel=\"noopener\" target=\"_blank\">privacybeleid van Clarity</a>. Kies je voor ‘Weigeren’, dan laden we Clarity niet en verandert er niets aan de rest van deze pagina. Je kunt je keuze altijd wijzigen via <a class=\"tekstlink\" href=\"#\" data-cookie-instellingen>cookie-instellingen wijzigen</a>.",
     "privacy.h2b": "Wat we wél (even) verwerken",
     "privacy.li1": "<strong>Als je ons appt of mailt:</strong> dan zien we natuurlijk je nummer of e-mailadres en je bericht. Dat gebruiken we alleen om je te antwoorden en bewaren we niet langer dan nodig.",
     "privacy.li2": "<strong>Als je doneert per bankoverschrijving:</strong> dan staat je naam op ons bankafschrift, zoals bij elke overboeking. We publiceren nooit wie wat gaf en delen donateursgegevens met niemand.",
@@ -255,6 +274,12 @@ const T = {
     "privacy.vragenPre": "Mail ons via",
     "privacy.vragenPost": ". We antwoorden meestal binnen een dag.",
     "privacy.terug": "← Terug naar de campagne",
+
+    // --- Cookiebanner (Microsoft Clarity) ---
+    "cookies.tekst":
+      'We gebruiken alleen analyse-cookies (Microsoft Clarity) als je daarmee instemt, om te zien hoe bezoekers de site gebruiken. Lees onze <a class="tekstlink" href="/privacy.html">privacyverklaring</a>.',
+    "cookies.accepteren": "Accepteren",
+    "cookies.weigeren": "Weigeren",
 
     // --- Dynamische zinnen (JS) ---
     "js.druppelsZin": "{druppels} van de {totaal} druppels gevuld",
@@ -271,6 +296,8 @@ const T = {
     "js.team.ariaLegenda": "Voortgang {naam}: {op} van {doel}",
     "js.deelTekst":
       "Salaam! 💧 Wij kopen samen ons gebedshuis in Capelle, druppel voor druppel. Meedoen kan al vanaf € 10. Kijk en doe mee: {url}",
+    "js.deelVideoTekst":
+      "Salaam! 💧 Bekijk deze video van Druppels van Sakīnah — “{titel}”: {url}",
   },
 
   ar: {
@@ -368,7 +395,7 @@ const T = {
     "footer.whatsapp": "مجتمع واتساب",
     "footer.privacy": "الخصوصية",
     "footer.volgOns": "تابِعنا",
-    "footer.noot": "لا ملفات تعريف، لا إعلانات، قطراتٌ فقط. ·",
+    "footer.noot": "لا ملفات تعريف دون موافقتك، لا إعلانات، قطراتٌ فقط. ·",
 
     // --- Waarom ---
     "waarom.kicker": "لماذا الآن، ولماذا هذا",
@@ -460,7 +487,24 @@ const T = {
     "deel.tekst": "معظم القطرات تبدأ برسالةٍ في مجموعة دردشة. انشُر الحملة، أو ضَع فيديو القطرة على حالتك في واتساب.",
     "deel.knop": "انشُر عبر واتساب",
     "deel.download916": "حمِّل فيديو الحالة (٩:١٦)",
-    "deel.download11": "حمِّل الفيديو المربّع (١:١)",
+    "deel.downloadAlles": "حمِّل جميع فيديوهات الحملة (ملف مضغوط)",
+    "deel.carrousel.titel": "فيديوهات الحملة للمشاركة",
+    "deel.carrousel.uitleg": "اضغط على فيديو لمشاهدته. شاركه مباشرة عبر واتساب، أو حمّله على حدة.",
+    "deel.carrousel.vorige": "الفيديوهات السابقة",
+    "deel.carrousel.volgende": "الفيديوهات التالية",
+    "deel.video.story1": "قطرة واحدة، دوائر لا تنتهي",
+    "deel.video.story3": "العدّ التنازلي بدأ",
+    "deel.video.campagne1": "كل يورو له قيمة",
+    "deel.video.campagne2": "كابيله تحصل على مسجد",
+    "deel.video.campagne3": "نشتري مبنانا الخاص",
+    "deel.video.campagne4": "عطاؤك له قيمة",
+    "deel.video.water1": "ألف قطرة، مسجدٌ واحد",
+    "deel.video.water2": "عطاؤك قطرة",
+    "deel.lightbox.deel": "شارك عبر واتساب",
+    "deel.lightbox.download": "تحميل",
+    "deel.lightbox.sluiten": "إغلاق",
+    "deel.lightbox.vorige": "الفيديو السابق",
+    "deel.lightbox.volgende": "الفيديو التالي",
 
     // --- Acties ---
     "acties.kicker": "من قلب الجماعة",
@@ -507,8 +551,10 @@ const T = {
     "privacy.kicker": "الخصوصية",
     "privacy.h1": "بإيجازٍ وصِدق",
     "privacy.p1": "بُني هذا الموقع ليُعلِمك، لا أكثر. نحن لا نتعقّبك، ولا نجمع عنك بياناتٍ شخصية.",
-    "privacy.h2a": "خصوصيةٌ محترمة، دون ملفات تعريف",
-    "privacy.p2": "لا يضع هذا الموقع ملفات تعريف ولا يعرض إعلانات. ولمعرفة عدد زوّار الحملة فقط، نستخدم إحصاءات زياراتٍ محترمةً للخصوصية وخاليةً من ملفات التعريف (Vercel Web Analytics): تَعُدّ مشاهدات الصفحات دون تعقّبك عبر المواقع، ودون تخزين بياناتٍ شخصية، ودون إنشاء ملفٍّ تعريفيّ عنك. أمّا الخطوط والصور ومقاطع الفيديو فتُحمَّل من خادمنا الخاص؛ ولا نُحمّل شيئًا من شركات الإعلان أو التواصل الاجتماعي.",
+    "privacy.h2a": "خصوصيةٌ محترمة، مع خيارٍ حول ملفات التعريف",
+    "privacy.p2": "لا يضع هذا الموقع بشكلٍ افتراضي ملفات تعريف ولا يعرض إعلانات. ولمعرفة عدد زوّار الحملة فقط، نستخدم دائمًا إحصاءات زياراتٍ محترمةً للخصوصية وخاليةً من ملفات التعريف (Vercel Web Analytics): تَعُدّ مشاهدات الصفحات دون تعقّبك عبر المواقع، ودون تخزين بياناتٍ شخصية، ودون إنشاء ملفٍّ تعريفيّ عنك. أمّا الخطوط والصور ومقاطع الفيديو فتُحمَّل من خادمنا الخاص؛ ولا نُحمّل شيئًا من شركات الإعلان أو التواصل الاجتماعي.",
+    "privacy.h2clarity": "تحليل جلساتٍ إضافي، بموافقتك فقط",
+    "privacy.pClarity": "إذا ضغطت على «قبول» في نافذة ملفات التعريف، فسنستخدم إضافةً إلى ذلك Microsoft Clarity: الذي يُظهر لنا بشكلٍ مجهول كيف ينقر الزوّار ويمرّرون عبر الموقع (بخرائط حرارية وتسجيلات شاشة، مع إخفاء الحقول المُدخَلة تلقائيًا)، لنتمكّن من تحسين الموقع. عندها يضع Clarity ملفات تعريف ويشارك بياناتٍ مع Microsoft، وفق <a class=\"tekstlink\" href=\"https://clarity.microsoft.com/terms\" rel=\"noopener\" target=\"_blank\">سياسة خصوصية Clarity</a>. أمّا إذا اخترت «رفض»، فلن نُحمّل Clarity ولن يتغيّر شيءٌ آخر في هذه الصفحة. يمكنك تغيير اختيارك في أي وقت عبر <a class=\"tekstlink\" href=\"#\" data-cookie-instellingen>تعديل إعدادات ملفات التعريف</a>.",
     "privacy.h2b": "ما الذي نعالجه (مؤقّتًا) فعلًا",
     "privacy.li1": "<strong>إن راسلتنا على واتساب أو بالبريد:</strong> فسنرى بالطبع رقمك أو بريدك الإلكتروني ورسالتك. نستخدم ذلك فقط للردّ عليك، ولا نحتفظ به أطول من اللازم.",
     "privacy.li2": "<strong>إن تبرّعت بتحويلٍ مصرفي:</strong> فسيظهر اسمك في كشف حسابنا، كما في أيّ تحويل. لكنّنا لا ننشر أبدًا مَن تبرّع بماذا، ولا نشارك بيانات المتبرّعين مع أحد.",
@@ -519,6 +565,12 @@ const T = {
     "privacy.vragenPre": "راسِلنا على",
     "privacy.vragenPost": ". نردّ عادةً خلال يوم.",
     "privacy.terug": "→ العودة إلى الحملة",
+
+    // --- نافذة ملفات التعريف (Microsoft Clarity) ---
+    "cookies.tekst":
+      'نستخدم فقط ملفات تعريف تحليلية (Microsoft Clarity) إذا وافقت على ذلك، لنرى كيف يستخدم الزوّار الموقع. اقرأ <a class="tekstlink" href="/privacy.html">سياسة الخصوصية</a>.',
+    "cookies.accepteren": "قبول",
+    "cookies.weigeren": "رفض",
 
     // --- Dynamische zinnen (JS) ---
     "js.druppelsZin": "امتلأت {druppels} من أصل {totaal} قطرة",
@@ -535,6 +587,8 @@ const T = {
     "js.team.ariaLegenda": "تقدّم {naam}: {op} من {doel}",
     "js.deelTekst":
       "سلام! 💧 نشتري معًا بيت عبادتنا في كابيله، قطرةً بعد قطرة. المشاركة تبدأ من €10. شاهِد وشارِك: {url}",
+    "js.deelVideoTekst":
+      "سلام! 💧 شاهِد هذا الفيديو من حملة قطرات السكينة — «{titel}»: {url}",
   },
 };
 

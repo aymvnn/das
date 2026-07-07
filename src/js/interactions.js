@@ -1,6 +1,28 @@
-// Interacties: IBAN kopiëren, doneren (één tik), QR naar de betaalpagina, FAQ.
+// Interacties: IBAN kopiëren, doneren (één tik), QR naar de betaalpagina, FAQ,
+// videovoorbeeld-carrousel.
 import { campagne } from "../../data/campagne.js";
-import { t } from "./i18n.js";
+import { t, tf, taal } from "./i18n.js";
+
+/* --- Taalgevoelige video-varianten (bv. story-1 heeft een Arabische inspreek-
+   /tekstversie). Kaarten zonder -ar-attributen vallen gewoon terug op de
+   standaardwaarde. --- */
+function huidigeBron(kaart) {
+  return taal() === "ar" && kaart.dataset.srcAr ? kaart.dataset.srcAr : kaart.dataset.src;
+}
+function huidigePoster(kaart) {
+  return taal() === "ar" && kaart.dataset.posterAr ? kaart.dataset.posterAr : kaart.dataset.poster;
+}
+function huidigBestand(kaart) {
+  return taal() === "ar" && kaart.dataset.bestandAr ? kaart.dataset.bestandAr : kaart.dataset.bestand;
+}
+
+/* Ververst de zichtbare kaart-posters na een taalwissel (bv. story-1-AR). */
+export function ververVideoPosters() {
+  document.querySelectorAll("[data-video-kaart]").forEach((kaart) => {
+    const img = kaart.querySelector("img");
+    if (img) img.src = huidigePoster(kaart);
+  });
+}
 
 /* --- IBAN kopiëren met bevestiging --- */
 export function startIbanKopieren() {
@@ -127,6 +149,154 @@ export async function startQrDoneren() {
     const blok = el.closest(".qr-doneren");
     if (blok) blok.hidden = true;
   }
+}
+
+/* --- Campagnevideo-carrousel: bekijken, delen via WhatsApp, downloaden ---
+   Elke kaart draagt zijn eigen bron/poster/bestandsnaam/titel-sleutel in
+   data-attributen. Tikken opent een story-achtige lightbox met de video; van
+   daaruit kan direct gedeeld (Web Share met het echte bestand — de sharesheet
+   biedt WhatsApp als optie — met een download+wa.me-terugval waar dat niet
+   kan) of gedownload worden. De rail scrollt native (swipe/scrollbar); de
+   pijlen zijn een extra, geen vervanging. --- */
+export function startVideoCarrousel() {
+  const rail = document.querySelector("[data-video-carrousel]");
+  const lightbox = document.querySelector("[data-video-lightbox]");
+  if (!rail || !lightbox) return;
+
+  const kaarten = Array.from(rail.querySelectorAll("[data-video-kaart]"));
+  if (!kaarten.length) return;
+
+  ververVideoPosters(); // meteen de juiste taalvariant tonen (bv. bij direct laden in AR)
+
+  const vorigeBtn = document.querySelector("[data-carrousel-prev]");
+  const volgendeBtn = document.querySelector("[data-carrousel-next]");
+  const scroll = (richting) => {
+    const stap = (kaarten[0]?.offsetWidth || 150) + 16;
+    rail.scrollBy({ left: richting * stap, behavior: "smooth" });
+  };
+  vorigeBtn?.addEventListener("click", () => scroll(-1));
+  volgendeBtn?.addEventListener("click", () => scroll(1));
+
+  const updatePijlen = () => {
+    if (!vorigeBtn || !volgendeBtn) return;
+    const maxScroll = rail.scrollWidth - rail.clientWidth - 2;
+    vorigeBtn.hidden = rail.scrollLeft <= 2;
+    volgendeBtn.hidden = rail.scrollLeft >= maxScroll;
+  };
+  rail.addEventListener("scroll", updatePijlen, { passive: true });
+  window.addEventListener("resize", updatePijlen);
+  updatePijlen();
+
+  const video = lightbox.querySelector("[data-video-lightbox-el]");
+  const titelEl = lightbox.querySelector("[data-video-lightbox-titel]");
+  const deelBtn = lightbox.querySelector("[data-video-lightbox-deel]");
+  const downloadLink = lightbox.querySelector("[data-video-lightbox-download]");
+  const sluitEls = lightbox.querySelectorAll("[data-video-lightbox-close]");
+  const prevBtn = lightbox.querySelector("[data-video-lightbox-prev]");
+  const nextBtn = lightbox.querySelector("[data-video-lightbox-next]");
+
+  let huidige = 0;
+  let laatstGefocust = null;
+
+  async function deelVideo(src, bestandsnaam, titel) {
+    const tekst = tf("js.deelVideoTekst", { titel, url: `${location.origin}${src}` });
+
+    if (navigator.share && navigator.canShare) {
+      try {
+        const resp = await fetch(src);
+        const blob = await resp.blob();
+        const file = new File([blob], bestandsnaam, { type: blob.type || "video/mp4" });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], text: tekst });
+          return;
+        }
+      } catch (err) {
+        if (err && err.name === "AbortError") return; // gebruiker annuleerde zelf
+        // anders: val terug op onderstaande route (bv. desktop zonder file-share)
+      }
+    }
+
+    const a = document.createElement("a");
+    a.href = src;
+    a.download = bestandsnaam;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    window.open(`https://wa.me/?text=${encodeURIComponent(tekst)}`, "_blank", "noopener");
+  }
+
+  function laadKaart(index) {
+    huidige = (index + kaarten.length) % kaarten.length;
+    const kaart = kaarten[huidige];
+    const src = huidigeBron(kaart);
+    const bestand = huidigBestand(kaart);
+    const titel = t(kaart.dataset.titelKey);
+
+    video.pause();
+    video.setAttribute("poster", huidigePoster(kaart));
+    video.src = src;
+    video.load();
+    video.play().catch(() => {});
+
+    titelEl.textContent = titel;
+    downloadLink.href = src;
+    downloadLink.setAttribute("download", bestand);
+    deelBtn.onclick = () => deelVideo(src, bestand, titel);
+  }
+
+  function toetsen(e) {
+    if (e.key === "Escape") {
+      sluit();
+      return;
+    }
+    if (e.key === "ArrowRight") {
+      laadKaart(huidige + (document.documentElement.dir === "rtl" ? -1 : 1));
+      return;
+    }
+    if (e.key === "ArrowLeft") {
+      laadKaart(huidige + (document.documentElement.dir === "rtl" ? 1 : -1));
+      return;
+    }
+    if (e.key === "Tab") {
+      const lijst = Array.from(lightbox.querySelectorAll("button, a[href]")).filter(
+        (el) => !el.hidden,
+      );
+      if (!lijst.length) return;
+      const eerste = lijst[0];
+      const laatste = lijst[lijst.length - 1];
+      if (e.shiftKey && document.activeElement === eerste) {
+        e.preventDefault();
+        laatste.focus();
+      } else if (!e.shiftKey && document.activeElement === laatste) {
+        e.preventDefault();
+        eerste.focus();
+      }
+    }
+  }
+
+  function open(index) {
+    laatstGefocust = document.activeElement;
+    laadKaart(index);
+    lightbox.hidden = false;
+    document.documentElement.classList.add("geen-scroll");
+    sluitEls[0]?.focus();
+    document.addEventListener("keydown", toetsen);
+  }
+
+  function sluit() {
+    lightbox.hidden = true;
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+    document.documentElement.classList.remove("geen-scroll");
+    document.removeEventListener("keydown", toetsen);
+    laatstGefocust?.focus();
+  }
+
+  kaarten.forEach((kaart, i) => kaart.addEventListener("click", () => open(i)));
+  sluitEls.forEach((el) => el.addEventListener("click", sluit));
+  prevBtn?.addEventListener("click", () => laadKaart(huidige - 1));
+  nextBtn?.addEventListener("click", () => laadKaart(huidige + 1));
 }
 
 /* --- FAQ: vloeiend open- en dichtvouwen --- */

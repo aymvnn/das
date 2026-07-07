@@ -18,10 +18,18 @@ import {
   startLazyVideos,
   plaatsGolfDividers,
 } from "./motion.js";
-import { startIbanKopieren, startBedragKiezen, startQrDoneren, startFaq } from "./interactions.js";
+import {
+  startIbanKopieren,
+  startBedragKiezen,
+  startQrDoneren,
+  startFaq,
+  startVideoCarrousel,
+  ververVideoPosters,
+} from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
 import { initI18n, zetTaal, taal, t } from "./i18n.js";
 import { inject as injectAnalytics } from "@vercel/analytics";
+import { startCookieToestemming } from "./consent.js";
 
 /* --- Stand ophalen ---
    De totale stand = online Stripe-donaties (/api/total) + het handmatige
@@ -92,6 +100,10 @@ function opTaalWissel() {
     .querySelectorAll("[data-teams-lijst] [data-reveal], [data-acties-lijst] [data-reveal]")
     .forEach((el) => el.classList.add("is-zichtbaar"));
   startTeamBalken();
+
+  // Videokaarten met een taalgevoelige variant (bv. story-1-AR) tonen meteen
+  // de juiste poster na het wisselen van taal.
+  ververVideoPosters();
 }
 
 function init() {
@@ -99,6 +111,10 @@ function init() {
   // telt paginaweergaven zonder cookies, zonder persoonsgegevens en zonder
   // cross-site tracking. Zie de privacyverklaring.
   injectAnalytics();
+
+  // Microsoft Clarity (sessie-opnames/heatmaps) laadt pas ná expliciete
+  // toestemming via de cookiebanner — dit plaatst wél cookies.
+  startCookieToestemming();
 
   // Taal (bewaarde keuze) + statische teksten toepassen, vóór het renderen
   initI18n(opTaalWissel);
@@ -135,6 +151,7 @@ function init() {
   startBedragKiezen();
   startQrDoneren();
   startFaq();
+  startVideoCarrousel();
   toonBedankt();
 
   // 4. Stripe-donaties erbij tellen en daarna live blijven verversen,
