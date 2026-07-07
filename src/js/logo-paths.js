@@ -1,5 +1,8 @@
 // Exacte SVG-paden uit LOGO_DAR_AS_SAKINA_SVG_NOBG.svg — niet hertekend.
 // (Zelfde data als in het Remotion-project das-logo-video.)
+// Officiële bron (7 juli 2026): newlogo-DAS/DarAsSakinaiconsvg.svg — het
+// pictogram zelf is ongewijzigd t.o.v. deze paden, alleen als los, officieel
+// merkbestand aangeleverd (naast de wide- en capelle-varianten met wordmark).
 // Coördinatenruimte: viewBox "0 0 208 300" met de originele transformatieketen.
 
 export const VIEWBOX_W = 208;
