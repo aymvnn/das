@@ -96,9 +96,47 @@
 .hero-bg {
   position: absolute;
   inset: 0;
+  overflow: clip;
+  background: var(--c-paper);
+}
+/* Het pand aan het water als scherpe, hoogwaardige achtergrond. Geen blur
+   (dat oogt goedkoop) — alleen een fractie ontzadigd zodat het rode baksteen
+   niet met het merkpalet vloekt. De leesbaarheid regelen we met de scrim. */
+.hero-bg-foto {
+  position: absolute;
+  inset: 0;
+  background: url("/assets/img/pand-water-regen.webp") center 46% / cover no-repeat;
+  filter: saturate(0.9) contrast(1.02);
+}
+/* Meerlaags scrim bovenop de foto:
+   1) aqua-gloed bovenin (merksfeer);
+   2) zachte vignette — de zijranden lossen op in het papier, zodat het beeld
+      uit de achtergrond "opdoemt" i.p.v. een harde rechthoekige foto te zijn;
+   3) verticale leesbaarheids-scrim: sterker in het midden (beschermt titel +
+      lead), laat de waterspiegeling met regendruppels onderin doorkomen, en
+      fade't onderin volledig naar papier → naadloze overgang, geen snijrand. */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(120% 64% at 50% -6%, var(--c-aqua) 0%, rgba(228, 244, 241, 0) 62%),
-    var(--c-paper);
+    radial-gradient(120% 58% at 50% -10%, var(--c-aqua) 0%, rgba(228, 244, 241, 0) 60%),
+    radial-gradient(
+      140% 125% at 50% 42%,
+      rgba(242, 241, 238, 0) 52%,
+      rgba(242, 241, 238, 0.32) 84%,
+      rgba(242, 241, 238, 0.7) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(242, 241, 238, 0.5) 0%,
+      rgba(242, 241, 238, 0.74) 24%,
+      rgba(242, 241, 238, 0.8) 46%,
+      rgba(242, 241, 238, 0.63) 66%,
+      rgba(242, 241, 238, 0.44) 85%,
+      rgba(242, 241, 238, 0.76) 94%,
+      rgba(242, 241, 238, 1) 100%
+    );
 }
 .hero-inner {
   position: relative;
@@ -188,6 +226,14 @@
   color: var(--c-ink-soft);
 }
 .teller-toelichting { color: inherit; }
+/* Zachte papier-halo tilt de kleinere tellerregels van de foto-achtergrond,
+   zodat ze scherp leesbaar blijven zonder het waterdetail te dempen. */
+.teller-doel,
+.teller-druppels,
+.teller-aftellen,
+.teller-stand {
+  text-shadow: 0 1px 2px rgba(242, 241, 238, 0.95), 0 0 12px rgba(242, 241, 238, 0.85);
+}
 
 .hero-cta {
   margin-top: clamp(1.5rem, 4vh, 2.25rem);
