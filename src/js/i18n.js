@@ -275,9 +275,9 @@ const T = {
     "privacy.vragenPost": ". We antwoorden meestal binnen een dag.",
     "privacy.terug": "← Terug naar de campagne",
 
-    // --- Cookiebanner (Microsoft Clarity) ---
+    // --- Cookiebanner (algemeen; welke dienst het precies is staat in de privacyverklaring) ---
     "cookies.tekst":
-      'We gebruiken alleen analyse-cookies (Microsoft Clarity) als je daarmee instemt, om te zien hoe bezoekers de site gebruiken. Lees onze <a class="tekstlink" href="/privacy.html">privacyverklaring</a>.',
+      'We gebruiken alleen analyse-cookies als je daarmee instemt, om te zien hoe bezoekers de site gebruiken. Lees onze <a class="tekstlink" href="/privacy.html">privacyverklaring</a>.',
     "cookies.accepteren": "Accepteren",
     "cookies.weigeren": "Weigeren",
 
@@ -566,9 +566,9 @@ const T = {
     "privacy.vragenPost": ". نردّ عادةً خلال يوم.",
     "privacy.terug": "→ العودة إلى الحملة",
 
-    // --- نافذة ملفات التعريف (Microsoft Clarity) ---
+    // --- نافذة ملفات التعريف (عامة؛ اسم الخدمة تحديدًا مذكور في سياسة الخصوصية) ---
     "cookies.tekst":
-      'نستخدم فقط ملفات تعريف تحليلية (Microsoft Clarity) إذا وافقت على ذلك، لنرى كيف يستخدم الزوّار الموقع. اقرأ <a class="tekstlink" href="/privacy.html">سياسة الخصوصية</a>.',
+      'نستخدم فقط ملفات تعريف تحليلية إذا وافقت على ذلك، لنرى كيف يستخدم الزوّار الموقع. اقرأ <a class="tekstlink" href="/privacy.html">سياسة الخصوصية</a>.',
     "cookies.accepteren": "قبول",
     "cookies.weigeren": "رفض",
 
