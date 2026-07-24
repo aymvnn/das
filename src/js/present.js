@@ -7,7 +7,7 @@ import "../css/scenes.css";
 import "../css/present.css";
 
 import { renderTeller } from "./render.js";
-import { bouwKoepel, updateKoepel } from "./koepel.js";
+import { bouwKoepel, updateKoepel, startLevendWater } from "./koepel.js";
 import { startTeller, updateTellerNaar } from "./motion.js";
 import { startQrDoneren } from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
@@ -61,6 +61,7 @@ function init() {
   campagne.opgehaaldCents = standCents(0);
   renderTeller();
   bouwKoepel();
+  startLevendWater(); // continue, rustige ademing van het wateroppervlak
   startTeller();
   startQrDoneren();
 

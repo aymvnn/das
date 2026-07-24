@@ -37,9 +37,23 @@ import {
 } from "./utils.js";
 
 // Verwijzingen zodat de koepel live kan meebewegen met nieuwe donaties.
-let _zetPeil = null;
 let _mijlpalen = null;
-let _peil = 0; // huidig getoond waterpeil in procenten
+let _basisPeil = 0; // de ware waterstand in procenten (zonder ademing)
+let _adem = 0; // continue, rustige ademings-offset in procenten (kioskmodus)
+let _yVoorPct = null; // omzetting procent → y binnen de koepel
+let _waterpeilEl = null; // de te verschuiven watergroep
+
+// Combineer basisstand + ademing en teken het wateroppervlak.
+function _renderPeil() {
+  if (!_waterpeilEl || !_yVoorPct) return;
+  const p = Math.max(0, _basisPeil + _adem);
+  _waterpeilEl.setAttribute("transform", `translate(0 ${_yVoorPct(p).toFixed(2)})`);
+}
+// Zet de ware waterstand (gebruikt door de opbouw- en live-animaties).
+function _zetBasis(p) {
+  _basisPeil = p;
+  _renderPeil();
+}
 
 const laag = (paths, cls) => `
   <g transform="${ARTBOARD_TRANSFORM}"><g transform="${LAAG_TRANSFORM}">
@@ -133,16 +147,13 @@ export function bouwKoepel() {
   }
 
   /* --- waterpeil animeren naar het echte percentage --- */
-  const zetPeil = (p) => {
-    _peil = p;
-    waterpeil.setAttribute("transform", `translate(0 ${yVoorPct(p).toFixed(2)})`);
-  };
-  _zetPeil = zetPeil;
+  _yVoorPct = yVoorPct;
+  _waterpeilEl = waterpeil;
   _mijlpalen = mijlpalen;
-  zetPeil(0.0001);
+  _zetBasis(0.0001);
 
   if (reducedMotion()) {
-    zetPeil(pct);
+    _zetBasis(pct);
   } else {
     zodraZichtbaar(houder, () => {
       const DUUR = 2100;
@@ -150,7 +161,7 @@ export function bouwKoepel() {
       const stap = (now) => {
         if (t0 === null) t0 = now;
         const t = Math.min(1, (now - t0) / DUUR);
-        zetPeil(easeOutQuint(t) * pct);
+        _zetBasis(easeOutQuint(t) * pct);
         if (t < 1) requestAnimationFrame(stap);
       };
       requestAnimationFrame(stap);
@@ -222,7 +233,7 @@ export function bouwKoepel() {
 
 /* --- Live bijwerken: waterpeil + mijlpalen naar de huidige stand animeren --- */
 export function updateKoepel() {
-  if (!_zetPeil) return;
+  if (!_yVoorPct) return;
   const nieuwPct = percentage();
   const behaald = golvenBehaald();
   if (_mijlpalen) {
@@ -233,16 +244,36 @@ export function updateKoepel() {
     });
   }
   if (reducedMotion()) {
-    _zetPeil(nieuwPct);
+    _zetBasis(nieuwPct);
     return;
   }
-  const van = _peil;
+  const van = _basisPeil;
   const t0 = performance.now();
   const DUUR = 1400;
   const stap = (now) => {
     const t = Math.min(1, (now - t0) / DUUR);
-    _zetPeil(van + (nieuwPct - van) * easeOutQuint(t));
+    _zetBasis(van + (nieuwPct - van) * easeOutQuint(t));
     if (t < 1) requestAnimationFrame(stap);
   };
   requestAnimationFrame(stap);
+}
+
+/* --- Levend water (kioskmodus) ---
+   Een trage, continue ademing van het wateroppervlak, boven op de drijvende
+   golven en de vallende druppels. Zo blijft de koepel van een afstand zichtbaar
+   in beweging en straalt hij rust uit. De offset wordt bij de ware waterstand
+   opgeteld, dus opbouw- en live-updates blijven gewoon werken. --- */
+let _ademtLoopt = false;
+export function startLevendWater(ampPct = 0.85, periodeMs = 6200) {
+  if (reducedMotion() || !_yVoorPct || _ademtLoopt) return;
+  _ademtLoopt = true;
+  const t0 = performance.now();
+  const loop = (now) => {
+    // sin² → een zachte, asymmetrische deining (langzaam op, rustig neer)
+    const fase = ((now - t0) / periodeMs) * Math.PI * 2;
+    _adem = Math.sin(fase) * ampPct;
+    _renderPeil();
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
 }

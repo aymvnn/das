@@ -10,6 +10,7 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+  <link rel="preload" as="image" href="/assets/img/pand-water-regen.webp" />
   <link rel="preload" href="/assets/fonts/BergenSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/BergenSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/BergenSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -18,13 +19,19 @@
 </head>
 
 <body class="kiosk-body">
+  <!-- Subtiele lichte achtergrond: het pand aan het water, zacht opgelost in het papier -->
+  <div class="kiosk-bg" aria-hidden="true"><div class="kiosk-bg-foto"></div></div>
+
   <main class="kiosk-scherm">
-    <header class="kiosk-merk">
-      <span class="kiosk-logo" data-logo-mini aria-hidden="true"></span>
-      <div class="kiosk-merktekst">
-        <p class="kiosk-kicker">Druppels van Sakīnah</p>
-        <h1 class="kiosk-titel">Dār as-Sakīnah</h1>
+    <header class="kiosk-kop">
+      <div class="kiosk-merk">
+        <span class="kiosk-logo" data-logo-mini aria-hidden="true"></span>
+        <div class="kiosk-merktekst">
+          <p class="kiosk-kicker">Druppels van Sakīnah</p>
+          <p class="kiosk-merknaam">Dār as-Sakīnah</p>
+        </div>
       </div>
+      <h1 class="kiosk-tagline">Samen vullen we<br />het huis van rust</h1>
     </header>
 
     <section class="kiosk-koepel" aria-label="De stand van het water in de koepel">
@@ -43,14 +50,18 @@
       </p>
     </section>
 
-    <section class="kiosk-qr" aria-label="Doneer via QR-code">
+    <section class="kiosk-actie" aria-label="Doneren">
       <div class="kiosk-qr-kaart">
         <div class="kiosk-qr-code" data-qr-doneren role="img" aria-label="QR-code om te doneren"></div>
       </div>
-      <p class="kiosk-qr-tekst">Scan met je telefoon en doneer jouw druppel</p>
+      <div class="kiosk-actie-tekst">
+        <p class="kiosk-doneer-nu">Doneer nu</p>
+        <p class="kiosk-domein">dasactie.nl</p>
+        <p class="kiosk-qr-tekst">Scan de QR-code, of ga naar dasactie.nl</p>
+      </div>
     </section>
 
-    <p class="kiosk-voet">dasactie.nl · Stichting IV Het Trefpunt</p>
+    <p class="kiosk-voet">Stichting IV Het Trefpunt · Dār as-Sakīnah, Capelle aan den IJssel</p>
   </main>
 </body>
 </html>
