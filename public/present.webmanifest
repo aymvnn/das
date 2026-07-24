@@ -1,0 +1,15 @@
+{
+  "name": "Druppels van Sakīnah — Live",
+  "short_name": "DAS Live",
+  "description": "De live stand van de campagne Druppels van Sakīnah, voor de tablet in de moskee.",
+  "start_url": "/present",
+  "scope": "/present",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#f2f1ee",
+  "theme_color": "#00847e",
+  "icons": [
+    { "src": "/assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

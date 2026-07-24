@@ -232,6 +232,31 @@ body.kiosk-body {
   opacity: 0.72;
 }
 
+/* Discrete "Volledig scherm"-knop (alleen tijdens het opstarten zichtbaar). */
+.kiosk-fs-knop {
+  position: fixed;
+  top: 0.75rem;
+  inset-inline-end: 0.75rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--c-navy);
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  box-shadow: var(--schaduw-zacht);
+  cursor: pointer;
+}
+.kiosk-fs-knop svg { width: 16px; height: 16px; }
+.kiosk-fs-knop:active { transform: scale(0.97); }
+
 /* Rustige ademing: heel traag, subtiel — nooit knipperend. */
 @keyframes kiosk-adem {
   0%, 100% { transform: scale(1); box-shadow: 0 14px 28px -14px rgba(245, 156, 0, 0.6); }

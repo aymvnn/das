@@ -51,7 +51,55 @@ async function ververStand() {
   updateKoepel();
 }
 
+/* --- Kioskmodus: volledig scherm + scherm wakker houden ---
+   Browsers mogen niet vanzelf naar volledig scherm bij het laden (dat vereist
+   één tik). We tonen daarom een discrete "Volledig scherm"-knop die de
+   vrijwilliger bij het opstarten één keer aantikt; hij verdwijnt zodra het
+   scherm volledig is. Wie de pagina via "Toevoegen aan startscherm" opent,
+   start dankzij het manifest sowieso al volledig scherm. --- */
+function startKiosk() {
+  const knop = document.querySelector("[data-fullscreen]");
+  const el = document.documentElement;
+  const kanVolledig = !!(el.requestFullscreen || el.webkitRequestFullscreen);
+
+  if (knop && kanVolledig) {
+    const alVolledig = () => document.fullscreenElement || document.webkitFullscreenElement;
+    const verversKnop = () => {
+      knop.hidden = !!alVolledig();
+    };
+    knop.addEventListener("click", async () => {
+      try {
+        if (el.requestFullscreen) await el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      } catch {
+        /* geweigerd of niet mogelijk: knop blijft staan */
+      }
+    });
+    document.addEventListener("fullscreenchange", verversKnop);
+    document.addEventListener("webkitfullscreenchange", verversKnop);
+    verversKnop();
+  }
+
+  // Scherm wakker houden zolang de tablet deze pagina toont.
+  let wakeLock = null;
+  const houdWakker = async () => {
+    try {
+      if ("wakeLock" in navigator && document.visibilityState === "visible") {
+        wakeLock = await navigator.wakeLock.request("screen");
+      }
+    } catch {
+      /* niet ondersteund of geweigerd */
+    }
+  };
+  houdWakker();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") houdWakker();
+  });
+}
+
 function init() {
+  startKiosk();
+
   const mini = document.querySelector("[data-logo-mini]");
   if (mini) {
     mini.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;

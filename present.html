@@ -10,6 +10,13 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
+  <!-- Als app op het startscherm zetten → opent volledig scherm (kioskmodus) -->
+  <link rel="manifest" href="/present.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="DAS Live" />
+
   <link rel="preload" as="image" href="/assets/img/pand-water-regen.webp" />
   <link rel="preload" href="/assets/fonts/BergenSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/BergenSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
@@ -19,6 +26,13 @@
 </head>
 
 <body class="kiosk-body">
+  <!-- Eenmalige tik om volledig scherm te openen (verschijnt alleen als de
+       browser dit ondersteunt en verdwijnt zodra het scherm volledig is) -->
+  <button type="button" class="kiosk-fs-knop" data-fullscreen hidden aria-label="Volledig scherm openen">
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+    <span>Volledig scherm</span>
+  </button>
+
   <!-- Subtiele lichte achtergrond: het pand aan het water, zacht opgelost in het papier -->
   <div class="kiosk-bg" aria-hidden="true"><div class="kiosk-bg-foto"></div></div>
 
