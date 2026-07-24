@@ -1,7 +1,8 @@
 /* ============================================================
    /present — kioskscherm voor de staande tablet in de moskee
-   Eén scherm, geen scroll. Boodschap voor de voorbijganger:
-   het huis van rust, de levende koepel, de stand, en dasactie.nl.
+   Eén scherm, geen scroll. Grote, leesbare boodschap voor de
+   voorbijganger: het huis van rust, de levende koepel, de QR +
+   dasactie.nl, en de stand.
    ============================================================ */
 
 html, body.kiosk-body {
@@ -65,76 +66,121 @@ body.kiosk-body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(0.35rem, 1.2dvh, 0.9rem);
-  padding: clamp(0.85rem, 2.4dvh, 1.6rem) clamp(1rem, 5vw, 2rem) clamp(0.7rem, 1.8dvh, 1.1rem);
+  gap: clamp(0.3rem, 1dvh, 0.8rem);
+  padding: clamp(0.75rem, 2dvh, 1.4rem) clamp(1rem, 5vw, 2.25rem) clamp(0.6rem, 1.5dvh, 1rem);
   text-align: center;
 }
 
-/* --- Kop: merk + tagline --- */
+/* --- Kop: merk + tagline + lead --- */
 .kiosk-kop {
   flex: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(0.5rem, 1.6dvh, 1rem);
+  gap: clamp(0.45rem, 1.5dvh, 0.9rem);
 }
 .kiosk-merk {
   display: flex;
   align-items: center;
   gap: 0.6rem;
 }
-.kiosk-logo { width: clamp(26px, 4.8dvh, 38px); height: calc(clamp(26px, 4.8dvh, 38px) * 300 / 208); }
+.kiosk-logo { width: clamp(26px, 4.6dvh, 38px); height: calc(clamp(26px, 4.6dvh, 38px) * 300 / 208); }
 .kiosk-logo svg { width: 100%; height: 100%; }
 .kiosk-merktekst { text-align: start; }
 .kiosk-kicker {
-  font-size: clamp(0.58rem, 1.2dvh, 0.7rem);
+  font-size: clamp(0.62rem, 1.25dvh, 0.74rem);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--c-teal);
 }
 .kiosk-merknaam {
-  font-size: clamp(0.95rem, 2.2dvh, 1.2rem);
+  font-size: clamp(1rem, 2.2dvh, 1.3rem);
   font-weight: 700;
   color: var(--c-navy);
   line-height: 1.1;
 }
 .kiosk-tagline {
-  font-size: clamp(1.5rem, 4.1dvh, 2.35rem);
+  font-size: clamp(1.95rem, 5.1dvh, 3.1rem);
   font-weight: 700;
-  line-height: 1.06;
-  letter-spacing: -0.015em;
+  line-height: 1.05;
+  letter-spacing: -0.018em;
   color: var(--c-navy);
   text-wrap: balance;
   text-shadow: 0 1px 0 rgba(242, 241, 238, 0.8);
 }
+.kiosk-lead {
+  max-width: 46ch;
+  font-size: clamp(0.98rem, 2.05dvh, 1.3rem);
+  line-height: 1.48;
+  color: var(--c-ink);
+  text-wrap: pretty;
+}
+.kiosk-lead strong { color: var(--c-teal-dark); }
 
-/* --- De koepel: het grootste, levende element --- */
+/* --- De koepel: het levende element --- */
 .kiosk-koepel {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-height: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.35rem, 1.2dvh, 0.8rem);
   width: 100%;
 }
 .kiosk-koepel-visual {
   width: auto;
-  height: min(27dvh, 52vw);
-  max-width: 78vw;
-  filter: drop-shadow(0 16px 28px rgba(31, 44, 84, 0.14));
+  height: min(12dvh, 25vw);
+  max-width: 44vw;
+  filter: drop-shadow(0 14px 24px rgba(31, 44, 84, 0.14));
 }
 .kiosk-koepel-visual svg { width: auto; height: 100%; overflow: visible; }
-.kiosk-golfzin {
-  font-size: clamp(0.78rem, 1.6dvh, 0.94rem);
-  color: var(--c-ink-soft);
-  max-width: 34ch;
-}
-.kiosk-golfzin strong { color: var(--c-teal-dark); font-variant-numeric: tabular-nums; }
 
-/* --- Het bedrag: groot, onmiskenbaar --- */
+/* --- Actie: grote QR bovenaan, gele knop + het domein --- */
+.kiosk-actie {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.4rem, 1.3dvh, 0.85rem);
+}
+.kiosk-qr-kaart {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: clamp(0.6rem, 1.7dvh, 1rem);
+  box-shadow: var(--schaduw-diep);
+  border: 1px solid var(--c-line);
+}
+.kiosk-qr-code {
+  width: clamp(150px, 23dvh, 220px);
+  height: clamp(150px, 23dvh, 220px);
+}
+.kiosk-qr-code svg { width: 100%; height: 100%; display: block; }
+
+/* De gele geefknop (huisstijl .btn-doneer), groter en rustig ademend. */
+.kiosk-doneer-knop {
+  font-size: clamp(1.15rem, 2.7dvh, 1.55rem);
+  font-weight: 700;
+  padding: 0.72em 2em;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  animation: kiosk-adem 4.6s var(--ease-wissel) infinite;
+}
+/* Het domein groot en helder — te onthouden, te delen. */
+.kiosk-domein {
+  font-size: clamp(1.6rem, 4.2dvh, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--c-teal);
+}
+.kiosk-qr-tekst {
+  font-size: clamp(0.85rem, 1.8dvh, 1.05rem);
+  font-weight: 600;
+  color: var(--c-ink-soft);
+  max-width: 30ch;
+}
+
+/* --- Het bedrag: onder de QR, nog steeds duidelijk --- */
 .kiosk-teller {
   flex: none;
   display: grid;
@@ -150,7 +196,7 @@ body.kiosk-body {
   line-height: 1;
 }
 .kiosk-euro {
-  font-size: clamp(2.4rem, 7.6dvh, 3.6rem);
+  font-size: clamp(2rem, 6dvh, 3rem);
   font-weight: 700;
   color: var(--c-teal);
   font-variant-numeric: tabular-nums;
@@ -158,85 +204,36 @@ body.kiosk-body {
   text-shadow: 0 1px 0 rgba(242, 241, 238, 0.9), 0 2px 14px rgba(242, 241, 238, 0.7);
 }
 .kiosk-doel {
-  font-size: clamp(0.88rem, 2dvh, 1.12rem);
+  font-size: clamp(0.9rem, 2dvh, 1.2rem);
   font-weight: 600;
   color: var(--c-ink-soft);
 }
 .kiosk-druppels {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4em;
   font-weight: 600;
   color: var(--c-navy);
-  font-size: clamp(0.78rem, 1.6dvh, 0.94rem);
+  font-size: clamp(0.82rem, 1.75dvh, 1.02rem);
 }
 .kiosk-druppel-icoon { width: 0.85em; height: 1.15em; fill: var(--c-mint); flex: none; }
-
-/* --- Actie: QR-kaart naast de oproep + het domein --- */
-.kiosk-actie {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1rem, 3.5vw, 1.75rem);
-  flex-wrap: wrap;
-}
-.kiosk-qr-kaart {
-  background: #fff;
-  border-radius: var(--radius-md);
-  padding: clamp(0.55rem, 1.5dvh, 0.85rem);
-  box-shadow: var(--schaduw-diep);
-  border: 1px solid var(--c-line);
-  flex: none;
-}
-.kiosk-qr-code {
-  width: clamp(112px, 17.5dvh, 168px);
-  height: clamp(112px, 17.5dvh, 168px);
-}
-.kiosk-qr-code svg { width: 100%; height: 100%; display: block; }
-.kiosk-actie-tekst {
-  display: grid;
-  justify-items: center;
-  gap: clamp(0.2rem, 0.8dvh, 0.45rem);
-  text-align: center;
-}
-/* De grote actie-oproep: warm amber (de geefkleur), rustig ademend. */
-.kiosk-doneer-nu {
-  font-size: clamp(1.4rem, 3.7dvh, 2.1rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--c-amber-diep);
-  animation: kiosk-adem 4.6s var(--ease-wissel) infinite;
-}
-/* Het domein groot en helder — te onthouden, te delen. */
-.kiosk-domein {
-  font-size: clamp(1.5rem, 4dvh, 2.35rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.01em;
-  color: var(--c-teal);
-}
-.kiosk-qr-tekst {
-  font-size: clamp(0.78rem, 1.65dvh, 0.95rem);
-  font-weight: 600;
-  color: var(--c-ink-soft);
-  max-width: 24ch;
-}
+.kiosk-golfzin-inline { color: var(--c-ink-soft); }
+.kiosk-golfzin-inline strong { color: var(--c-teal-dark); font-variant-numeric: tabular-nums; }
 
 .kiosk-voet {
   flex: none;
-  font-size: clamp(0.6rem, 1.2dvh, 0.74rem);
+  font-size: clamp(0.62rem, 1.2dvh, 0.76rem);
   color: var(--c-ink-soft);
   opacity: 0.72;
 }
 
 /* Rustige ademing: heel traag, subtiel — nooit knipperend. */
 @keyframes kiosk-adem {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.82; transform: scale(1.012); }
+  0%, 100% { transform: scale(1); box-shadow: 0 14px 28px -14px rgba(245, 156, 0, 0.6); }
+  50% { transform: scale(1.02); box-shadow: 0 18px 34px -12px rgba(245, 156, 0, 0.75); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .kiosk-doneer-nu { animation: none; }
+  .kiosk-doneer-knop { animation: none; }
 }
