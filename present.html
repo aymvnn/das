@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Druppels van Sakīnah: live stand</title>
+  <meta name="robots" content="noindex" />
+
+  <meta name="theme-color" content="#00847E" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+  <link rel="preload" href="/assets/fonts/BergenSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/BergenSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/BergenSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+
+  <script type="module" src="/src/js/present.js"></script>
+</head>
+
+<body class="kiosk-body">
+  <main class="kiosk-scherm">
+    <header class="kiosk-merk">
+      <span class="kiosk-logo" data-logo-mini aria-hidden="true"></span>
+      <div class="kiosk-merktekst">
+        <p class="kiosk-kicker">Druppels van Sakīnah</p>
+        <h1 class="kiosk-titel">Dār as-Sakīnah</h1>
+      </div>
+    </header>
+
+    <section class="kiosk-koepel" aria-label="De stand van het water in de koepel">
+      <div class="koepel-visual kiosk-koepel-visual" data-koepel role="img" aria-label="De koepel van Dār as-Sakīnah, gevuld met water tot het opgehaalde percentage"></div>
+      <p class="kiosk-golfzin">Het water staat op <strong data-pct-lang>…</strong>: <span data-golven-zin>…</span></p>
+    </section>
+
+    <section class="kiosk-teller" aria-label="Opgehaald bedrag">
+      <p class="kiosk-bedrag">
+        <span class="kiosk-euro" data-countup>€&nbsp;0</span>
+        <span class="kiosk-doel">van <span data-doel>€&nbsp;400.000</span></span>
+      </p>
+      <p class="kiosk-druppels">
+        <svg class="kiosk-druppel-icoon" viewBox="0 0 10 14" aria-hidden="true"><path d="M5 .6C6.9 3 8.6 5.4 8.6 8.1A3.6 3.6 0 0 1 5 11.7 3.6 3.6 0 0 1 1.4 8.1C1.4 5.4 3.1 3 5 .6Z"/></svg>
+        <span data-druppels-zin>… van de 400 druppels gevuld</span>
+      </p>
+    </section>
+
+    <section class="kiosk-qr" aria-label="Doneer via QR-code">
+      <div class="kiosk-qr-kaart">
+        <div class="kiosk-qr-code" data-qr-doneren role="img" aria-label="QR-code om te doneren"></div>
+      </div>
+      <p class="kiosk-qr-tekst">Scan met je telefoon en doneer jouw druppel</p>
+    </section>
+
+    <p class="kiosk-voet">dasactie.nl · Stichting IV Het Trefpunt</p>
+  </main>
+</body>
+</html>
