@@ -1,0 +1,26 @@
+name: "💡 Idee / verzoek"
+description: Stel een nieuwe functie of verbetering voor.
+title: "💡 [VERZOEK] - <titel>"
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Samenvatting
+      description: Wat stel je voor?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Waarom is dit nodig?
+      description: Welk probleem lost dit op, of wat wordt hiermee beter?
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Mogelijke aanpak
+      description: Optioneel — heb je al een idee hoe dit zou kunnen werken?
+    validations:
+      required: false

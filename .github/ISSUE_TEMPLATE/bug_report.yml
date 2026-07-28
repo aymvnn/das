@@ -1,0 +1,73 @@
+name: "🐛 Bug melden"
+description: Meld een probleem op de site (dasactie.nl).
+title: "🐛 [BUG] - <titel>"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschrijving
+      description: Wat gaat er mis?
+      placeholder: Korte, duidelijke omschrijving van het probleem…
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Pagina / URL
+      description: Op welke pagina trad dit op?
+      placeholder: "bv. https://dasactie.nl/#doneren, of /present"
+    validations:
+      required: true
+  - type: textarea
+    id: reprod
+    attributes:
+      label: Stappen om te reproduceren
+      value: |
+        1. Ga naar '...'
+        2. Klik op '...'
+        3. Zie de fout
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Een screenshot maakt het meestal in één oogopslag duidelijk.
+    validations:
+      required: false
+  - type: dropdown
+    id: taal
+    attributes:
+      label: Taal van de site
+      multiple: true
+      options:
+        - Nederlands
+        - Arabisch
+    validations:
+      required: false
+  - type: dropdown
+    id: apparaat
+    attributes:
+      label: Apparaat
+      multiple: true
+      options:
+        - Desktop
+        - Mobiel
+        - Tablet / kioskscherm (/present)
+    validations:
+      required: false
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      multiple: true
+      options:
+        - Chrome
+        - Safari
+        - Firefox
+        - Edge
+        - Overig
+    validations:
+      required: false
