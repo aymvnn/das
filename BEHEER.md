@@ -134,7 +134,7 @@ GitHub:
 3. Klik **Commit** en daarna **Push** (op de website: *Commit changes*).
 4. Na ±1 minuut staat de nieuwe versie live. Klaar.
 
-Liever zonder GitHub? Vraag de beheerder om `npm run build` te draaien
+Liever zonder GitHub? Vraag de beheerder om `yarn build` te draaien
 en de map `dist/` naar de host te uploaden — maar de GitHub-route is
 makkelijker en veiliger.
 
