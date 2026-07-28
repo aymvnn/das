@@ -7,11 +7,12 @@ import "../css/scenes.css";
 import "../css/present.css";
 
 import { renderTeller } from "./render.js";
-import { bouwKoepel, updateKoepel, startLevendWater } from "./koepel.js";
-import { startTeller, updateTellerNaar } from "./motion.js";
+import { bouwKoepel, startLevendWater } from "./koepel.js";
+import { startTeller } from "./motion.js";
 import { startQrDoneren } from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
-import { logoMarkup, VIEWBOX_W, VIEWBOX_H } from "./logo-paths.js";
+import { plaatsLogo } from "./logo-paths.js";
+import { standCents, ververStand } from "./stand.js";
 
 // Safari/iOS-only vendor-prefixed Fullscreen API — niet in de standaard DOM-lib.
 declare global {
@@ -21,49 +22,6 @@ declare global {
   interface Document {
     webkitFullscreenElement?: Element | null;
   }
-}
-
-interface TotaalResponse {
-  ok: boolean;
-  totalCents?: number;
-}
-
-/* --- Stand ophalen: zelfde optelsom als de hoofdsite (Stripe + het
-   handmatige buiten-Stripe-bedrag uit campagne.js). --- */
-function standCents(stripeCents: number | null): number {
-  return (Number(stripeCents) || 0) + (Number(campagne.buitenStripeCents) || 0);
-}
-
-async function haalStripeTotaal(): Promise<number | null> {
-  try {
-    const ctrl: AbortController = new AbortController();
-    const timer: ReturnType<typeof setTimeout> = setTimeout(() => ctrl.abort(), 8000);
-    const res: Response = await fetch("/api/total", {
-      signal: ctrl.signal,
-      headers: { Accept: "application/json" },
-      cache: "no-store",
-    });
-    clearTimeout(timer);
-    if (!res.ok) return null;
-    const data: TotaalResponse = await res.json();
-    if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
-      return data.totalCents;
-    }
-  } catch {
-    /* Stripe onbereikbaar: laat de huidige stand staan */
-  }
-  return null;
-}
-
-async function ververStand(): Promise<void> {
-  const stripe: number | null = await haalStripeTotaal();
-  if (stripe === null) return;
-  const nieuw: number = standCents(stripe);
-  if (nieuw === campagne.opgehaaldCents) return;
-  campagne.opgehaaldCents = nieuw;
-  renderTeller();
-  updateTellerNaar(nieuw);
-  updateKoepel();
 }
 
 /* --- Kioskmodus: volledig scherm + scherm wakker houden ---
@@ -119,10 +77,7 @@ function startKiosk(): void {
 function init(): void {
   startKiosk();
 
-  const mini: Element | null = document.querySelector("[data-logo-mini]");
-  if (mini) {
-    mini.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
-  }
+  plaatsLogo("[data-logo-mini]");
 
   // Direct renderen met het bekende buiten-Stripe-bedrag, geen wachten.
   campagne.opgehaaldCents = standCents(0);

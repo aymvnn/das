@@ -5,7 +5,7 @@ import "../css/sections.css";
 import "../css/scenes.css";
 
 import { campagne } from "../../data/campagne.js";
-import { logoMarkup, VIEWBOX_W, VIEWBOX_H } from "./logo-paths.js";
+import { plaatsLogo } from "./logo-paths.js";
 import { initI18n, zetTaal, taal, t } from "./i18n.js";
 import { inject as injectAnalytics } from "@vercel/analytics";
 import { startCookieToestemming } from "./consent.js";
@@ -17,10 +17,7 @@ injectAnalytics();
 // "cookie-instellingen wijzigen"-link hieronder op deze pagina.
 startCookieToestemming();
 
-const mini: Element | null = document.querySelector("[data-logo-mini]");
-if (mini) {
-  mini.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
-}
+plaatsLogo("[data-logo-mini]");
 
 // De maillink toont het e-mailadres zelf (geen data-i18n op de <a>, zodat de
 // vertaalmachine de tekst niet overschrijft).
