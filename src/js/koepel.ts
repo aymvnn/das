@@ -16,6 +16,7 @@ import {
   VIEWBOX_W,
   VIEWBOX_H,
 } from "./logo-paths.js";
+import type { PathShape } from "./logo-paths.js";
 import {
   percentage,
   golvenBehaald,
@@ -37,33 +38,33 @@ import {
 } from "./utils.js";
 
 // Verwijzingen zodat de koepel live kan meebewegen met nieuwe donaties.
-let _mijlpalen = null;
-let _basisPeil = 0; // de ware waterstand in procenten (zonder ademing)
-let _adem = 0; // continue, rustige ademings-offset in procenten (kioskmodus)
-let _yVoorPct = null; // omzetting procent → y binnen de koepel
-let _waterpeilEl = null; // de te verschuiven watergroep
+let _mijlpalen: SVGGElement | null = null;
+let _basisPeil: number = 0; // de ware waterstand in procenten (zonder ademing)
+let _adem: number = 0; // continue, rustige ademings-offset in procenten (kioskmodus)
+let _yVoorPct: ((p: number) => number) | null = null; // omzetting procent → y binnen de koepel
+let _waterpeilEl: SVGGElement | null = null; // de te verschuiven watergroep
 
 // Combineer basisstand + ademing en teken het wateroppervlak.
-function _renderPeil() {
+function _renderPeil(): void {
   if (!_waterpeilEl || !_yVoorPct) return;
-  const p = Math.max(0, _basisPeil + _adem);
+  const p: number = Math.max(0, _basisPeil + _adem);
   _waterpeilEl.setAttribute("transform", `translate(0 ${_yVoorPct(p).toFixed(2)})`);
 }
 // Zet de ware waterstand (gebruikt door de opbouw- en live-animaties).
-function _zetBasis(p) {
+function _zetBasis(p: number): void {
   _basisPeil = p;
   _renderPeil();
 }
 
-const laag = (paths, cls) => `
+const laag = (paths: PathShape[], cls: string): string => `
   <g transform="${ARTBOARD_TRANSFORM}"><g transform="${LAAG_TRANSFORM}">
     ${paths.map((p) => `<g transform="${p.transform}"><path d="${p.d}" class="${cls}" fill-rule="nonzero"/></g>`).join("")}
   </g></g>`;
 
 // Golvend wateroppervlak: een lint van twee volledige schermbreedtes
 // dat horizontaal voorbij drijft (CSS-animatie).
-function golfPad(amp, golflengte, breedte = 560) {
-  let d = `M-160 0`;
+function golfPad(amp: number, golflengte: number, breedte: number = 560): string {
+  let d: string = `M-160 0`;
   for (let x = -160; x < breedte - 160; x += golflengte) {
     d += ` q ${golflengte / 4} ${-amp * 2} ${golflengte / 2} 0 q ${golflengte / 4} ${amp * 2} ${golflengte / 2} 0`;
   }
@@ -71,16 +72,16 @@ function golfPad(amp, golflengte, breedte = 560) {
   return d;
 }
 
-export function bouwKoepel() {
-  const houder = document.querySelector("[data-koepel]");
+export function bouwKoepel(): void {
+  const houder: HTMLElement | null = document.querySelector<HTMLElement>("[data-koepel]");
   if (!houder) return;
 
-  const pct = percentage();
-  const behaald = golvenBehaald();
+  const pct: number = percentage();
+  const behaald: number = golvenBehaald();
 
   // Binnencontour van het huis in wortelcoördinaten:
   // artboard · laag · koepeltransform als één matrix op het pad.
-  const M = matrixStr(
+  const M: string = matrixStr(
     matMul(matMul(parseMatrix(ARTBOARD_TRANSFORM), parseMatrix(LAAG_TRANSFORM)), parseMatrix(DOME_INNER.transform)),
   );
 
@@ -116,23 +117,25 @@ export function bouwKoepel() {
     <g data-fx></g>
   </svg>`;
 
-  const svg = houder.firstElementChild;
-  const meet = svg.querySelector("[data-meet]");
-  const bbox = meet.getBBox();
+  const svg: Element | null = houder.firstElementChild;
+  if (!svg) return;
+  const meet: SVGGraphicsElement | null = svg.querySelector<SVGGraphicsElement>("[data-meet]");
+  if (!meet) return;
+  const bbox: DOMRect = meet.getBBox();
   meet.remove();
 
-  const waterpeil = svg.querySelector("[data-waterpeil]");
-  const mijlpalen = svg.querySelector("[data-mijlpalen]");
-  const fx = svg.querySelector("[data-fx]");
+  const waterpeil: SVGGElement | null = svg.querySelector<SVGGElement>("[data-waterpeil]");
+  const mijlpalen: SVGGElement | null = svg.querySelector<SVGGElement>("[data-mijlpalen]");
+  const fx: SVGGElement | null = svg.querySelector<SVGGElement>("[data-fx]");
+  if (!waterpeil || !mijlpalen || !fx) return;
 
-  const yVoorPct = (p) => bbox.y + bbox.height * (1 - p / 100);
-  const bodem = bbox.y + bbox.height + 4;
+  const yVoorPct = (p: number): number => bbox.y + bbox.height * (1 - p / 100);
 
   /* --- 16 mijlpaallijnen in het water --- */
   for (let i = 1; i <= TOTAAL_GOLVEN; i++) {
-    const y = yVoorPct((i / TOTAAL_GOLVEN) * 100);
-    const status = i <= behaald ? "is-behaald" : i === behaald + 1 ? "is-volgende" : "";
-    const lijn = svgEl("line", {
+    const y: number = yVoorPct((i / TOTAAL_GOLVEN) * 100);
+    const status: string = i <= behaald ? "is-behaald" : i === behaald + 1 ? "is-volgende" : "";
+    const lijn: SVGElement = svgEl("line", {
       x1: bbox.x - 6,
       x2: bbox.x + bbox.width + 6,
       y1: y,
@@ -140,7 +143,7 @@ export function bouwKoepel() {
       class: `mijlpaal ${status}`,
       "data-golf": i,
     });
-    const titel = svgEl("title");
+    const titel: SVGElement = svgEl("title");
     titel.textContent = `Golf ${i}: ${euro(GOLF_CENTS * i)}${i <= behaald ? " ✓" : ""}`;
     lijn.append(titel);
     mijlpalen.append(lijn);
@@ -156,11 +159,11 @@ export function bouwKoepel() {
     _zetBasis(pct);
   } else {
     zodraZichtbaar(houder, () => {
-      const DUUR = 2100;
-      let t0 = null;
-      const stap = (now) => {
+      const DUUR: number = 2100;
+      let t0: number | null = null;
+      const stap = (now: number): void => {
         if (t0 === null) t0 = now;
-        const t = Math.min(1, (now - t0) / DUUR);
+        const t: number = Math.min(1, (now - t0) / DUUR);
         _zetBasis(easeOutQuint(t) * pct);
         if (t < 1) requestAnimationFrame(stap);
       };
@@ -169,9 +172,10 @@ export function bouwKoepel() {
   }
 
   /* --- koppeling met de mijlpalenlijst ernaast --- */
-  document.querySelectorAll(".golf-item").forEach((item) => {
-    const i = item.dataset.golf;
-    const lijn = mijlpalen.querySelector(`[data-golf="${i}"]`);
+  document.querySelectorAll<HTMLElement>(".golf-item").forEach((item) => {
+    const i: string | undefined = item.dataset.golf;
+    if (!i) return;
+    const lijn: Element | null = mijlpalen.querySelector(`[data-golf="${i}"]`);
     if (!lijn) return;
     item.addEventListener("mouseenter", () => lijn.classList.add("is-actief"));
     item.addEventListener("mouseleave", () => lijn.classList.remove("is-actief"));
@@ -179,66 +183,66 @@ export function bouwKoepel() {
 
   /* --- af en toe valt een druppel in de kom onder het huis --- */
   if (reducedMotion()) return;
-  const drop = svgEl("path", { d: DROP_PATH, class: "vorm-teal", opacity: 0 });
-  const rimpel = svgEl("ellipse", { class: "rimpel", fill: "none", "stroke-width": 1.1, opacity: 0 });
+  const drop: SVGElement = svgEl("path", { d: DROP_PATH, class: "vorm-teal", opacity: 0 });
+  const rimpel: SVGElement = svgEl("ellipse", { class: "rimpel", fill: "none", "stroke-width": 1.1, opacity: 0 });
   fx.append(drop, rimpel);
 
-  let bezig = false;
-  const KOM_Y = 201; // wateroppervlak van de kom onder het huis
+  let bezig: boolean = false;
+  const KOM_Y: number = 201; // wateroppervlak van de kom onder het huis
 
-  const valDruppel = () => {
+  const valDruppel = (): void => {
     if (bezig || document.hidden) return;
     bezig = true;
-    const x = Math.random() < 0.5 ? 44 + Math.random() * 14 : 150 + Math.random() * 14;
-    const t0 = performance.now();
-    const VAL = 620, RIP = 700;
-    const stap = (now) => {
-      const d = now - t0;
+    const x: number = Math.random() < 0.5 ? 44 + Math.random() * 14 : 150 + Math.random() * 14;
+    const t0: number = performance.now();
+    const VAL: number = 620, RIP: number = 700;
+    const stap = (now: number): void => {
+      const d: number = now - t0;
       if (d <= VAL) {
-        const t = easeInQuad(d / VAL);
-        drop.setAttribute("opacity", Math.min(1, d / 90));
+        const t: number = easeInQuad(d / VAL);
+        drop.setAttribute("opacity", String(Math.min(1, d / 90)));
         drop.setAttribute("transform", `translate(${x},${interpolate(t, [0, 1], [-30, KOM_Y]).toFixed(2)})`);
         requestAnimationFrame(stap);
       } else if (d <= VAL + RIP) {
-        drop.setAttribute("opacity", 0);
-        const t = (d - VAL) / RIP;
-        rimpel.setAttribute("cx", x);
-        rimpel.setAttribute("cy", KOM_Y);
+        drop.setAttribute("opacity", "0");
+        const t: number = (d - VAL) / RIP;
+        rimpel.setAttribute("cx", String(x));
+        rimpel.setAttribute("cy", String(KOM_Y));
         rimpel.setAttribute("rx", (easeOutCubic(t) * 9).toFixed(2));
         rimpel.setAttribute("ry", (easeOutCubic(t) * 2.6).toFixed(2));
         rimpel.setAttribute("opacity", (0.8 * (1 - t)).toFixed(3));
         requestAnimationFrame(stap);
       } else {
-        rimpel.setAttribute("opacity", 0);
+        rimpel.setAttribute("opacity", "0");
         bezig = false;
       }
     };
     requestAnimationFrame(stap);
   };
 
-  let timer = null;
+  let timer: number | null = null;
   zodraZichtbaar(houder, () => {
     valDruppel();
-    timer = setInterval(valDruppel, 6500 + Math.random() * 2000);
+    timer = window.setInterval(valDruppel, 6500 + Math.random() * 2000);
   }, { threshold: 0.4 });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden && timer) {
       clearInterval(timer);
       timer = null;
     } else if (!document.hidden && !timer) {
-      timer = setInterval(valDruppel, 6500 + Math.random() * 2000);
+      timer = window.setInterval(valDruppel, 6500 + Math.random() * 2000);
     }
   });
 }
 
 /* --- Live bijwerken: waterpeil + mijlpalen naar de huidige stand animeren --- */
-export function updateKoepel() {
+export function updateKoepel(): void {
   if (!_yVoorPct) return;
-  const nieuwPct = percentage();
-  const behaald = golvenBehaald();
+  const nieuwPct: number = percentage();
+  const behaald: number = golvenBehaald();
   if (_mijlpalen) {
-    _mijlpalen.querySelectorAll(".mijlpaal").forEach((lijn) => {
-      const i = Number(lijn.dataset.golf);
+    _mijlpalen.querySelectorAll<SVGLineElement>(".mijlpaal").forEach((lijn) => {
+      const i: number = Number(lijn.dataset.golf);
       lijn.classList.toggle("is-behaald", i <= behaald);
       lijn.classList.toggle("is-volgende", i === behaald + 1);
     });
@@ -247,11 +251,11 @@ export function updateKoepel() {
     _zetBasis(nieuwPct);
     return;
   }
-  const van = _basisPeil;
-  const t0 = performance.now();
-  const DUUR = 1400;
-  const stap = (now) => {
-    const t = Math.min(1, (now - t0) / DUUR);
+  const van: number = _basisPeil;
+  const t0: number = performance.now();
+  const DUUR: number = 1400;
+  const stap = (now: number): void => {
+    const t: number = Math.min(1, (now - t0) / DUUR);
     _zetBasis(van + (nieuwPct - van) * easeOutQuint(t));
     if (t < 1) requestAnimationFrame(stap);
   };
@@ -263,14 +267,14 @@ export function updateKoepel() {
    golven en de vallende druppels. Zo blijft de koepel van een afstand zichtbaar
    in beweging en straalt hij rust uit. De offset wordt bij de ware waterstand
    opgeteld, dus opbouw- en live-updates blijven gewoon werken. --- */
-let _ademtLoopt = false;
-export function startLevendWater(ampPct = 0.85, periodeMs = 6200) {
+let _ademtLoopt: boolean = false;
+export function startLevendWater(ampPct: number = 0.85, periodeMs: number = 6200): void {
   if (reducedMotion() || !_yVoorPct || _ademtLoopt) return;
   _ademtLoopt = true;
-  const t0 = performance.now();
-  const loop = (now) => {
+  const t0: number = performance.now();
+  const loop = (now: number): void => {
     // sin² → een zachte, asymmetrische deining (langzaam op, rustig neer)
-    const fase = ((now - t0) / periodeMs) * Math.PI * 2;
+    const fase: number = ((now - t0) / periodeMs) * Math.PI * 2;
     _adem = Math.sin(fase) * ampPct;
     _renderPeil();
     requestAnimationFrame(loop);

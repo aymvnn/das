@@ -3,29 +3,36 @@
 // altijd al aanstond). Clarity laadt pas ná expliciete toestemming; de keuze
 // wordt onthouden en is later te wijzigen via [data-cookie-instellingen]
 // (link onderaan de privacyverklaring).
-const OPSLAG_SLEUTEL = "analyticsToestemming"; // "granted" | "denied"
-const CLARITY_PROJECT_ID = "xioeolx2qj";
+const OPSLAG_SLEUTEL: string = "analyticsToestemming"; // "granted" | "denied"
+const CLARITY_PROJECT_ID: string = "xioeolx2qj";
 
-let _geladen = false;
+type ClarityFn = ((...args: unknown[]) => void) & { q?: unknown[][] };
 
-function ladClarity() {
-  if (_geladen || window.clarity) return;
-  _geladen = true;
-  (function (c, l, a, r, i, t, y) {
-    c[a] =
-      c[a] ||
-      function () {
-        (c[a].q = c[a].q || []).push(arguments);
-      };
-    t = l.createElement(r);
-    t.async = 1;
-    t.src = "https://www.clarity.ms/tag/" + i;
-    y = l.getElementsByTagName(r)[0];
-    y.parentNode.insertBefore(t, y);
-  })(window, document, "clarity", "script", CLARITY_PROJECT_ID);
+declare global {
+  interface Window {
+    clarity?: ClarityFn;
+  }
 }
 
-export function toestemming() {
+let _geladen: boolean = false;
+
+function ladClarity(): void {
+  if (_geladen || window.clarity) return;
+  _geladen = true;
+
+  const clarity: ClarityFn = (...args: unknown[]) => {
+    (clarity.q ??= []).push(args);
+  };
+  window.clarity = clarity;
+
+  const script: HTMLScriptElement = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`;
+  const eerste: HTMLScriptElement | undefined = document.getElementsByTagName("script")[0];
+  eerste?.parentNode?.insertBefore(script, eerste);
+}
+
+export function toestemming(): string | null {
   try {
     return localStorage.getItem(OPSLAG_SLEUTEL);
   } catch {
@@ -33,7 +40,7 @@ export function toestemming() {
   }
 }
 
-function onthoudToestemming(waarde) {
+function onthoudToestemming(waarde: string): void {
   try {
     localStorage.setItem(OPSLAG_SLEUTEL, waarde);
   } catch {
@@ -41,11 +48,11 @@ function onthoudToestemming(waarde) {
   }
 }
 
-export function startCookieToestemming() {
-  const banner = document.querySelector("[data-cookie-banner]");
+export function startCookieToestemming(): void {
+  const banner: HTMLElement | null = document.querySelector<HTMLElement>("[data-cookie-banner]");
   if (!banner) return;
 
-  const huidige = toestemming();
+  const huidige: string | null = toestemming();
   if (huidige === "granted") {
     ladClarity();
   } else if (huidige !== "denied") {
@@ -67,6 +74,7 @@ export function startCookieToestemming() {
   // data-i18n-html-blok dat bij elke taalwissel opnieuw wordt opgebouwd (een
   // rechtstreeks gebonden listener zou dan verweesd raken op het oude element).
   document.addEventListener("click", (e) => {
+    if (!(e.target instanceof Element)) return;
     if (e.target.closest("[data-cookie-instellingen]")) {
       e.preventDefault();
       banner.hidden = false;

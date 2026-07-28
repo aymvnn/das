@@ -8,25 +8,30 @@ import {
   golvenBehaald,
   percentage,
 } from "../../data/campagne.js";
+import type { Team, Actie } from "../../data/campagne.types.js";
 import { euro, pctTekst, svgEl } from "./utils.js";
 import { t, tf, taal } from "./i18n.js";
 import { logoMarkup, VIEWBOX_W, VIEWBOX_H, DROP_PATH } from "./logo-paths.js";
 
-const qs = (sel, root = document) => root.querySelector(sel);
-const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
+const qs = <T extends Element = HTMLElement>(sel: string, root: ParentNode = document): T | null =>
+  root.querySelector<T>(sel);
+const qsa = <T extends Element = HTMLElement>(sel: string, root: ParentNode = document): T[] => [
+  ...root.querySelectorAll<T>(sel),
+];
 
 // Kies het veld in de actieve taal; val terug op het Nederlands als de
 // _ar-variant leeg of afwezig is.
-const veld = (obj, sleutel) => {
+const veld = (obj: Team | Actie, sleutel: string): string => {
   if (taal() === "ar") {
-    const ar = obj[`${sleutel}_ar`];
-    if (ar != null && String(ar).trim() !== "") return ar;
+    const ar: string | number | undefined = obj[`${sleutel}_ar`];
+    if (ar != null && String(ar).trim() !== "") return String(ar);
   }
-  return obj[sleutel];
+  const waarde: string | number | undefined = obj[sleutel];
+  return waarde != null ? String(waarde) : "";
 };
 
 // Kleine HTML-escaper voor datagedreven tekst die via innerHTML wordt gezet.
-const esc = (s) =>
+const esc = (s: unknown): string =>
   String(s == null ? "" : s)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -36,7 +41,7 @@ const esc = (s) =>
 const VINKJE =
   '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.8 6.2 4.6 9l5.6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-export function renderAlles() {
+export function renderAlles(): void {
   renderTeller();
   renderOverdracht();
   renderGolvenLijst();
@@ -45,30 +50,30 @@ export function renderAlles() {
   renderActies();
   renderContactLinks();
   renderLogos();
-  qsa("[data-jaar]").forEach((el) => (el.textContent = new Date().getFullYear()));
+  qsa("[data-jaar]").forEach((el) => (el.textContent = String(new Date().getFullYear())));
 }
 
 /* --- Teller & samenvattende zinnen --- */
-export function renderTeller() {
-  const druppels = druppelsGevallen();
-  const golven = golvenBehaald();
-  const pct = percentage();
+export function renderTeller(): void {
+  const druppels: number = druppelsGevallen();
+  const golven: number = golvenBehaald();
+  const pct: number = percentage();
 
   qsa("[data-doel]").forEach((el) => (el.textContent = euro(campagne.doelCents)));
   qsa("[data-laatste-update]").forEach((el) => (el.textContent = campagne.laatsteUpdate));
   qsa("[data-pct]").forEach((el) => (el.textContent = pctTekst(pct)));
   qsa("[data-pct-lang]").forEach((el) => (el.textContent = pctTekst(pct)));
 
-  const druppelZin = tf("js.druppelsZin", { druppels, totaal: TOTAAL_DRUPPELS });
+  const druppelZin: string = tf("js.druppelsZin", { druppels, totaal: TOTAAL_DRUPPELS });
   qsa("[data-druppels-zin]").forEach((el) => (el.textContent = druppelZin));
   qsa("[data-druppels-zin-2]").forEach(
     (el) => (el.textContent = `${druppels} druppels gevuld, ${TOTAAL_DRUPPELS - druppels} te gaan`),
   );
   qsa("[data-druppels-tegaan]").forEach(
-    (el) => (el.textContent = TOTAAL_DRUPPELS - druppels),
+    (el) => (el.textContent = String(TOTAAL_DRUPPELS - druppels)),
   );
 
-  const golfZin =
+  const golfZin: string =
     golven === 0
       ? t("js.golfInZicht")
       : golven === 1
@@ -84,26 +89,30 @@ export function renderTeller() {
 /* --- Aftellen naar de overdracht ---
    Leeg veld, typfout of verstreken datum = stille fallback: de
    teksten die al in de HTML staan blijven gewoon staan. --- */
-const MAANDEN = ["januari", "februari", "maart", "april", "mei", "juni",
-  "juli", "augustus", "september", "oktober", "november", "december"];
+const MAANDEN: string[] = [
+  "januari", "februari", "maart", "april", "mei", "juni",
+  "juli", "augustus", "september", "oktober", "november", "december",
+];
 
-function parseNlDatum(str) {
-  const m = String(str || "").trim().toLowerCase().match(/^(\d{1,2})\s+([a-z]+)\s+(\d{4})$/);
+function parseNlDatum(str: string): Date | null {
+  const m: RegExpMatchArray | null = String(str || "").trim().toLowerCase().match(/^(\d{1,2})\s+([a-z]+)\s+(\d{4})$/);
   if (!m) return null;
-  const maand = MAANDEN.indexOf(m[2]);
+  const [, dagStr, maandStr, jaarStr] = m;
+  if (!dagStr || !maandStr || !jaarStr) return null;
+  const maand: number = MAANDEN.indexOf(maandStr);
   if (maand === -1) return null;
-  const d = new Date(Number(m[3]), maand, Number(m[1]));
+  const d: Date = new Date(Number(jaarStr), maand, Number(dagStr));
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
-export function renderOverdracht() {
-  const datum = parseNlDatum(campagne.overdrachtsdatum);
+export function renderOverdracht(): void {
+  const datum: Date | null = parseNlDatum(campagne.overdrachtsdatum);
   if (!datum) return;
-  const vandaag = new Date();
+  const vandaag: Date = new Date();
   vandaag.setHours(0, 0, 0, 0);
-  const dagen = Math.ceil((datum - vandaag) / 86400000);
+  const dagen: number = Math.ceil((datum.getTime() - vandaag.getTime()) / 86400000);
   if (dagen < 0) return;
-  const zin =
+  const zin: string =
     dagen === 0 ? t("js.vandaagOverdracht")
     : dagen === 1 ? t("js.nog1Dag")
     : dagen < 14 ? tf("js.nogDagen", { n: dagen })
@@ -112,19 +121,19 @@ export function renderOverdracht() {
 }
 
 /* --- De 16 golf-mijlpalen --- */
-function renderGolvenLijst() {
-  const lijst = qs("[data-golven-lijst]");
+function renderGolvenLijst(): void {
+  const lijst: HTMLElement | null = qs("[data-golven-lijst]");
   if (!lijst) return;
-  const behaald = golvenBehaald();
+  const behaald: number = golvenBehaald();
 
   for (let i = 1; i <= TOTAAL_GOLVEN; i++) {
-    const li = document.createElement("li");
-    const status =
+    const li: HTMLLIElement = document.createElement("li");
+    const status: string =
       i <= behaald ? "is-behaald" : i === behaald + 1 ? "is-volgende" : "is-toekomst";
     li.className = `golf-item ${status}`;
-    li.dataset.golf = i;
-    const bedrag = euro(GOLF_CENTS * i);
-    const label =
+    li.dataset.golf = String(i);
+    const bedrag: string = euro(GOLF_CENTS * i);
+    const label: string =
       i <= behaald
         ? `Golf ${i}: ${bedrag} · binnen`
         : i === behaald + 1
@@ -141,62 +150,62 @@ function renderGolvenLijst() {
 }
 
 /* --- Druppelraster: 400 druppels, 1 per € 1.000 --- */
-function renderDruppelraster() {
-  const raster = qs("[data-druppelraster]");
+function renderDruppelraster(): void {
+  const raster: HTMLElement | null = qs("[data-druppelraster]");
   if (!raster) return;
-  const gevuld = druppelsGevallen();
+  const gevuld: number = druppelsGevallen();
 
-  const frag = document.createDocumentFragment();
+  const frag: DocumentFragment = document.createDocumentFragment();
   for (let i = 0; i < TOTAAL_DRUPPELS; i++) {
-    const svg = svgEl("svg", { viewBox: "0 0 10 13.4", class: "rasterdruppel" });
-    svg.style.setProperty("--di", i % 100);
-    const pad = svgEl("path", {
+    const svg: SVGElement = svgEl("svg", { viewBox: "0 0 10 13.4", class: "rasterdruppel" });
+    svg.style.setProperty("--di", String(i % 100));
+    const pad: SVGElement = svgEl("path", {
       d: "M5 .8C6.9 3.4 8.55 5.8 8.55 8.35A3.55 3.55 0 0 1 5 11.9 3.55 3.55 0 0 1 1.45 8.35C1.45 5.8 3.1 3.4 5 .8Z",
     });
     svg.append(pad);
     if (i === TOTAAL_DRUPPELS - gevuld - 1 && gevuld < TOTAAL_DRUPPELS) {
       svg.classList.add("is-volgende");
-      const titel = svgEl("title");
+      const titel: SVGElement = svgEl("title");
       titel.textContent = "De volgende druppel: die van jou?";
       svg.prepend(titel);
     }
     frag.append(svg);
   }
   raster.append(frag);
-  raster.dataset.gevuld = gevuld;
+  raster.dataset.gevuld = String(gevuld);
 }
 
 /* --- Waterdragers-teams --- */
-const NIVEAUS = [
+const NIVEAUS: Array<[number, string]> = [
   [250000, "niveau.druppel"],
   [500000, "niveau.stroom"],
   [1000000, "niveau.golf"],
   [2500000, "niveau.bron"],
 ];
-const niveauNaam = (doelCents) => {
+const niveauNaam = (doelCents: number): string => {
   for (const [cents, sleutel] of NIVEAUS) if (doelCents <= cents) return t(sleutel);
   return t("niveau.bron");
 };
 
-export function renderTeams() {
-  const lijst = qs("[data-teams-lijst]");
+export function renderTeams(): void {
+  const lijst: HTMLElement | null = qs("[data-teams-lijst]");
   if (!lijst) return;
   lijst.textContent = ""; // idempotent: opnieuw opbouwen bij taalwissel
 
   campagne.teams.forEach((team, i) => {
-    const pct = Math.min(100, (team.opgehaaldCents / team.doelCents) * 100);
-    const behaald = team.opgehaaldCents >= team.doelCents;
-    const naam = veld(team, "naam");
-    const beschrijving = veld(team, "beschrijving");
-    const ariaVoortgang = tf("js.team.ariaVoortgang", {
+    const pct: number = Math.min(100, (team.opgehaaldCents / team.doelCents) * 100);
+    const behaald: boolean = team.opgehaaldCents >= team.doelCents;
+    const naam: string = veld(team, "naam");
+    const beschrijving: string = veld(team, "beschrijving");
+    const ariaVoortgang: string = tf("js.team.ariaVoortgang", {
       naam,
       op: euro(team.opgehaaldCents),
       doel: euro(team.doelCents),
     });
-    const li = document.createElement("li");
+    const li: HTMLLIElement = document.createElement("li");
     li.className = `team-rij${behaald ? " is-behaald" : ""}`;
     li.setAttribute("data-reveal", "");
-    li.style.setProperty("--i", i % 4);
+    li.style.setProperty("--i", String(i % 4));
     li.innerHTML = `
       <div class="team-kop">
         <h3 class="team-naam">${esc(naam)}</h3>
@@ -218,17 +227,17 @@ export function renderTeams() {
 }
 
 /* --- Acties --- */
-export function renderActies() {
-  const lijst = qs("[data-acties-lijst]");
+export function renderActies(): void {
+  const lijst: HTMLElement | null = qs("[data-acties-lijst]");
   if (!lijst) return;
   lijst.textContent = ""; // idempotent: opnieuw opbouwen bij taalwissel
   campagne.acties.forEach((actie, i) => {
-    const titel = veld(actie, "titel");
-    const beschrijving = veld(actie, "beschrijving");
-    const li = document.createElement("li");
+    const titel: string = veld(actie, "titel");
+    const beschrijving: string = veld(actie, "beschrijving");
+    const li: HTMLLIElement = document.createElement("li");
     li.className = "actie-kaart";
     li.setAttribute("data-reveal", "");
-    li.style.setProperty("--i", i);
+    li.style.setProperty("--i", String(i));
     li.innerHTML = `
       <img src="/${esc(actie.foto)}" alt="${esc(titel)}" loading="lazy" width="900" height="675" />
       <h3>${esc(titel)}</h3>
@@ -238,15 +247,16 @@ export function renderActies() {
 }
 
 /* --- WhatsApp- en maillinks met vooringevulde teksten --- */
-function renderContactLinks() {
-  const set = (sel, href) => qsa(sel).forEach((el) => (el.href = href));
-  const mail = (onderwerp) =>
+function renderContactLinks(): void {
+  const set = (sel: string, href: string): void =>
+    qsa<HTMLAnchorElement>(sel).forEach((el) => (el.href = href));
+  const mail = (onderwerp: string): string =>
     `mailto:${campagne.contactEmail}?subject=${encodeURIComponent(onderwerp)}`;
 
   // Algemene "via WhatsApp"-acties verwijzen naar de WhatsApp-community.
   // Geen community-link ingevuld? Dan valt het terug op e-mail.
-  const community = (campagne.whatsappCommunity || "").trim();
-  const samen = community || mail("Druppels van Sakīnah");
+  const community: string = (campagne.whatsappCommunity || "").trim();
+  const samen: string = community || mail("Druppels van Sakīnah");
   set("[data-wa-team]", samen);
   set("[data-wa-actie]", samen);
   set("[data-wa-bedrijf]", samen);
@@ -258,33 +268,32 @@ function renderContactLinks() {
   set("[data-mail-groot]", mail("Grotere bijdrage — Druppels van Sakīnah"));
 
   // Delen: geen nummer — opent de kies-een-chat-lijst van WhatsApp zelf
-  const deelTekst = tf("js.deelTekst", { url: campagne.siteUrl });
+  const deelTekst: string = tf("js.deelTekst", { url: campagne.siteUrl });
   set("[data-wa-deel]", `https://wa.me/?text=${encodeURIComponent(deelTekst)}`);
 
   set("[data-mail-contact]", mail("Druppels van Sakīnah"));
   set("[data-mail-bedrijf]", mail("Bedrijfsbijdrage — Druppels van Sakīnah"));
 
   // Sociale kanalen: vul de href, of verberg het icoon als er geen link is.
-  const social = campagne.social || {};
-  const setSocial = (sel, url) =>
-    qsa(sel).forEach((el) => {
+  const setSocial = (sel: string, url: string): void =>
+    qsa<HTMLAnchorElement>(sel).forEach((el) => {
       if (url) el.href = url;
       else el.hidden = true;
     });
-  setSocial("[data-social-instagram]", social.instagram);
-  setSocial("[data-social-tiktok]", social.tiktok);
-  setSocial("[data-social-facebook]", social.facebook);
+  setSocial("[data-social-instagram]", campagne.social.instagram);
+  setSocial("[data-social-tiktok]", campagne.social.tiktok);
+  setSocial("[data-social-facebook]", campagne.social.facebook);
 }
 
 /* --- Logo's (header, footer) --- */
-function renderLogos() {
-  const mini = qs("[data-logo-mini]");
+function renderLogos(): void {
+  const mini: HTMLElement | null = qs("[data-logo-mini]");
   if (mini) {
-    mini.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup({ idPrefix: "mini" })}</svg>`;
+    mini.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
   }
-  const voet = qs("[data-logo-footer]");
+  const voet: HTMLElement | null = qs("[data-logo-footer]");
   if (voet) {
-    voet.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup({ idPrefix: "voet" })}</svg>`;
+    voet.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
   }
 }
 

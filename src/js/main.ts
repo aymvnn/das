@@ -31,27 +31,32 @@ import { initI18n, zetTaal, taal, t } from "./i18n.js";
 import { inject as injectAnalytics } from "@vercel/analytics";
 import { startCookieToestemming } from "./consent.js";
 
+interface TotaalResponse {
+  ok: boolean;
+  totalCents?: number;
+}
+
 /* --- Stand ophalen ---
    De totale stand = online Stripe-donaties (/api/total) + het handmatige
    buiten-Stripe-bedrag uit campagne.js. We renderen eerst meteen met het
    buiten-Stripe-bedrag (geen wachten), tellen daarna de Stripe-donaties erbij,
    en verversen periodiek zodat nieuwe donaties vanzelf op de teller verschijnen. --- */
-function standCents(stripeCents) {
+function standCents(stripeCents: number | null): number {
   return (Number(stripeCents) || 0) + (Number(campagne.buitenStripeCents) || 0);
 }
 
-async function haalStripeTotaal() {
+async function haalStripeTotaal(): Promise<number | null> {
   try {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 8000);
-    const res = await fetch("/api/total", {
+    const ctrl: AbortController = new AbortController();
+    const t: ReturnType<typeof setTimeout> = setTimeout(() => ctrl.abort(), 8000);
+    const res: Response = await fetch("/api/total", {
       signal: ctrl.signal,
       headers: { Accept: "application/json" },
       cache: "no-store",
     });
     clearTimeout(t);
     if (!res.ok) return null;
-    const data = await res.json();
+    const data: TotaalResponse = await res.json();
     if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
       return data.totalCents;
     }
@@ -61,10 +66,10 @@ async function haalStripeTotaal() {
   return null;
 }
 
-async function ververStand() {
-  const stripe = await haalStripeTotaal();
+async function ververStand(): Promise<void> {
+  const stripe: number | null = await haalStripeTotaal();
   if (stripe === null) return; // API onbereikbaar: houd de huidige stand
-  const nieuw = standCents(stripe);
+  const nieuw: number = standCents(stripe);
   if (nieuw === campagne.opgehaaldCents) return;
   campagne.opgehaaldCents = nieuw;
   renderTeller(); // pct / druppels / "nog X te gaan" bijwerken
@@ -73,12 +78,12 @@ async function ververStand() {
 }
 
 /* --- Bedankt-bericht na terugkeer uit de betaling --- */
-function toonBedankt() {
-  const params = new URLSearchParams(location.search);
+function toonBedankt(): void {
+  const params: URLSearchParams = new URLSearchParams(location.search);
   if (!params.has("betaald") && !params.has("afgebroken")) return;
-  const doneren = document.querySelector("#doneren");
+  const doneren: Element | null = document.querySelector("#doneren");
   if (params.has("betaald") && doneren) {
-    const melding = document.createElement("p");
+    const melding: HTMLParagraphElement = document.createElement("p");
     melding.className = "doneer-bedankt";
     melding.setAttribute("role", "status");
     melding.textContent = t("bedankt.tekst");
@@ -88,7 +93,7 @@ function toonBedankt() {
   history.replaceState({}, "", location.pathname + location.hash);
 }
 
-function opTaalWissel() {
+function opTaalWissel(): void {
   // Dynamische, datagedreven blokken (teller, teams, acties, overdracht,
   // gedeelde WhatsApp-tekst) opnieuw in de gekozen taal opbouwen. renderAlles
   // is idempotent: teams-/actielijsten worden eerst geleegd.
@@ -106,7 +111,7 @@ function opTaalWissel() {
   ververVideoPosters();
 }
 
-function init() {
+function init(): void {
   // Cookieloze, privacyvriendelijke bezoekersstatistieken (Vercel Web Analytics):
   // telt paginaweergaven zonder cookies, zonder persoonsgegevens en zonder
   // cross-site tracking. Zie de privacyverklaring.
@@ -118,7 +123,7 @@ function init() {
 
   // Taal (bewaarde keuze) + statische teksten toepassen, vóór het renderen
   initI18n(opTaalWissel);
-  const taalKnop = document.querySelector("[data-taal-knop]");
+  const taalKnop: Element | null = document.querySelector("[data-taal-knop]");
   if (taalKnop) {
     taalKnop.addEventListener("click", () => zetTaal(taal() === "ar" ? "nl" : "ar"));
   }
@@ -149,14 +154,14 @@ function init() {
   startLazyVideos();
   startIbanKopieren();
   startBedragKiezen();
-  startQrDoneren();
+  void startQrDoneren();
   startFaq();
   startVideoCarrousel();
   toonBedankt();
 
   // 4. Stripe-donaties erbij tellen en daarna live blijven verversen,
   //    zodat elke nieuwe donatie vanzelf op de teller verschijnt.
-  ververStand();
+  void ververStand();
   setInterval(ververStand, 25000);
 }
 
