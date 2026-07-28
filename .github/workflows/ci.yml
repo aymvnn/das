@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    # ready_for_review erbij: anders draait er geen CI meer als een draft-PR
+    # zonder nieuwe commit "ready for review" wordt gezet (geen synchronize-event).
+    types: [opened, synchronize, reopened, ready_for_review]
+
+# Nieuwe push naar dezelfde PR/branch annuleert een lopende run i.p.v. beide
+# te laten doorlopen.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-typecheck:
+    name: Lint & typecheck
+    runs-on: ubuntu-latest
+    # Niet draaien op draft-PR's; wel op push en op niet-draft PR's.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: yarn
+      - run: yarn install --immutable
+      - run: yarn lint
+      - run: yarn typecheck
+
+  e2e:
+    name: Playwright e2e
+    runs-on: ubuntu-latest
+    # Pas draaien als lint/typecheck geslaagd zijn: geen browsers/build
+    # opstarten voor een PR die toch al op een simpele lintfout struikelt.
+    needs: lint-and-typecheck
+    # Niet draaien op draft-PR's; wel op push en op niet-draft PR's.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: yarn
+      - run: yarn install --immutable
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: yarn playwright install --with-deps
+      - name: Install Playwright system dependencies (browsers uit cache)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: yarn playwright install-deps
+      - run: yarn test:e2e
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14

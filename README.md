@@ -11,13 +11,13 @@ voor het bijwerken door het campagneteam.
 ## Lokaal draaien
 
 ```bash
-npm install
-npm run dev        # ontwikkelserver op http://localhost:5173
+yarn
+yarn dev           # ontwikkelserver op http://localhost:5173
 ```
 
 ```bash
-npm run build      # productie-build naar dist/
-npm run preview    # de build lokaal bekijken
+yarn build         # productie-build naar dist/
+yarn preview       # de build lokaal bekijken
 ```
 
 Deployen kan op elke statische host; de site verwacht te draaien op de
@@ -71,5 +71,5 @@ Belangrijkste modules:
   (`das-logo-video`), gebruikt in de deel-sectie als downloadbare
   WhatsApp-statusvideo's.
 
-Foto's opnieuw genereren vanuit de bronmap: `npm run assets`
+Foto's opnieuw genereren vanuit de bronmap: `yarn assets`
 (zie `scripts/optimize-images.mjs`).
