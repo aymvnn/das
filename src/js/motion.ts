@@ -86,39 +86,6 @@ export function updateTellerNaar(nieuwCents: number): void {
   animeerTeller(nieuwCents, 1100);
 }
 
-/* --- Druppelraster vult zich druppel voor druppel in beeld --- */
-export function startDruppelraster(): void {
-  const raster: HTMLElement | null = document.querySelector<HTMLElement>("[data-druppelraster]");
-  if (!raster) return;
-  const gevuld: number = Number(raster.dataset.gevuld || 0);
-  const druppels: NodeListOf<SVGElement> = raster.querySelectorAll<SVGElement>(".rasterdruppel");
-  const vul = (): void => {
-    const n: number = druppels.length;
-    // Van onderaf vullen: het water stijgt (bottom-up), onderste druppel eerst.
-    for (let k = 0; k < gevuld && k < n; k++) {
-      const idx: number = n - 1 - k;
-      const druppel: SVGElement | undefined = druppels[idx];
-      if (!druppel) continue;
-      druppel.style.setProperty("--di", String(k));
-      druppel.classList.add("is-gevuld");
-    }
-  };
-  if (reducedMotion()) {
-    vul();
-    return;
-  }
-  const io = new IntersectionObserver(
-    (e) => {
-      const eerste: IntersectionObserverEntry | undefined = e[0];
-      if (!eerste || !eerste.isIntersecting) return;
-      io.disconnect();
-      vul();
-    },
-    { threshold: 0.3 },
-  );
-  io.observe(raster);
-}
-
 /* --- Teamvoortgangsbalken vullen zich in beeld --- */
 export function startTeamBalken(): void {
   const balken: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>("[data-balk-pct]");

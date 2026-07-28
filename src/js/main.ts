@@ -4,15 +4,13 @@ import "../css/base.css";
 import "../css/sections.css";
 import "../css/scenes.css";
 
-import { renderAlles, renderTeller } from "./render.js";
+import { renderAlles } from "./render.js";
 import { startHeroAnimatie } from "./hero-anim.js";
-import { bouwKoepel, updateKoepel } from "./koepel.js";
+import { bouwKoepel } from "./koepel.js";
 import {
   startReveals,
   startTeller,
-  updateTellerNaar,
   startTeamBalken,
-  startDruppelraster,
   startHeader,
   startStickyCta,
   startLazyVideos,
@@ -30,52 +28,7 @@ import { campagne } from "../../data/campagne.js";
 import { initI18n, zetTaal, taal, t } from "./i18n.js";
 import { inject as injectAnalytics } from "@vercel/analytics";
 import { startCookieToestemming } from "./consent.js";
-
-interface TotaalResponse {
-  ok: boolean;
-  totalCents?: number;
-}
-
-/* --- Stand ophalen ---
-   De totale stand = online Stripe-donaties (/api/total) + het handmatige
-   buiten-Stripe-bedrag uit campagne.js. We renderen eerst meteen met het
-   buiten-Stripe-bedrag (geen wachten), tellen daarna de Stripe-donaties erbij,
-   en verversen periodiek zodat nieuwe donaties vanzelf op de teller verschijnen. --- */
-function standCents(stripeCents: number | null): number {
-  return (Number(stripeCents) || 0) + (Number(campagne.buitenStripeCents) || 0);
-}
-
-async function haalStripeTotaal(): Promise<number | null> {
-  try {
-    const ctrl: AbortController = new AbortController();
-    const t: ReturnType<typeof setTimeout> = setTimeout(() => ctrl.abort(), 8000);
-    const res: Response = await fetch("/api/total", {
-      signal: ctrl.signal,
-      headers: { Accept: "application/json" },
-      cache: "no-store",
-    });
-    clearTimeout(t);
-    if (!res.ok) return null;
-    const data: TotaalResponse = await res.json();
-    if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
-      return data.totalCents;
-    }
-  } catch {
-    /* Stripe onbereikbaar */
-  }
-  return null;
-}
-
-async function ververStand(): Promise<void> {
-  const stripe: number | null = await haalStripeTotaal();
-  if (stripe === null) return; // API onbereikbaar: houd de huidige stand
-  const nieuw: number = standCents(stripe);
-  if (nieuw === campagne.opgehaaldCents) return;
-  campagne.opgehaaldCents = nieuw;
-  renderTeller(); // pct / druppels / "nog X te gaan" bijwerken
-  updateTellerNaar(nieuw); // teller naar het nieuwe bedrag laten lopen
-  updateKoepel(); // waterpeil meebewegen
-}
+import { standCents, ververStand } from "./stand.js";
 
 /* --- Bedankt-bericht na terugkeer uit de betaling --- */
 function toonBedankt(): void {
@@ -149,7 +102,6 @@ function init(): void {
   startReveals();
   startTeller();
   startTeamBalken();
-  startDruppelraster();
   startStickyCta();
   startLazyVideos();
   startIbanKopieren();

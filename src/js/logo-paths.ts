@@ -82,3 +82,13 @@ export function logoMarkup({ withWaves = true }: { withWaves?: boolean } = {}): 
       </g>
     </g>`;
 }
+
+// Vult het element dat bij `selector` hoort met het logo als SVG (of doet
+// niets als het element niet op de pagina staat). Gebruikt op alle
+// pagina's die het merk-logo tonen (index.html, present.html, privacy.html).
+export function plaatsLogo(selector: string): void {
+  const el = document.querySelector<HTMLElement>(selector);
+  if (el) {
+    el.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
+  }
+}

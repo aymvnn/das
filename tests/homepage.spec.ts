@@ -88,23 +88,6 @@ test.describe("Hoofdpagina — datagedreven onderdelen renderen", () => {
     await expect(koepel.locator("line.mijlpaal")).toHaveCount(16);
   });
 
-  // BEVINDING (niet door deze testsuite veroorzaakt): de container
-  // `[data-druppelraster]` bestaat nergens in index.html, terwijl
-  // renderDruppelraster()/startDruppelraster() (render.ts, motion.ts) en de
-  // bijbehorende .druppelraster-CSS (sections.css) nog volledig aanwezig
-  // en correct zijn. Het 400-druppels-raster wordt dus momenteel nergens
-  // getoond — vermoedelijk per ongeluk verwijderd uit de HTML. Pas dit
-  // fixme op zodra de markup is teruggezet óf de functie bewust is
-  // uitgefaseerd (in dat geval: ook render.ts/motion.ts/sections.css
-  // opschonen i.p.v. dode code te laten staan).
-  test.fixme(
-    "het druppelraster telt 400 druppels, gelijk aan TOTAAL_DRUPPELS",
-    async ({ page }) => {
-      await page.goto("/");
-      await expect(page.locator("[data-druppelraster] svg.rasterdruppel")).toHaveCount(400);
-    },
-  );
-
   test("de waterdragers-lijst rendert minstens één team uit data/campagne.js", async ({ page }) => {
     await page.goto("/");
     const teams = page.locator("[data-teams-lijst] > li");

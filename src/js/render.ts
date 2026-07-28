@@ -9,9 +9,9 @@ import {
   percentage,
 } from "../../data/campagne.js";
 import type { Team, Actie } from "../../data/campagne.types.js";
-import { euro, pctTekst, svgEl } from "./utils.js";
+import { euro, pctTekst } from "./utils.js";
 import { t, tf, taal } from "./i18n.js";
-import { logoMarkup, VIEWBOX_W, VIEWBOX_H, DROP_PATH } from "./logo-paths.js";
+import { plaatsLogo } from "./logo-paths.js";
 
 const qs = <T extends Element = HTMLElement>(sel: string, root: ParentNode = document): T | null =>
   root.querySelector<T>(sel);
@@ -45,7 +45,6 @@ export function renderAlles(): void {
   renderTeller();
   renderOverdracht();
   renderGolvenLijst();
-  renderDruppelraster();
   renderTeams();
   renderActies();
   renderContactLinks();
@@ -60,15 +59,11 @@ export function renderTeller(): void {
   const pct: number = percentage();
 
   qsa("[data-doel]").forEach((el) => (el.textContent = euro(campagne.doelCents)));
-  qsa("[data-laatste-update]").forEach((el) => (el.textContent = campagne.laatsteUpdate));
   qsa("[data-pct]").forEach((el) => (el.textContent = pctTekst(pct)));
   qsa("[data-pct-lang]").forEach((el) => (el.textContent = pctTekst(pct)));
 
   const druppelZin: string = tf("js.druppelsZin", { druppels, totaal: TOTAAL_DRUPPELS });
   qsa("[data-druppels-zin]").forEach((el) => (el.textContent = druppelZin));
-  qsa("[data-druppels-zin-2]").forEach(
-    (el) => (el.textContent = `${druppels} druppels gevuld, ${TOTAAL_DRUPPELS - druppels} te gaan`),
-  );
   qsa("[data-druppels-tegaan]").forEach(
     (el) => (el.textContent = String(TOTAAL_DRUPPELS - druppels)),
   );
@@ -147,32 +142,6 @@ function renderGolvenLijst(): void {
     li.title = i <= behaald ? `Golf ${i}: ${bedrag} ✓` : `Golf ${i}: ${bedrag}`;
     lijst.append(li);
   }
-}
-
-/* --- Druppelraster: 400 druppels, 1 per € 1.000 --- */
-function renderDruppelraster(): void {
-  const raster: HTMLElement | null = qs("[data-druppelraster]");
-  if (!raster) return;
-  const gevuld: number = druppelsGevallen();
-
-  const frag: DocumentFragment = document.createDocumentFragment();
-  for (let i = 0; i < TOTAAL_DRUPPELS; i++) {
-    const svg: SVGElement = svgEl("svg", { viewBox: "0 0 10 13.4", class: "rasterdruppel" });
-    svg.style.setProperty("--di", String(i % 100));
-    const pad: SVGElement = svgEl("path", {
-      d: "M5 .8C6.9 3.4 8.55 5.8 8.55 8.35A3.55 3.55 0 0 1 5 11.9 3.55 3.55 0 0 1 1.45 8.35C1.45 5.8 3.1 3.4 5 .8Z",
-    });
-    svg.append(pad);
-    if (i === TOTAAL_DRUPPELS - gevuld - 1 && gevuld < TOTAAL_DRUPPELS) {
-      svg.classList.add("is-volgende");
-      const titel: SVGElement = svgEl("title");
-      titel.textContent = "De volgende druppel: die van jou?";
-      svg.prepend(titel);
-    }
-    frag.append(svg);
-  }
-  raster.append(frag);
-  raster.dataset.gevuld = String(gevuld);
 }
 
 /* --- Waterdragers-teams --- */
@@ -264,7 +233,6 @@ function renderContactLinks(): void {
 
   // Vertrouwelijk / discreet → per e-mail, NIET via de openbare community.
   set("[data-wa-dua]", mail("Duʿā'-verzoek (vertrouwelijk)"));
-  set("[data-wa-groot]", mail("Grotere bijdrage — Druppels van Sakīnah"));
   set("[data-mail-groot]", mail("Grotere bijdrage — Druppels van Sakīnah"));
 
   // Delen: geen nummer — opent de kies-een-chat-lijst van WhatsApp zelf
@@ -287,14 +255,6 @@ function renderContactLinks(): void {
 
 /* --- Logo's (header, footer) --- */
 function renderLogos(): void {
-  const mini: HTMLElement | null = qs("[data-logo-mini]");
-  if (mini) {
-    mini.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
-  }
-  const voet: HTMLElement | null = qs("[data-logo-footer]");
-  if (voet) {
-    voet.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
-  }
+  plaatsLogo("[data-logo-mini]");
+  plaatsLogo("[data-logo-footer]");
 }
-
-export { DROP_PATH };

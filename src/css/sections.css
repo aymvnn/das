@@ -470,43 +470,6 @@
 }
 .golf-item:hover { background: #eef8f5; }
 
-/* Druppelraster — 400 druppels */
-.druppelraster-blok {
-  margin-top: clamp(3rem, 8vw, 5rem);
-  text-align: center;
-}
-.druppelraster-titel { margin-bottom: var(--sp-lg); }
-.druppelraster {
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: clamp(3px, 0.8vw, 7px);
-  max-width: 640px;
-  margin-inline: auto;
-}
-.druppelraster .rasterdruppel {
-  width: 100%;
-  aspect-ratio: 10 / 13.4;
-  /* leeg = bijna onzichtbaar, zodat gevulde druppels figuur zijn, geen grijze wafel */
-  fill: rgba(0, 132, 126, 0.1);
-  transition: fill 520ms var(--ease-water);
-  transition-delay: calc(var(--di, 0) * 4ms);
-}
-.druppelraster .rasterdruppel.is-gevuld { fill: var(--c-teal); }
-.druppelraster .rasterdruppel.is-volgende {
-  /* de volgende druppel = jouw druppel, in de geefkleur amber */
-  fill: var(--c-amber);
-  stroke: var(--c-amber-dark);
-  stroke-width: 1.2;
-  animation: golf-pols 2.8s var(--ease-wissel) infinite;
-  transform-origin: center;
-}
-.druppelraster-caption {
-  margin-top: var(--sp-lg);
-  font-size: var(--t-sm);
-  color: var(--c-ink-soft);
-  max-width: 52ch;
-  margin-inline: auto;
-}
 .koepel-landing {
   margin: clamp(2rem, 5vw, 3rem) auto 0;
   max-width: 58ch;
