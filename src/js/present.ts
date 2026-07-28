@@ -13,24 +13,39 @@ import { startQrDoneren } from "./interactions.js";
 import { campagne } from "../../data/campagne.js";
 import { logoMarkup, VIEWBOX_W, VIEWBOX_H } from "./logo-paths.js";
 
+// Safari/iOS-only vendor-prefixed Fullscreen API — niet in de standaard DOM-lib.
+declare global {
+  interface HTMLElement {
+    webkitRequestFullscreen?: () => Promise<void> | void;
+  }
+  interface Document {
+    webkitFullscreenElement?: Element | null;
+  }
+}
+
+interface TotaalResponse {
+  ok: boolean;
+  totalCents?: number;
+}
+
 /* --- Stand ophalen: zelfde optelsom als de hoofdsite (Stripe + het
    handmatige buiten-Stripe-bedrag uit campagne.js). --- */
-function standCents(stripeCents) {
+function standCents(stripeCents: number | null): number {
   return (Number(stripeCents) || 0) + (Number(campagne.buitenStripeCents) || 0);
 }
 
-async function haalStripeTotaal() {
+async function haalStripeTotaal(): Promise<number | null> {
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 8000);
-    const res = await fetch("/api/total", {
+    const ctrl: AbortController = new AbortController();
+    const timer: ReturnType<typeof setTimeout> = setTimeout(() => ctrl.abort(), 8000);
+    const res: Response = await fetch("/api/total", {
       signal: ctrl.signal,
       headers: { Accept: "application/json" },
       cache: "no-store",
     });
     clearTimeout(timer);
     if (!res.ok) return null;
-    const data = await res.json();
+    const data: TotaalResponse = await res.json();
     if (data && data.ok && typeof data.totalCents === "number" && data.totalCents >= 0) {
       return data.totalCents;
     }
@@ -40,10 +55,10 @@ async function haalStripeTotaal() {
   return null;
 }
 
-async function ververStand() {
-  const stripe = await haalStripeTotaal();
+async function ververStand(): Promise<void> {
+  const stripe: number | null = await haalStripeTotaal();
   if (stripe === null) return;
-  const nieuw = standCents(stripe);
+  const nieuw: number = standCents(stripe);
   if (nieuw === campagne.opgehaaldCents) return;
   campagne.opgehaaldCents = nieuw;
   renderTeller();
@@ -57,20 +72,21 @@ async function ververStand() {
    vrijwilliger bij het opstarten één keer aantikt; hij verdwijnt zodra het
    scherm volledig is. Wie de pagina via "Toevoegen aan startscherm" opent,
    start dankzij het manifest sowieso al volledig scherm. --- */
-function startKiosk() {
-  const knop = document.querySelector("[data-fullscreen]");
-  const el = document.documentElement;
-  const kanVolledig = !!(el.requestFullscreen || el.webkitRequestFullscreen);
+function startKiosk(): void {
+  const knop: HTMLElement | null = document.querySelector<HTMLElement>("[data-fullscreen]");
+  const el: HTMLElement = document.documentElement;
+  const kanVolledig: boolean = !!(el.requestFullscreen || el.webkitRequestFullscreen);
 
   if (knop && kanVolledig) {
-    const alVolledig = () => document.fullscreenElement || document.webkitFullscreenElement;
-    const verversKnop = () => {
+    const alVolledig = (): Element | null | undefined =>
+      document.fullscreenElement || document.webkitFullscreenElement;
+    const verversKnop = (): void => {
       knop.hidden = !!alVolledig();
     };
     knop.addEventListener("click", async () => {
       try {
         if (el.requestFullscreen) await el.requestFullscreen();
-        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
       } catch {
         /* geweigerd of niet mogelijk: knop blijft staan */
       }
@@ -80,27 +96,30 @@ function startKiosk() {
     verversKnop();
   }
 
-  // Scherm wakker houden zolang de tablet deze pagina toont.
-  let wakeLock = null;
-  const houdWakker = async () => {
+  // Scherm wakker houden zolang de tablet deze pagina toont. De referentie
+  // wordt bewust vastgehouden (niet verder gelezen): zonder een levende
+  // verwijzing kan de garbage collector de wake lock voortijdig opheffen.
+  let wakeLock: WakeLockSentinel | null = null;
+  const houdWakker = async (): Promise<void> => {
     try {
       if ("wakeLock" in navigator && document.visibilityState === "visible") {
         wakeLock = await navigator.wakeLock.request("screen");
+        void wakeLock;
       }
     } catch {
       /* niet ondersteund of geweigerd */
     }
   };
-  houdWakker();
+  void houdWakker();
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") houdWakker();
+    if (document.visibilityState === "visible") void houdWakker();
   });
 }
 
-function init() {
+function init(): void {
   startKiosk();
 
-  const mini = document.querySelector("[data-logo-mini]");
+  const mini: Element | null = document.querySelector("[data-logo-mini]");
   if (mini) {
     mini.innerHTML = `<svg viewBox="0 0 ${VIEWBOX_W} ${VIEWBOX_H}" aria-hidden="true">${logoMarkup()}</svg>`;
   }
@@ -111,10 +130,10 @@ function init() {
   bouwKoepel();
   startLevendWater(); // continue, rustige ademing van het wateroppervlak
   startTeller();
-  startQrDoneren();
+  void startQrDoneren();
 
   // Stripe-donaties erbij tellen en daarna live blijven verversen.
-  ververStand();
+  void ververStand();
   setInterval(ververStand, 25000);
 
   // Tablet staat onbeheerd en langdurig aan: één keer per nacht een schone

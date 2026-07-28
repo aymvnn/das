@@ -1,3 +1,4 @@
+// @ts-check
 /* ============================================================
    CAMPAGNEDATA — Druppels van Sakīnah
    ============================================================
@@ -13,6 +14,7 @@
    - Klaar? Opslaan, en publiceren zoals beschreven in BEHEER.md.
    ============================================================ */
 
+/** @type {import("./campagne.types").Campagne} */
 export const campagne = {
   /* --- DE TELLER ----------------------------------------- */
 
