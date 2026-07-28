@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📝 Campagnedata bijwerken (teller, teams, acties, IBAN, …)
+    url: https://github.com/aymvnn/das/blob/main/BEHEER.md
+    about: Geen GitHub-issue nodig — bewerk data/campagne.js rechtstreeks volgens BEHEER.md.
