@@ -5,6 +5,16 @@
 > Stack: statische site (Vite + vanilla JS), hosting op Vercel, bankrekening bij de Rabobank.
 > **We hebben al een Stripe-account.**
 
+> **Status (2026-07): Tier A + Tier B zijn allebei geïmplementeerd**, maar Tier B iets
+> eenvoudiger dan hieronder beschreven: `api/create-checkout.ts` maakt de Stripe Checkout
+> Session precies zoals gepland (iDEAL/kaart, bedrag + teamnaam als metadata). `api/total.ts`
+> gebruikt echter **géén webhook + Vercel KV** — die vraagt bij elk bezoek live
+> `stripe.paymentIntents.list()` op en telt geslaagde EUR-betalingen zelf op (met
+> edge-caching, `s-maxage=60`). Simpeler, geen losse opslag nodig, wél een Stripe-aanroep
+> per (gecachete) paginaweergave in plaats van een instant webhook-update. Het stappenplan
+> hieronder is nog steeds waardevol als achtergrond, maar de architectuurdiagram bij Tier B
+> (met `/api/webhook`) beschrijft dus niet de huidige implementatie.
+
 ---
 
 ## Conclusie (kort)
